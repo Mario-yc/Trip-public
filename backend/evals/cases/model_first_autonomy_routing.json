@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Healthy offline model-controller must own a natural initial-planning decision.",
+  "defaultMockMapProvider": {"enabled": true, "mockRouteRefresh": true, "trustedPoiFixtures": true},
+  "scenarios": [{
+    "id": "model_first_natural_initial_request",
+    "city": "北京",
+    "input": "今年国庆参观北京高校两日游，晚上看夜景，公交地铁优先。",
+    "expectations": {
+      "agentDecisionEventRequired": true,
+      "agentDecisionPrimaryAction": "draft_itinerary",
+      "agentDecisionSource": "controller",
+      "agentDecisionPolicyAccepted": true,
+      "agentDecisionProposedExecutionRoute": "staged_initial_pipeline",
+      "mustCreateTimeline": true,
+      "verifierMustPass": true
+    }
+  }]
+}

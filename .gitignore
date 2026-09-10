@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+
+# Node / frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+coverage/
+*.tsbuildinfo
+*.log
+
+# Environment and local data
+.env
+.env.*
+!.env.example
+!**/.env.example
+*.sqlite
+*.sqlite3
+trip_demo.db
+*.db-wal
+*.db-shm
+backend/data/
+backend/uploads/original-cache/
+.ai-runs/
+.ua/
+/skills/
+.db
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.vscode/
+.idea/
+
+# Accidental literal Windows environment-root folders
+%SystemDrive%/
+
+# 文件类
+docs/architecture.md
+docs/development-baseline.md
+
+# Local AI working material and release preparation
+/AGENTS.md
+/MEMORY.md
+/PLAN.md
+/CODE_AUDIT_REPORT.md
+/.codex/
+/.specify/
+/.tmp-*/
+/tmp_*.py
+/docs/codex-*/
+/docs/*handoff*.md
+/docs/*HANDOFF*.md
+/docs/TRIP_*.md
+/docs/product-design-audit-*/
+/docs/openai-reference-capture/

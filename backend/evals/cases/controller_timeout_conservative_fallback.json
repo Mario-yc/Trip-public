@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "A Controller timeout may use the bounded deterministic arbitrator, but must not enter an unaudited generic tool loop.",
+  "scenarios": [{
+    "id": "controller_timeout_conservative_fallback",
+    "city": "北京",
+    "input": "10月1日北京一日游，参观985大学和美术馆，中等预算，1人，公交地铁优先。",
+    "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true, "controllerFailure": "timeout"},
+    "expectations": {
+      "agentDecisionEventRequired": true,
+      "agentDecisionSource": "deterministic_arbitrator",
+      "controllerFallbackRoute": "deterministic_arbitrator",
+      "agentDecisionPolicyAccepted": true,
+      "agentDecisionPrimaryAction": "ask_user",
+      "agentDecisionProposedExecutionRoute": "clarification",
+      "genericToolLoopWithoutDecisionCount": 0,
+      "museumSemanticMismatchSelectedCount": 0,
+      "goalClaimMismatchCount": 0,
+      "verifierMustPass": true,
+      "controllerFallbackWriteCount": 0
+    }
+  }]
+}

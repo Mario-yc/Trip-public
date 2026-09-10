@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Controller Full V2 成功后直接进入 staged initial pipeline。",
+  "scenarios": [{
+    "id": "controller_full_success_initial_draft",
+    "city": "北京",
+    "turns": [{
+      "input": "10月1日北京一日游，参观大学和美术馆，中等预算，1人，公交地铁优先。",
+      "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true}
+    }],
+    "expectations": {"controllerFullCallCount": 3, "controllerFullSuccessCount": 3, "controllerLiteCallCount": 0, "verifiedWriteCount": 1, "rollbackCount": 0, "actualExecutionRoute": "staged_initial_pipeline"}
+  }]
+}

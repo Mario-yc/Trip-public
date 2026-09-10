@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "A real Turn 1 creates the itinerary in-session; Turn 2 is model-owned patch_itinerary followed by reload, post-observation and model finish.",
+  "defaultMockMapProvider": {
+    "enabled": true,
+    "trustedPoiFixtures": true,
+    "mockRouteRefresh": true,
+    "reactMultiturnMuseumEdit": true
+  },
+  "scenarios": [
+    {
+      "id": "react_multiturn_museum_time_edit",
+      "city": "北京",
+      "requiresTurn1CreatedItinerary": true,
+      "forbidSeedItinerary": true,
+      "expectedDecisions": ["draft_itinerary", "finish", "patch_itinerary", "finish"],
+      "expectedActions": ["staged_initial_pipeline", "terminal_response", "timeline_mutation_executor", "terminal_response"],
+      "turns": [
+        {
+          "input": "10月1日至2日北京两日游，1人，中等预算，公交地铁优先，必须参观清华大学和美术馆。"
+        },
+        {
+          "input": "把第一天美术馆改到 15:30"
+        }
+      ],
+      "turnExpectations": [
+        {
+          "agentDecisionSource": "controller",
+          "agentDecisionPrimaryAction": "draft_itinerary",
+          "actionDirectiveModelCount": 2,
+          "activeVersionCreated": true,
+          "verifierMustPass": true
+        },
+        {
+          "agentDecisionSource": "controller",
+          "agentDecisionPrimaryAction": "patch_itinerary",
+          "controllerFullCallCount": 2,
+          "controllerLiteCallCount": 0,
+          "actionDirectiveModelCount": 2,
+          "postObservationDecisionCount": 1,
+          "preControllerDomainRouterCount": 0,
+          "localMutationBypassCount": 0,
+          "plannerFallbackWriteCount": 0,
+          "genericToolLoopWithoutAcceptedDecisionCount": 0,
+          "versionDelta": 1,
+          "patchDelta": 1,
+          "postconditionMustPass": true,
+          "structuralVerifierMustPass": true,
+          "falseSuccessClaimCount": 0,
+          "transactionEvidenceMissingCount": 0,
+          "durationPreservationFailureCount": 0,
+          "maxAmapPoiExternalCalls": 0,
+          "maxWebSearchCalls": 0,
+          "maxTicketLookupCalls": 0,
+          "maxAmapWeatherCalls": 0
+        }
+      ],
+      "expectations": {
+        "turnCount": 2,
+        "seededItineraryCount": 0,
+        "turn1CreatedActiveVersionCount": 1,
+        "preControllerDomainRouterCount": 0,
+        "localMutationBypassCount": 0,
+        "plannerFallbackWriteCount": 0,
+        "genericToolLoopWithoutAcceptedDecisionCount": 0,
+        "falseSuccessClaimCount": 0,
+        "transactionEvidenceMissingCount": 0,
+        "durationPreservationFailureCount": 0
+      }
+    }
+  ]
+}

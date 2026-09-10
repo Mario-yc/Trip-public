@@ -1,0 +1,78 @@
+{
+  "id": "invalid_agent_patch",
+  "scenario": "invalid_agent_patch",
+  "title": "Invalid Agent patch is rejected",
+  "description": "Unsupported structured Agent output fails without polluting activeVersionId.",
+  "mockAmapResponses": {
+    "故宫": {
+      "id": "B000PALACE",
+      "name": "故宫",
+      "type": "风景名胜",
+      "cityname": "北京市",
+      "adname": "东城区",
+      "address": "高德地址",
+      "location": "116.397026,39.918058",
+      "photos": []
+    }
+  },
+  "agentProviderPayloads": [
+    {
+      "reply": "已生成北京故宫 1 日游。",
+      "mode": "full_itinerary",
+      "operations": [],
+      "fullItinerary": {
+        "title": "北京故宫 1 日游",
+        "city": "北京",
+        "days": [
+          {
+            "dayNumber": 1,
+            "title": "离线 Eval Day 1",
+            "segments": [
+              {
+                "poiName": "故宫",
+                "category": "scenic",
+                "startTime": "09:00",
+                "durationMinutes": 90,
+                "notes": "离线 eval 安排：故宫",
+                "estimatedCost": 60
+              }
+            ]
+          }
+        ]
+      },
+      "poiResolutionRequests": [{ "name": "故宫", "category": "scenic" }],
+      "warnings": []
+    },
+    {
+      "reply": "尝试执行不支持操作。",
+      "mode": "patch",
+      "operations": [{ "op": "teleport_segment" }],
+      "fullItinerary": null,
+      "poiResolutionRequests": [],
+      "warnings": []
+    }
+  ],
+  "steps": [
+    { "action": "create_session", "saveAs": "session", "payload": { "city": "北京", "title": "北京离线 Eval" } },
+    {
+      "action": "send_agent_message",
+      "saveAs": "first",
+      "sessionIdFrom": "session.sessionId",
+      "content": "帮我安排北京一天，轻松一点，想去故宫",
+      "context": { "selectedDayNumber": 1 }
+    },
+    { "action": "send_agent_message", "saveAs": "invalid", "sessionIdFrom": "session.sessionId", "content": "执行一个不支持的 patch" },
+    { "action": "get_session", "saveAs": "loaded", "sessionIdFrom": "session.sessionId" }
+  ],
+  "assertions": [
+    { "path": "invalid.statusCode", "equals": 200 },
+    { "path": "invalid.assistantTurn.status", "equals": "failed" },
+    { "path": "invalid.version", "isNull": true },
+    { "path": "loaded.activeVersionId", "equalsPath": "first.version.id" }
+  ],
+  "expect": {
+    "invalidPatchCount": 1,
+    "allowedFailedStages": ["resolve_poi", "apply_patch", "respond"],
+    "replayStages": []
+  }
+}

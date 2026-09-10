@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "scenarios": [
+    {
+      "id": "autonomy_loop_partial_meal_completion",
+      "city": "北京",
+      "initialState": {
+        "itineraryLifecycleState": "empty_scaffold",
+        "activeVersionId": null
+      },
+      "expectedDecisions": ["draft_itinerary", "ask_user", "resolve_poi", "verify_external_facts"],
+      "expectedActions": ["staged_initial_pipeline", "candidate_options", "candidate_patch", "derived_facts_only"],
+      "expectedVersionDelta": 1,
+      "expectedTerminalStatuses": ["needs_confirmation", "partial_success"],
+      "turns": [
+        {
+          "input": "今年国庆参观985大学两日游，然后去体验下北京当地的风土人情。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食",
+          "mockMapProvider": {
+            "trustedPoiFixtures": true,
+            "trustedFoodForDeterministicEdit": true,
+            "mockRouteRefresh": true
+          }
+        },
+        {
+          "input": "第1天晚餐想吃北京菜，先看候选再决定",
+          "mockMapProvider": {
+            "trustedPoiFixtures": true,
+            "trustedFoodForDeterministicEdit": true,
+            "mockRouteRefresh": true
+          }
+        },
+        {
+          "input": "我选择第1个餐饮候选",
+          "mockMapProvider": {
+            "trustedPoiFixtures": true,
+            "trustedFoodForDeterministicEdit": true,
+            "mockRouteRefresh": true
+          }
+        },
+        {
+          "input": "查一下这几个学校国庆期间的预约和风险"
+        }
+      ],
+      "turnExpectations": [
+        {
+          "agentDecisionEventRequired": true,
+          "agentDecisionPrimaryAction": "draft_itinerary",
+          "agentDecisionSource": "deterministic_arbitrator",
+          "maxAgentDecisionMs": 100,
+          "agentDecisionProposedExecutionRoute": "staged_initial_pipeline"
+        },
+        {
+          "agentDecisionEventRequired": true,
+          "agentDecisionPrimaryAction": "ask_user",
+          "localPoiManualOptionMustBeAvailable": true,
+          "terminalStatus": "needs_confirmation",
+          "mustUseDeterministicTimelineCommand": true,
+          "mustNotEnterToolLoop": true
+        },
+        {
+          "agentDecisionEventRequired": true,
+          "changedSegmentCount": 1,
+          "changedMealMustBeFood": true,
+          "candidateSelectionMustUseIdentity": true,
+          "candidateSelectionPatchCount": 1,
+          "candidateSelectionChangedSegmentCount": 1,
+          "verifierMustPass": true,
+          "mustUseDeterministicTimelineCommand": true,
+          "mustNotEnterToolLoop": true
+        },
+        {
+          "agentDecisionEventRequired": true,
+          "agentDecisionPrimaryAction": "verify_external_facts",
+          "agentDecisionEffectiveWriteRisk": "none",
+          "agentDecisionProposedExecutionRoute": "derived_facts_only"
+        }
+      ],
+      "expectations": {
+        "activeVersionEventuallyCreated": true,
+        "minDays": 2,
+        "noRawProviderRateLimitAsOnlyReply": true,
+        "rateLimitDoesNotCreateUnassignedPoolNoise": true,
+        "maxRepeatedAmapPoiQueries": 0,
+        "turnCount": 4,
+        "activeVersionChangeCount": 1
+      }
+    }
+  ]
+}

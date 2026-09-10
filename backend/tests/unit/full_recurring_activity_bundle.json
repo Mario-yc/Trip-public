@@ -1,0 +1,834 @@
+{
+  "request": "今年国庆参观北京985高校两日游，每晚都去逛公园，中午想体验当地特色美食。10月1日到2日，2天，中等预算，1人，公交地铁优先",
+  "pendingRequestContract": {
+    "dayCount": 2,
+    "requiredPlanningDayNumbers": [
+      1,
+      2
+    ],
+    "explicitRestDayNumbers": [],
+    "hardConstraints": [
+      "campus_tier_985"
+    ],
+    "spatialPreference": null,
+    "entityQualificationConstraint": {
+      "schemaVersion": "entity-qualification-v1",
+      "entityType": "higher_education_institution",
+      "qualificationScheme": "moe_project_classification",
+      "qualificationValue": "985",
+      "evidencePolicy": "authoritative_source_required",
+      "sourceText": "985"
+    },
+    "localExperienceConstraint": {
+      "schemaVersion": "local-experience-v1",
+      "experienceType": "local_cuisine",
+      "locality": {
+        "city": "北京",
+        "source": "request_destination"
+      },
+      "evidencePolicy": "provider_city_specific_fact",
+      "occurrencesByDay": {
+        "1": 1,
+        "2": 1
+      }
+    },
+    "lockedEntities": [],
+    "requiredIntents": [
+      {
+        "goalId": "goal_campus_visit",
+        "intentType": "campus_visit",
+        "target": 2,
+        "requiredMin": 2,
+        "minCount": 2,
+        "preferredCount": 2,
+        "maxCount": 2,
+        "requirementLevel": "required",
+        "source": "multi_day_daily_template",
+        "cardinalitySource": "multi_day_daily_template",
+        "distributionPolicy": "every_allowed_day",
+        "allowedDayNumbers": [
+          1,
+          2
+        ],
+        "priorityTier": "hard",
+        "userExplicit": true
+      },
+      {
+        "goalId": "goal_park",
+        "intentType": "park",
+        "target": 2,
+        "requiredMin": 2,
+        "minCount": 2,
+        "preferredCount": 2,
+        "maxCount": 2,
+        "requirementLevel": "required",
+        "source": "explicit_every_day",
+        "cardinalitySource": "explicit_every_day",
+        "distributionPolicy": "every_allowed_day",
+        "allowedDayNumbers": [
+          1,
+          2
+        ],
+        "priorityTier": "hard",
+        "userExplicit": true,
+        "schedulePreference": {
+          "dayPart": "evening",
+          "intentType": "park",
+          "preferredDayNumbers": [
+            1,
+            2
+          ],
+          "userExplicit": true,
+          "priority": "hard",
+          "sourceGoalId": "goal_park"
+        },
+        "timeWindow": null
+      },
+      {
+        "goalId": "goal_meal",
+        "intentType": "meal",
+        "target": 2,
+        "requiredMin": 2,
+        "minCount": 2,
+        "preferredCount": 2,
+        "maxCount": 2,
+        "source": "multi_day_daily_template",
+        "cardinalitySource": "multi_day_daily_template",
+        "distributionPolicy": "every_allowed_day",
+        "allowedDayNumbers": [
+          1,
+          2
+        ],
+        "requirementLevel": "soft_experience",
+        "priorityTier": "explicit_soft",
+        "userExplicit": true,
+        "schedulePreference": {
+          "dayPart": "noon",
+          "intentType": "meal",
+          "preferredDayNumbers": [
+            1,
+            2
+          ],
+          "userExplicit": true,
+          "priority": "explicit_soft",
+          "sourceGoalId": "goal_meal"
+        },
+        "timeWindow": null
+      }
+    ],
+    "optionalIntents": [],
+    "negativeConstraints": [],
+    "userRequestedThemes": [
+      "campus_visit",
+      "park"
+    ],
+    "cardinalityLimitations": [],
+    "clarificationDimensions": [],
+    "completionCriteria": [],
+    "clarificationRequired": false,
+    "clarificationReason": null,
+    "systemCreativeVariant": null,
+    "experienceSpecs": [
+      {
+        "intentType": "meal",
+        "frequency": "every_allowed_day",
+        "allowedDayNumbers": [
+          1,
+          2
+        ],
+        "experienceFamilies": [
+          "meal"
+        ],
+        "accessPolicy": "verified_amap_food_service",
+        "distinctnessPolicy": "distinct_physical_identity_per_occurrence",
+        "timeWindow": {
+          "start": "12:00",
+          "end": "13:15"
+        },
+        "detourTolerance": null,
+        "evidenceFreshness": {
+          "maxAgeHours": 24,
+          "requiredForControlledAccess": false,
+          "requiredForPublicOutdoor": false,
+          "allowExplicitNoClosure": false
+        },
+        "confidence": 0.84,
+        "unresolvedDimensions": [
+          "meal.detourTolerance"
+        ],
+        "source": "server_authored_meal_experience_policy",
+        "fieldProvenance": {
+          "frequency": "goal_ledger.meal_cardinality",
+          "allowedDayNumbers": "goal_ledger.meal_allowed_days",
+          "experienceFamilies": "meal_grounding_policy.authoritative_request_semantics",
+          "accessPolicy": "meal_grounding_policy.amap_food_service_contract",
+          "distinctnessPolicy": "goal_ledger.meal_occurrence_distribution",
+          "timeWindow": "meal_grounding_policy.meal_label_schedule",
+          "detourTolerance": "route_decision_contract.detour_tolerance",
+          "evidenceFreshness": "meal_grounding_policy.consumer_evidence_contract",
+          "confidence": "meal_grounding_policy.route_anchor_confidence"
+        },
+        "specFingerprint": "b54c8bbea99f18dcc03f84c6e0197bf179a9009d03d31987fcb90387cb6f3a01"
+      }
+    ],
+    "routeDecisionContract": {
+      "schemaVersion": "route-decision-contract-v2",
+      "source": "request_intent_contract",
+      "status": "ready",
+      "missingFields": [],
+      "detourTolerance": {
+        "maxGeneralizedCostDelta": 35,
+        "maxDetourRatio": 0.35
+      },
+      "detourToleranceSource": "server_safe_default_v1",
+      "mobilityProfile": {
+        "source": "explicit_request_mobility_semantics",
+        "walkingPenaltyMinutesPerKm": 1.8,
+        "transferPenaltyMinutes": 6,
+        "waitTimeMultiplier": 1,
+        "riskPenaltyMultiplier": 1
+      },
+      "provenance": {
+        "detourToleranceIntentTypes": [
+          "server_safe_default_v1"
+        ],
+        "mobilitySensitive": false,
+        "requestSemanticsPresent": true,
+        "transportMode": "transit",
+        "travelQualityFloor": {
+          "candidateSearchRadiusMeters": 8000,
+          "doesNotChangeDetourChoice": true,
+          "maxProviderTravelMinutes": 60,
+          "policyScope": "adjacent_travel_stop_reasonableness"
+        }
+      },
+      "adjacentLegConstraint": {
+        "candidateSearchRadiusMeters": 8000,
+        "maxProviderTravelMinutes": 60
+      },
+      "adjacentLegConstraintSource": "versioned_product_travel_quality_floor",
+      "topologyConstraint": {
+        "maxBacktrackRatio": 0.15
+      },
+      "topologyConstraintSource": "versioned_product_policy",
+      "fingerprint": "a372e389d1d485e5d38a783a22997cc3f5ff280ebb57a699752ff08ad5ac9ec8",
+      "editableDefaults": [
+        {
+          "dimensionId": "route_decision.detour_tolerance",
+          "label": "均衡路线",
+          "source": "server_safe_default_v1",
+          "editable": true,
+          "userConfirmed": false
+        }
+      ]
+    },
+    "editableDefaults": [
+      {
+        "dimensionId": "route_decision.detour_tolerance",
+        "label": "均衡路线",
+        "source": "server_safe_default_v1",
+        "editable": true,
+        "userConfirmed": false
+      }
+    ],
+    "foodExperienceGoal": {
+      "intentType": "food_experience",
+      "requirementLevel": "soft_experience",
+      "minCount": 1,
+      "preferredCount": 2,
+      "maxCount": 2
+    },
+    "successCriteria": [
+      "all required intents are covered or explicitly reported as unresolved",
+      "unexpectedIntentCount=0",
+      "scheduleOverlapCount=0",
+      "assistant claims match the final persisted snapshot"
+    ],
+    "requestActivityCoverage": {
+      "schemaVersion": "request-activity-coverage-v1",
+      "status": "pending",
+      "sourceText": "今年国庆参观北京985高校两日游，每晚都去逛公园，中午想体验当地特色美食。10月1日到2日，2天，中等预算，1人，公交地铁优先",
+      "sourceFingerprint": "b7f491a7ed6a6d3dd1365c309a0c7b2728d7c2f3db0447684a9100cccc3ce124",
+      "clauses": [
+        {
+          "clauseId": "request_clause_1",
+          "text": "今年国庆参观北京985高校两日游",
+          "start": 0,
+          "end": 16,
+          "goalIds": [
+            "goal_request_1_1",
+            "goal_request_1_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_2",
+          "text": "每晚都去逛公园",
+          "start": 17,
+          "end": 24,
+          "goalIds": [
+            "goal_request_2_1",
+            "goal_request_2_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_3",
+          "text": "中午想体验当地特色美食",
+          "start": 25,
+          "end": 36,
+          "goalIds": [
+            "goal_request_3_1",
+            "goal_request_3_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_4",
+          "text": "10月1日到2日",
+          "start": 37,
+          "end": 45,
+          "goalIds": [
+            "goal_request_4_1",
+            "goal_request_4_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_5",
+          "text": "2天",
+          "start": 46,
+          "end": 48,
+          "goalIds": [
+            "goal_request_5_1",
+            "goal_request_5_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_6",
+          "text": "中等预算",
+          "start": 49,
+          "end": 53,
+          "goalIds": [
+            "goal_request_6_1",
+            "goal_request_6_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_7",
+          "text": "1人",
+          "start": 54,
+          "end": 56,
+          "goalIds": [
+            "goal_request_7_1",
+            "goal_request_7_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_8",
+          "text": "公交地铁优先",
+          "start": 57,
+          "end": 63,
+          "goalIds": [
+            "goal_request_8_1",
+            "goal_request_8_2"
+          ]
+        }
+      ]
+    }
+  },
+  "originalModelDecisions": [
+    {
+      "schemaVersion": "agent-decision-v3",
+      "primaryAction": "draft_itinerary",
+      "actionDirective": {
+        "type": "draft_itinerary",
+        "requestCoverage": [
+          {
+            "clauseId": "request_clause_1",
+            "classification": "activity",
+            "activities": [
+              {
+                "goalId": "goal_request_1_1",
+                "sourceText": "参观北京985高校",
+                "intentType": "campus_visit",
+                "polarity": "required",
+                "allowedDayNumbers": [
+                  1,
+                  2
+                ],
+                "minCount": 2,
+                "dayPart": "flexible"
+              },
+              {
+                "goalId": "goal_request_1_2",
+                "sourceText": "参观北京985高校",
+                "intentType": "campus_visit",
+                "polarity": "required",
+                "allowedDayNumbers": [
+                  1,
+                  2
+                ],
+                "minCount": 2,
+                "dayPart": "flexible"
+              }
+            ]
+          },
+          {
+            "clauseId": "request_clause_2",
+            "classification": "activity",
+            "activities": [
+              {
+                "goalId": "goal_request_2_1",
+                "sourceText": "每晚都去逛公园",
+                "intentType": "park",
+                "polarity": "required",
+                "allowedDayNumbers": [
+                  1,
+                  2
+                ],
+                "minCount": 2,
+                "dayPart": "evening"
+              },
+              {
+                "goalId": "goal_request_2_2",
+                "sourceText": "每晚都去逛公园",
+                "intentType": "park",
+                "polarity": "required",
+                "allowedDayNumbers": [
+                  1,
+                  2
+                ],
+                "minCount": 2,
+                "dayPart": "evening"
+              }
+            ]
+          },
+          {
+            "clauseId": "request_clause_3",
+            "classification": "activity",
+            "activities": [
+              {
+                "goalId": "goal_request_3_1",
+                "sourceText": "中午想体验当地特色美食",
+                "intentType": "meal",
+                "polarity": "required",
+                "allowedDayNumbers": [
+                  1,
+                  2
+                ],
+                "minCount": 2,
+                "dayPart": "noon"
+              },
+              {
+                "goalId": "goal_request_3_2",
+                "sourceText": "中午想体验当地特色美食",
+                "intentType": "meal",
+                "polarity": "required",
+                "allowedDayNumbers": [
+                  1,
+                  2
+                ],
+                "minCount": 2,
+                "dayPart": "noon"
+              }
+            ]
+          },
+          {
+            "clauseId": "request_clause_4",
+            "classification": "constraint"
+          },
+          {
+            "clauseId": "request_clause_5",
+            "classification": "constraint"
+          },
+          {
+            "clauseId": "request_clause_6",
+            "classification": "constraint"
+          },
+          {
+            "clauseId": "request_clause_7",
+            "classification": "constraint"
+          },
+          {
+            "clauseId": "request_clause_8",
+            "classification": "constraint"
+          }
+        ],
+        "dayStrategies": [
+          {
+            "dayNumber": 1,
+            "theme": "北京985高校与公园之夜",
+            "requiredGoalIds": [
+              "goal_request_1_1",
+              "goal_request_2_1",
+              "goal_request_3_1"
+            ],
+            "pace": "standard",
+            "maxRouteAnchors": 4
+          },
+          {
+            "dayNumber": 2,
+            "theme": "北京985高校与公园之夜",
+            "requiredGoalIds": [
+              "goal_request_1_2",
+              "goal_request_2_2",
+              "goal_request_3_2"
+            ],
+            "pace": "standard",
+            "maxRouteAnchors": 4
+          }
+        ],
+        "optionalExperienceBudget": 0,
+        "routePlanningPolicy": {
+          "objective": "least_generalized_cost",
+          "source": "controller_estimate",
+          "allowExperienceDetour": false,
+          "detourEnvelope": {
+            "maxGeneralizedCostDelta": 30,
+            "maxDetourRatio": 1.3
+          },
+          "mobilityProfile": {
+            "transportMode": "transit",
+            "paceClass": "standard"
+          }
+        },
+        "schedulePolicy": {
+          "respectOpeningWindowsWhenKnown": true,
+          "allowProvisionalWhenUnknown": true
+        },
+        "occurrenceScheduleHints": [
+          {
+            "goalId": "goal_request_1_1",
+            "dayNumber": 1,
+            "dayPart": "flexible",
+            "sequence": 1,
+            "preferredStartTime": "09:00",
+            "durationEstimate": {
+              "min": 120,
+              "preferred": 180,
+              "max": 240
+            },
+            "estimateSource": "controller_estimate",
+            "confidence": 0.7
+          },
+          {
+            "goalId": "goal_request_3_1",
+            "dayNumber": 1,
+            "dayPart": "noon",
+            "sequence": 2,
+            "preferredStartTime": "12:00",
+            "durationEstimate": {
+              "min": 60,
+              "preferred": 90,
+              "max": 120
+            },
+            "estimateSource": "controller_estimate",
+            "confidence": 0.7
+          },
+          {
+            "goalId": "goal_request_2_1",
+            "dayNumber": 1,
+            "dayPart": "evening",
+            "sequence": 3,
+            "preferredStartTime": "19:00",
+            "durationEstimate": {
+              "min": 60,
+              "preferred": 90,
+              "max": 120
+            },
+            "estimateSource": "controller_estimate",
+            "confidence": 0.7
+          },
+          {
+            "goalId": "goal_request_1_2",
+            "dayNumber": 2,
+            "dayPart": "flexible",
+            "sequence": 1,
+            "preferredStartTime": "09:00",
+            "durationEstimate": {
+              "min": 120,
+              "preferred": 180,
+              "max": 240
+            },
+            "estimateSource": "controller_estimate",
+            "confidence": 0.7
+          },
+          {
+            "goalId": "goal_request_3_2",
+            "dayNumber": 2,
+            "dayPart": "noon",
+            "sequence": 2,
+            "preferredStartTime": "12:00",
+            "durationEstimate": {
+              "min": 60,
+              "preferred": 90,
+              "max": 120
+            },
+            "estimateSource": "controller_estimate",
+            "confidence": 0.7
+          },
+          {
+            "goalId": "goal_request_2_2",
+            "dayNumber": 2,
+            "dayPart": "evening",
+            "sequence": 3,
+            "preferredStartTime": "19:00",
+            "durationEstimate": {
+              "min": 60,
+              "preferred": 90,
+              "max": 120
+            },
+            "estimateSource": "controller_estimate",
+            "confidence": 0.7
+          }
+        ]
+      }
+    },
+    {
+      "schemaVersion": "agent-decision-v3",
+      "primaryAction": "draft_itinerary",
+      "actionDirective": {
+        "type": "draft_itinerary",
+        "requestCoverage": [
+          {
+            "clauseId": "request_clause_1",
+            "classification": "activity",
+            "activities": [
+              {
+                "goalId": "goal_request_1_1",
+                "sourceText": "参观北京985高校",
+                "intentType": "campus_visit",
+                "polarity": "required",
+                "allowedDayNumbers": [
+                  1,
+                  2
+                ],
+                "minCount": 2,
+                "dayPart": "flexible"
+              },
+              {
+                "goalId": "goal_request_1_2",
+                "sourceText": "参观北京985高校",
+                "intentType": "campus_visit",
+                "polarity": "required",
+                "allowedDayNumbers": [
+                  1,
+                  2
+                ],
+                "minCount": 2,
+                "dayPart": "flexible"
+              }
+            ]
+          },
+          {
+            "clauseId": "request_clause_2",
+            "classification": "activity",
+            "activities": [
+              {
+                "goalId": "goal_request_2_1",
+                "sourceText": "每晚都去逛公园",
+                "intentType": "park",
+                "polarity": "required",
+                "allowedDayNumbers": [
+                  1,
+                  2
+                ],
+                "minCount": 2,
+                "dayPart": "evening"
+              },
+              {
+                "goalId": "goal_request_2_2",
+                "sourceText": "每晚都去逛公园",
+                "intentType": "park",
+                "polarity": "required",
+                "allowedDayNumbers": [
+                  1,
+                  2
+                ],
+                "minCount": 2,
+                "dayPart": "evening"
+              }
+            ]
+          },
+          {
+            "clauseId": "request_clause_3",
+            "classification": "activity",
+            "activities": [
+              {
+                "goalId": "goal_request_3_1",
+                "sourceText": "中午想体验当地特色美食",
+                "intentType": "meal",
+                "polarity": "required",
+                "allowedDayNumbers": [
+                  1,
+                  2
+                ],
+                "minCount": 2,
+                "dayPart": "noon"
+              },
+              {
+                "goalId": "goal_request_3_2",
+                "sourceText": "中午想体验当地特色美食",
+                "intentType": "meal",
+                "polarity": "required",
+                "allowedDayNumbers": [
+                  1,
+                  2
+                ],
+                "minCount": 2,
+                "dayPart": "noon"
+              }
+            ]
+          },
+          {
+            "clauseId": "request_clause_4",
+            "classification": "constraint"
+          },
+          {
+            "clauseId": "request_clause_5",
+            "classification": "constraint"
+          },
+          {
+            "clauseId": "request_clause_6",
+            "classification": "constraint"
+          },
+          {
+            "clauseId": "request_clause_7",
+            "classification": "constraint"
+          },
+          {
+            "clauseId": "request_clause_8",
+            "classification": "constraint"
+          }
+        ],
+        "dayStrategies": [
+          {
+            "dayNumber": 1,
+            "theme": "北京985高校与公园之夜",
+            "requiredGoalIds": [
+              "goal_request_1_1",
+              "goal_request_2_1",
+              "goal_request_3_1"
+            ],
+            "optionalGoalIds": [],
+            "pace": "standard",
+            "maxRouteAnchors": 4
+          },
+          {
+            "dayNumber": 2,
+            "theme": "北京985高校与公园之夜",
+            "requiredGoalIds": [
+              "goal_request_1_2",
+              "goal_request_2_2",
+              "goal_request_3_2"
+            ],
+            "optionalGoalIds": [],
+            "pace": "standard",
+            "maxRouteAnchors": 4
+          }
+        ],
+        "optionalExperienceBudget": 0,
+        "routePlanningPolicy": {
+          "objective": "least_generalized_cost",
+          "source": "controller_estimate",
+          "allowExperienceDetour": false,
+          "detourEnvelope": {
+            "maxGeneralizedCostDelta": 30,
+            "maxDetourRatio": 1.3
+          },
+          "mobilityProfile": {
+            "transportMode": "transit",
+            "paceClass": "standard"
+          }
+        },
+        "schedulePolicy": {
+          "respectOpeningWindowsWhenKnown": true,
+          "allowProvisionalWhenUnknown": true
+        },
+        "occurrenceScheduleHints": [
+          {
+            "goalId": "goal_request_1_1",
+            "dayNumber": 1,
+            "dayPart": "flexible",
+            "sequence": 1,
+            "preferredStartTime": "09:00",
+            "durationEstimate": {
+              "min": 120,
+              "preferred": 180,
+              "max": 240
+            },
+            "estimateSource": "controller_estimate",
+            "confidence": 0.7
+          },
+          {
+            "goalId": "goal_request_3_1",
+            "dayNumber": 1,
+            "dayPart": "noon",
+            "sequence": 2,
+            "preferredStartTime": "12:00",
+            "durationEstimate": {
+              "min": 60,
+              "preferred": 90,
+              "max": 120
+            },
+            "estimateSource": "controller_estimate",
+            "confidence": 0.7
+          },
+          {
+            "goalId": "goal_request_2_1",
+            "dayNumber": 1,
+            "dayPart": "evening",
+            "sequence": 3,
+            "preferredStartTime": "19:00",
+            "durationEstimate": {
+              "min": 60,
+              "preferred": 90,
+              "max": 120
+            },
+            "estimateSource": "controller_estimate",
+            "confidence": 0.7
+          },
+          {
+            "goalId": "goal_request_1_2",
+            "dayNumber": 2,
+            "dayPart": "flexible",
+            "sequence": 1,
+            "preferredStartTime": "09:00",
+            "durationEstimate": {
+              "min": 120,
+              "preferred": 180,
+              "max": 240
+            },
+            "estimateSource": "controller_estimate",
+            "confidence": 0.7
+          },
+          {
+            "goalId": "goal_request_3_2",
+            "dayNumber": 2,
+            "dayPart": "noon",
+            "sequence": 2,
+            "preferredStartTime": "12:00",
+            "durationEstimate": {
+              "min": 60,
+              "preferred": 90,
+              "max": 120
+            },
+            "estimateSource": "controller_estimate",
+            "confidence": 0.7
+          },
+          {
+            "goalId": "goal_request_2_2",
+            "dayNumber": 2,
+            "dayPart": "evening",
+            "sequence": 3,
+            "preferredStartTime": "19:00",
+            "durationEstimate": {
+              "min": 60,
+              "preferred": 90,
+              "max": 120
+            },
+            "estimateSource": "controller_estimate",
+            "confidence": 0.7
+          }
+        ]
+      }
+    }
+  ]
+}

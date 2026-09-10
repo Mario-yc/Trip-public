@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Regression coverage for bounded initial planning, medium budget parsing, and duration metadata.",
+  "scenarios": [
+    {
+      "id": "beijing_campus_two_day_medium_budget",
+      "city": "北京",
+      "input": "今年国庆参观高校两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食",
+      "mockMapProvider": {"enabled": true, "trustedFoodForDeterministicEdit": true, "trustedPoiFixtures": true, "mealDiversitySeed": "latency-duration-budget-v1"},
+      "expectations": {
+        "mustCreateTimeline": true,
+        "minDays": 2,
+        "executionMode": "bounded_agent",
+        "mustNotEnterToolLoop": true,
+        "maxWebSearchCalls": 0,
+        "maxTicketLookupCalls": 0,
+        "maxAmapWeatherCalls": 0,
+        "maxAmapPoiExternalCalls": 16,
+        "maxAmapRouteExternalCalls": 8,
+        "budgetTier": "medium",
+        "durationMetadataMustBeComplete": true,
+        "maxCoreDraftDurationMs": 15000,
+        "maxRouteReadyDurationMs": 30000,
+        "deadlineMustNotBeExceeded": true,
+        "verifierMustPass": true
+      }
+    }
+  ]
+}

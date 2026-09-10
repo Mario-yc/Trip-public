@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "A complete simple task uses the staged executor and does not exhaust the generic tool loop.",
+  "defaultMockMapProvider": {"enabled": true, "mockRouteRefresh": true, "trustedPoiFixtures": true},
+  "scenarios": [{
+    "id": "model_first_simple_two_day_plan",
+    "city": "北京",
+    "input": "10月1日到2日北京两日游，参观大学和博物馆，中等预算，公交地铁优先。",
+    "expectations": {
+      "agentDecisionSource": "controller",
+      "mustCreateTimeline": true,
+      "maxToolRoundsUsed": 0,
+      "verifierMustPass": true
+    }
+  }]
+}

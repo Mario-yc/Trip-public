@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Full 与 Lite 均失败后才提供安全降级确认。",
+  "scenarios": [{
+    "id": "controller_full_and_lite_fail_confirmation",
+    "city": "北京",
+    "turns": [{
+      "input": "10月1日北京一日游，参观大学和美术馆，中等预算，1人，公交地铁优先。",
+      "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true, "controllerFailure": "timeout", "controllerLiteFailure": "timeout"}
+    }],
+    "expectations": {"terminalStatus": "needs_confirmation", "controllerFullCallCount": 1, "controllerLiteCallCount": 1, "controllerLiteSuccessCount": 0, "safeFallbackOfferedCount": 1, "verifiedWriteCount": 0}
+  }]
+}

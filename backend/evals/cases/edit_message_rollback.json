@@ -1,0 +1,108 @@
+{
+  "id": "edit_message_rollback",
+  "scenario": "edit_message_rollback",
+  "title": "Historical message edit rolls back and regenerates",
+  "description": "Editing the first user turn supersedes later turns, restores the prior snapshot, and regenerates.",
+  "mockAmapResponses": {
+    "故宫": {
+      "id": "B000PALACE",
+      "name": "故宫",
+      "type": "风景名胜",
+      "cityname": "北京市",
+      "adname": "东城区",
+      "address": "高德地址",
+      "location": "116.397026,39.918058",
+      "photos": []
+    }
+  },
+  "agentProviderPayloads": [
+    {
+      "reply": "已生成北京初版。",
+      "mode": "full_itinerary",
+      "operations": [],
+      "fullItinerary": {
+        "title": "北京初版",
+        "city": "北京",
+        "days": [
+          {
+            "dayNumber": 1,
+            "title": "离线 Eval Day 1",
+            "segments": [
+              {
+                "poiName": "故宫",
+                "category": "scenic",
+                "startTime": "09:00",
+                "durationMinutes": 90,
+                "notes": "离线 eval 安排：故宫",
+                "estimatedCost": 60
+              }
+            ]
+          }
+        ]
+      },
+      "poiResolutionRequests": [{ "name": "故宫", "category": "scenic" }],
+      "warnings": []
+    },
+    {
+      "reply": "已改为北京第二版。",
+      "mode": "patch",
+      "operations": [{ "op": "replace_trip_title", "value": "北京第二版" }],
+      "fullItinerary": null,
+      "poiResolutionRequests": [],
+      "warnings": []
+    },
+    {
+      "reply": "已生成北京重新分支。",
+      "mode": "full_itinerary",
+      "operations": [],
+      "fullItinerary": {
+        "title": "北京重新分支",
+        "city": "北京",
+        "days": [
+          {
+            "dayNumber": 1,
+            "title": "离线 Eval Day 1",
+            "segments": [
+              {
+                "poiName": "故宫",
+                "category": "scenic",
+                "startTime": "09:00",
+                "durationMinutes": 90,
+                "notes": "离线 eval 安排：故宫",
+                "estimatedCost": 60
+              }
+            ]
+          }
+        ]
+      },
+      "poiResolutionRequests": [{ "name": "故宫", "category": "scenic" }],
+      "warnings": []
+    }
+  ],
+  "steps": [
+    { "action": "create_session", "saveAs": "session", "payload": { "city": "北京", "title": "北京离线 Eval" } },
+    { "action": "send_agent_message", "saveAs": "first", "sessionIdFrom": "session.sessionId", "content": "生成北京一天" },
+    { "action": "send_agent_message", "saveAs": "second", "sessionIdFrom": "session.sessionId", "content": "标题改成第二版" },
+    {
+      "action": "edit_user_message",
+      "saveAs": "edited",
+      "sessionIdFrom": "session.sessionId",
+      "turnIdFrom": "first.userTurn.id",
+      "content": "重新生成北京一天，只安排故宫",
+      "regenerate": true
+    },
+    { "action": "get_session", "saveAs": "loaded", "sessionIdFrom": "session.sessionId" }
+  ],
+  "assertions": [
+    { "path": "edited.statusCode", "equals": 200 },
+    { "path": "edited.restoredVersionId", "equalsPath": "first.version.id" },
+    { "path": "edited.supersededTurnIds", "containsPath": "second.userTurn.id" },
+    { "path": "edited.supersededTurnIds", "lengthAtLeast": 2 },
+    { "path": "loaded.activeVersionId", "equalsPath": "edited.version.id" },
+    { "path": "edited.itinerary.title", "equals": "北京重新分支" }
+  ],
+  "expect": {
+    "invalidPatchCount": 0,
+    "replayStages": []
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Healthy model owns initial action and planning directive without deterministic semantic preemption.",
+  "defaultMockMapProvider": {"enabled": true, "mockRouteRefresh": true, "trustedPoiFixtures": true},
+  "scenarios": [{
+    "id": "model_owned_initial_planning",
+    "city": "北京",
+    "input": "10月1日北京一日游，参观985大学和美术馆，中等预算，1人，公交地铁优先。",
+    "expectations": {
+      "agentDecisionEventRequired": true,
+      "agentDecisionPrimaryAction": "draft_itinerary",
+      "agentDecisionSource": "controller",
+      "agentDecisionPolicyAccepted": true,
+      "agentDecisionProposedExecutionRoute": "staged_initial_pipeline",
+      "naturalLanguageTurnCount": 1,
+      "modelPrimaryDecisionCount": 1,
+      "modelPrimaryDecisionRatio": 1.0,
+      "deterministicBusinessPreemptionCount": 0,
+      "plannerCalledOnHealthyControllerCount": 0,
+      "timelineParserPreDecisionCount": 0,
+      "legacyPhaseRouterPreemptionCount": 0,
+      "deterministicInitialPlanUsedCount": 0,
+      "executionRouteMismatchCount": 0,
+      "genericToolLoopWithoutAcceptedDecisionCount": 0,
+      "actionDirectiveModelCount": 3,
+      "postObservationDecisionCount": 2,
+      "terminalStatus": "needs_confirmation",
+      "verifierMustPass": true
+    }
+  }]
+}

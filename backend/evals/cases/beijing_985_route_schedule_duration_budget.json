@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "985 hard constraint, preferred-route coverage, schedule, duration, meal family and budget semantics.",
+  "scenarios": [
+    {
+      "id": "beijing_985_route_schedule_duration_budget",
+      "city": "北京",
+      "input": "今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食",
+      "mockMapProvider": {
+        "enabled": true,
+        "mockRouteRefresh": true,
+        "trustedFoodForDeterministicEdit": true,
+        "trustedPoiFixtures": true,
+        "mealDiversitySeed": "latency-duration-budget-v1"
+      },
+      "expectations": {
+        "mustCreateTimeline": true,
+        "minDays": 2,
+        "executionMode": "bounded_agent",
+        "mustNotEnterToolLoop": true,
+        "maxWebSearchCalls": 0,
+        "maxTicketLookupCalls": 0,
+        "maxAmapWeatherCalls": 0,
+        "maxAmapPoiExternalCalls": 16,
+        "maxAmapRouteExternalCalls": 8,
+        "selectedCampusCount": 4,
+        "non985CampusCount": 0,
+        "hardConstraintMustNotRelax": true,
+        "requiredRouteLegCount": 8,
+        "coveredRouteLegCount": 8,
+        "missingRouteLegCount": 0,
+        "uniquePoiCoordinateCount": 10,
+        "uniqueRouteFetchKeyCount": 8,
+        "routeFetchDedupedPairCount": 0,
+        "initialAlternativeRouteCallCount": 0,
+        "scheduleConflictCount": 0,
+        "familyMismatchSlotCount": 0,
+        "coffeeUsedAsDinnerCount": 0,
+        "fullDinnerCoverage": true,
+        "budgetTier": "medium",
+        "durationMetadataMustBeComplete": true,
+        "maxCoreDraftDurationMs": 15000,
+        "maxRouteReadyDurationMs": 15000,
+        "deadlineMustNotBeExceeded": true,
+        "verifierMustPass": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Recorded-provider Golden Case for high-impact Experience Intent clarification, Creative Portfolio preview, and opaque editable-draft adoption.",
+  "defaultMockMapProvider": {
+    "enabled": true,
+    "trustedPoiFixtures": true,
+    "mockRouteRefresh": true
+  },
+  "goldenContract": {
+    "featureFlags": {
+      "AGENT_EXPERIENCE_GROUNDING_V2_MODE": "enforce",
+      "AGENT_SOFT_SLOT_DRAFT_ADOPTION_ENABLED": "true",
+      "AGENT_CREATIVE_PORTFOLIO_ENABLED": "true"
+    },
+    "clarificationOptionLabels": ["历史文化优先（推荐）", "本地生活优先", "舒适均衡"],
+    "proposalDirectionCount": {"minimum": 2, "maximum": 3},
+    "requiredHardAnchor": "故宫博物院",
+    "softPendingFamilies": ["meal", "local_life", "open_walk"],
+    "adoptionMode": "editable_partial",
+    "writer": "PlanProposalCommitService"
+  },
+  "scenarios": [
+    {
+      "id": "creative_experience_intent_soft_draft_golden",
+      "city": "北京",
+      "forbidSeedItinerary": true,
+      "turns": [
+        {
+          "input": "我准备在 2026 年 10 月 1 日到 10 月 3 日带父母去北京玩三天，住国宾馆附近，三个人，中等预算，主要坐地铁，必要时打车。父母六十岁左右，不能连续走太久，每天 9:30 到 10:00 出发，21:00 前回酒店。故宫博物院基地必须安排。我们对历史文化、本地人的日常生活和地方饮食都有兴趣，但还没想好哪一种作为主线。不希望只是打卡景点，也不要因为名字带老街、古镇或文化就判断为本地生活。饮食希望有地方特点但不能太辣，不要求立即确定具体餐厅。晚上可安排一次安静散步，不喜欢特别商业化的夜生活。请先提出一个最关键的选择问题，再给出两到三套差异明确的方案。暂时缺少可靠地点的餐饮、茶馆、本地生活街区或散步路线可以保留为待选择位置。"
+        },
+        {
+          "input": "选择历史文化优先，同时保留本地生活、餐饮和安静散步为可后续补齐的软体验。",
+          "selectedAgentChoiceExactIdFromTurn": 1,
+          "selectedAgentChoiceOptionIndex": 1,
+          "mockMapProvider": {
+            "enabled": true,
+            "trustedPoiFixtures": true,
+            "mockRouteRefresh": true,
+            "forceDominantCandidates": true,
+            "exactPoiFixtures": [
+              {
+                "city": "北京",
+                "name": "故宫博物院",
+                "type": "科教文化服务;博物馆;博物院",
+                "category": "museum"
+              }
+            ]
+          }
+        },
+        {
+          "input": "采用第一套为可编辑草案。",
+          "selectedAgentChoiceExactIdFromTurn": 2,
+          "selectedAgentChoiceOptionIndex": 1,
+          "mockMapProvider": {
+            "enabled": true,
+            "trustedPoiFixtures": true,
+            "mockRouteRefresh": true,
+            "forceDominantCandidates": true,
+            "exactPoiFixtures": [
+              {
+                "city": "北京",
+                "name": "故宫博物院",
+                "type": "科教文化服务;博物馆;博物院",
+                "category": "museum"
+              }
+            ]
+          }
+        }
+      ],
+      "turnExpectations": [
+        {
+          "terminalStatus": "no_safe_action",
+          "proposalPreviewWriteCount": 0,
+          "proposalCommitAttemptCount": 0,
+          "versionWriteCount": 0,
+          "patchWriteCount": 0
+        },
+        {
+          "terminalStatus": "needs_confirmation",
+          "proposalPreviewWriteCount": 0,
+          "proposalCommitAttemptCount": 0,
+          "versionWriteCount": 0,
+          "patchWriteCount": 0
+        },
+        {
+          "proposalCommitAttemptCount": 1,
+          "versionWriteCount": 1,
+          "patchWriteCount": 1,
+          "pendingSlotPreservedCount": 4
+        }
+      ],
+      "expectations": {
+        "turnCount": 3,
+        "activeVersionEventuallyCreated": true,
+        "seededItineraryCount": 0,
+        "falseSuccessClaimCount": 0,
+        "transactionEvidenceMissingCount": 0,
+        "structuredChoiceIdentityMismatchCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "id": "local_food_meal_grounding",
+  "scenario": "agent_message",
+  "title": "Local food meal grounding",
+  "description": "Explicit lunch and dinner local-food requests should use city-specific food search terms and persist concrete AMap restaurants when provider candidates are confirmed.",
+  "mockAmapResponses": {
+    "__familyAwareFoodFixture": true,
+    "__aliases": {
+      "北京 老北京炸酱面": "北京 炸酱面",
+      "北京 护国寺小吃": "北京 炸酱面",
+      "北京 炒肝": "北京 炸酱面",
+      "北京 豆汁焦圈": "北京 炸酱面",
+      "北京 卤煮": "北京 炸酱面",
+      "北京 门框卤煮": "北京 炸酱面",
+      "北京 爆肚": "北京 炸酱面",
+      "北京 老北京爆肚": "北京 炸酱面",
+      "北京 牛街清真小吃": "北京 炸酱面",
+      "北京 牛街清真餐厅": "北京 炸酱面",
+      "北京 老北京涮肉": "北京 铜锅涮肉",
+      "北京 北京烤鸭": "北京 铜锅涮肉",
+      "北京 老字号烤鸭": "北京 铜锅涮肉",
+      "北京 北京菜": "北京 铜锅涮肉",
+      "北京 京味餐厅": "北京 铜锅涮肉",
+      "北京 宫廷点心": "北京 铜锅涮肉",
+      "北京 北京奶酪": "北京 铜锅涮肉"
+    },
+    "北京 炸酱面": [
+      {
+        "id": "AMAP_LOCAL_FOOD_LUNCH",
+        "name": "京味炸酱面馆A",
+        "type": "餐饮服务;中餐厅;北京菜",
+        "cityname": "北京市",
+        "adname": "东城区",
+        "address": "本地菜街1号",
+        "location": "116.397500,39.918500",
+        "photos": []
+      }
+    ],
+    "北京 老北京炸酱面": [
+      {
+        "id": "AMAP_LOCAL_FOOD_LUNCH",
+        "name": "京味炸酱面馆A",
+        "type": "餐饮服务;中餐厅;北京菜",
+        "cityname": "北京市",
+        "adname": "东城区",
+        "address": "本地菜街1号",
+        "location": "116.397500,39.918500",
+        "photos": []
+      }
+    ],
+    "北京 铜锅涮肉": [
+      {
+        "id": "AMAP_LOCAL_FOOD_DINNER",
+        "name": "京味涮肉店B",
+        "type": "餐饮服务;中餐厅;北京菜",
+        "cityname": "北京市",
+        "adname": "东城区",
+        "address": "本地菜街2号",
+        "location": "116.399500,39.919500",
+        "photos": []
+      }
+    ],
+    "北京 老北京涮肉": [
+      {
+        "id": "AMAP_LOCAL_FOOD_DINNER",
+        "name": "京味涮肉店B",
+        "type": "餐饮服务;中餐厅;北京菜",
+        "cityname": "北京市",
+        "adname": "东城区",
+        "address": "本地菜街2号",
+        "location": "116.399500,39.919500",
+        "photos": []
+      }
+    ],
+    "A大学": [
+      {
+        "id": "AMAP_A_UNIV_MAIN",
+        "name": "A大学",
+        "type": "科教文化服务;学校;高等院校",
+        "cityname": "北京市",
+        "adname": "海淀区",
+        "address": "A大学路1号",
+        "location": "116.315000,39.995000",
+        "photos": []
+      }
+    ],
+    "城市观景塔A": [
+      {
+        "id": "AMAP_NIGHT_A_MAIN",
+        "name": "城市观景塔A",
+        "type": "风景名胜;观景台;电视塔",
+        "cityname": "北京市",
+        "adname": "东城区",
+        "address": "中心广场",
+        "location": "116.397000,39.908000",
+        "photos": []
+      }
+    ]
+  },
+  "initialPlanPayloads": [
+    {
+      "reply": "已拆解为高校、餐饮和夜景 IntentPool。",
+      "mode": "day_slots",
+      "daySlots": [
+        { "slotId": "d1_campus", "dayNumber": 1, "date": "2026-10-01", "timeWindow": "09:00-11:00", "startTime": "09:00", "durationMinutes": 120, "kind": "campus", "rawNeed": "高校参观", "routeAnchor": true, "priority": 90, "notes": "" },
+        { "slotId": "d1_lunch", "dayNumber": 1, "date": "2026-10-01", "timeWindow": "12:00-13:15", "startTime": "12:00", "durationMinutes": 75, "kind": "meal", "rawNeed": "午餐 当地特色炸酱面", "routeAnchor": true, "priority": 72, "notes": "用户明确要求餐饮体验。" },
+        { "slotId": "d1_night", "dayNumber": 1, "date": "2026-10-01", "timeWindow": "19:00-20:30", "startTime": "19:00", "durationMinutes": 90, "kind": "night_view", "rawNeed": "夜景观景点", "routeAnchor": true, "priority": 80, "notes": "" },
+        { "slotId": "d1_dinner", "dayNumber": 1, "date": "2026-10-01", "timeWindow": "18:00-19:30", "startTime": "18:00", "durationMinutes": 90, "kind": "meal", "rawNeed": "晚餐 当地特色铜锅涮肉", "routeAnchor": true, "priority": 72, "notes": "用户明确要求餐饮体验。" }
+      ],
+      "intentPools": [
+        {
+          "poolId": "campus_visit_pool",
+          "rawNeed": "高校参观",
+          "city": "北京",
+          "intentType": "campus_visit",
+          "targetCount": 1,
+          "preferredTypes": ["大学", "学院", "高等院校"],
+          "rejectedTypes": ["酒店", "民宿", "公寓", "公司", "停车场", "住宅", "小区"],
+          "routePreference": { "transport": "transit" },
+          "assignToSlots": ["d1_campus"],
+          "candidateHints": ["A大学"],
+          "hintPolicy": "llm_common_knowledge_hint"
+        },
+        {
+          "poolId": "meal_pool",
+          "rawNeed": "午餐 当地特色美食 / 晚餐 当地特色美食",
+          "city": "北京",
+          "intentType": "meal",
+          "targetCount": 2,
+          "preferredTypes": ["餐饮服务"],
+          "rejectedTypes": ["酒店", "民宿", "公寓", "公司", "停车场", "住宅", "小区"],
+          "routePreference": { "transport": "transit" },
+          "assignToSlots": ["d1_lunch", "d1_dinner"],
+          "candidateHints": ["北京 炸酱面", "北京 涮肉"],
+          "hintPolicy": "user_explicit_hint"
+        },
+        {
+          "poolId": "night_view_pool",
+          "rawNeed": "夜景观景点",
+          "city": "北京",
+          "intentType": "night_view",
+          "targetCount": 1,
+          "preferredTypes": ["风景名胜", "广场", "地标", "观景点"],
+          "rejectedTypes": ["酒店", "民宿", "公寓", "公司", "停车场", "住宅", "小区"],
+          "routePreference": { "transport": "transit" },
+          "assignToSlots": ["d1_night"],
+          "candidateHints": ["城市观景塔A"],
+          "hintPolicy": "llm_common_knowledge_hint"
+        }
+      ],
+      "warnings": []
+    }
+  ],
+  "steps": [
+    { "action": "create_session", "saveAs": "session", "payload": { "city": "北京", "title": "北京本地美食 Eval" } },
+    {
+      "action": "send_agent_message",
+      "saveAs": "first",
+      "sessionIdFrom": "session.sessionId",
+      "content": "2026年10月1日，北京一日游，1天，中等预算，1人，公交地铁优先。午餐和晚餐都想体验当地特色美食，晚上看夜景。",
+      "context": { "selectedDayNumber": 1 }
+    }
+  ],
+  "assertions": [
+    { "path": "first.statusCode", "equals": 200 },
+    { "path": "first.version", "exists": true },
+    { "path": "first.itinerary.days[].segments[].kind", "contains": "meal" },
+    { "path": "first.itinerary.days[].segments[].poi.source", "contains": "amap-place-search" },
+    { "path": "first.itinerary.days[].segments[].poi.amapId", "contains": "AMAP_LOCAL_FOOD_LUNCH" },
+    { "path": "first.itinerary.days[].segments[].poi.amapId", "contains": "AMAP_LOCAL_FOOD_DINNER" },
+    { "path": "first.itinerary.days[].segments[].poi.name", "notContainsAny": ["SERVER_GENERIC_DAY_SLOT_FALLBACK", "provider_call_error", "semantic_candidate_hint_missing", "北京本地菜餐厅", "北京特色小吃馆", "北京老字号餐厅", "北京家常菜馆"] },
+    { "path": "first.itinerary.days[].segments[].poi.amapId", "notContainsAny": ["mock_amap_"] },
+    { "path": "first.itinerary.days[].segments[].poi.sourceNote", "notContainsAny": ["CLI eval mock", "mock AMap candidate", "not a real map POI"] },
+    { "path": "first.pendingPoiCandidates", "lengthEquals": 0 }
+  ],
+  "expect": {
+    "invalidPatchCount": 0,
+    "replayStages": ["normalize_request", "initial_day_slot_provider", "generate_day_slots", "decompose_intent_pools", "collect_candidates", "build_persistable_segment_plans", "create_itinerary_version", "basic_verifier", "deterministic_enrichment"],
+    "allowedFailedStages": ["basic_verifier"]
+  }
+}

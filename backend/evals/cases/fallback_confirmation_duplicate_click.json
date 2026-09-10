@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "同一规则安全选择重复提交时，第二次被幂等防线拒绝且不会新增版本。",
+  "scenarios": [{
+    "id": "fallback_confirmation_duplicate_click",
+    "city": "北京",
+    "turns": [
+      {"input": "10月1日北京一日游，中等预算，1人，公交地铁优先。", "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true, "controllerFailure": "timeout"}},
+      {"input": "确认规则安全草案", "selectedAgentChoiceAction": "confirm_rule_safe_draft", "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true}},
+      {"input": "重复确认", "selectedAgentChoiceFromTurn": 2, "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true}}
+    ],
+    "turnExpectations": [
+      {"terminalStatus": "needs_confirmation"},
+      {"terminalStatus": "needs_confirmation", "fallbackChoiceVersionDelta": 1},
+      {"terminalStatus": "failed", "fallbackChoiceVersionDelta": 1, "duplicateChoiceExecutionCount": 0}
+    ],
+    "expectedTerminalStatus": "failed",
+    "expectations": {"turnCount": 3, "fallbackChoiceVersionDelta": 1, "duplicateChoiceExecutionCount": 0, "choiceConsumedCount": 1}
+  }]
+}

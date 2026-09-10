@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Controller 超时后手动补充要求，保留原请求并仅调用一次恢复后的 Controller。",
+  "scenarios": [{
+    "id": "controller_timeout_manual_input",
+    "city": "北京",
+    "turns": [
+      {"input": "10月1日北京一日游，参观大学和美术馆，中等预算，1人，公交地铁优先。", "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true, "controllerFailure": "timeout"}},
+      {"input": "提交手动补充", "selectedAgentChoiceAction": "manual_continuation", "manualValue": "晚上增加夜景，但不要酒吧", "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true}}
+    ],
+    "turnExpectations": [
+      {"terminalStatus": "needs_confirmation"},
+      {"terminalStatus": "needs_confirmation", "choiceConsumedCount": 1, "ruleSafeDraftConfirmedCount": 0, "verifiedWriteCount": 1, "rollbackCount": 0}
+    ],
+    "expectations": {"turnCount": 2, "choiceConsumedCount": 1, "ruleSafeDraftConfirmedCount": 0, "effectiveUserMessageContainsOriginalTrip": true}
+  }]
+}

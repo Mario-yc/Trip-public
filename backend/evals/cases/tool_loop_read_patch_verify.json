@@ -1,0 +1,98 @@
+{
+  "id": "tool_loop_read_patch_verify",
+  "providerMode": "tool_loop",
+  "scenario": "tool_loop_read_patch_verify",
+  "title": "Tool-loop reads itinerary, patches itinerary, and records verifier trace",
+  "description": "Mock tool-loop provider executes read_itinerary then patch_itinerary and the harness records verifier trace.",
+  "mockAmapResponses": {},
+  "toolLoopScript": [
+    {
+      "toolCalls": [
+        {
+          "id": "call_read",
+          "name": "read_itinerary",
+          "arguments": {}
+        }
+      ]
+    },
+    {
+      "toolCalls": [
+        {
+          "id": "call_patch",
+          "name": "patch_itinerary",
+          "arguments": {
+            "operations": [
+              {
+                "op": "replace_itinerary",
+                "fullItinerary": {
+                  "title": "工具循环北京故宫 1 日游",
+                  "city": "北京",
+                  "templateType": "agent_mvp",
+                  "budgetEstimate": 60,
+                  "budgetDeltaExplanation": "离线 tool-loop eval 写入的估算。",
+                  "decisionRationale": "先读取 itinerary，再通过 patch_itinerary 写入。",
+                  "status": "draft",
+                  "days": [
+                    {
+                      "id": "day_tool_1",
+                      "dayNumber": 1,
+                      "title": "故宫博物院",
+                      "weatherSummary": "",
+                      "riskSummary": "",
+                      "totalEstimatedCost": 60,
+                      "segments": [
+                        {
+                          "id": "seg_tool_1",
+                          "startTime": "09:00",
+                          "endTime": "11:00",
+                          "kind": "activity",
+                          "poi": {
+                            "id": "poi_tool_1",
+                            "amapId": "B000PALACE",
+                            "name": "故宫博物院",
+                            "city": "北京市",
+                            "category": "scenic",
+                            "latitude": 39.918058,
+                            "longitude": 116.397026,
+                            "source": "amap-place-search",
+                            "confidence": 0.91
+                          },
+                          "transportMode": "walk",
+                          "estimatedCost": 60,
+                          "notes": "上午游览故宫博物院。"
+                        }
+                      ]
+                    }
+                  ],
+                  "routeOptions": [],
+                  "weatherSignals": [],
+                  "trafficCrowdingSignals": [],
+                  "ticketLookupResults": []
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "reply": "已先读取当前行程，再通过工具写入北京故宫 1 日游。"
+    }
+  ],
+  "steps": [
+    { "action": "create_session", "saveAs": "session", "payload": { "city": "北京", "title": "北京离线 Tool Loop Eval" } },
+    { "action": "send_agent_message", "saveAs": "first", "sessionIdFrom": "session.sessionId", "content": "用工具读取当前行程，然后写入故宫一日游" }
+  ],
+  "assertions": [
+    { "path": "first.statusCode", "equals": 200 },
+    { "path": "first.version", "exists": true },
+    { "path": "first.itinerary.title", "equals": "工具循环北京故宫 1 日游" },
+    { "path": "first.itinerary.days[].segments[].poi.amapId", "equalsList": ["B000PALACE"] },
+    { "path": "first.planningSteps[].label", "contains": "read_itinerary" },
+    { "path": "first.planningSteps[].label", "contains": "patch_itinerary" }
+  ],
+  "expect": {
+    "invalidPatchCount": 0,
+    "replayStages": ["plan", "resolve_poi", "apply_patch", "verify", "respond"]
+  }
+}

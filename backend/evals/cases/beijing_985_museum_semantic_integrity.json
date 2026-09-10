@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "A real AMap identity must also satisfy the requested museum semantics before it can cover the goal.",
+  "defaultMockMapProvider": {"enabled": true, "mockRouteRefresh": true, "trustedPoiFixtures": true},
+  "scenarios": [{
+    "id": "beijing_985_museum_semantic_integrity",
+    "city": "北京",
+    "input": "10月1日到2日北京两日游，必须参观985大学和美术馆，公交地铁优先。",
+    "expectations": {
+      "mustCreateTimeline": true,
+      "requiredIntentPoolCoverage": {"campus_visit": "covered", "museum": "covered"},
+      "museumSemanticMismatchSelectedCount": 0,
+      "requiredPoolsMustPrecedeOptional": true,
+      "goalClaimMismatchCount": 0,
+      "verifierMustPass": true
+    }
+  }]
+}

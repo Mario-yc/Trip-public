@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "trip-recorded-controller-v1",
+  "recordedAt": "2026-07-13T00:00:00Z",
+  "sanitization": "Provider metadata and credentials removed; parsed JSON decision retained.",
+  "decisions": [{
+    "schemaVersion": "agent-decision-v2",
+    "primaryAction": "patch_itinerary",
+    "confidence": 0.97,
+    "decisionSummary": "唯一安全候选为清华大学，替换待确认 segment。",
+    "requiredTools": ["patch_itinerary"],
+    "requiredCapabilities": ["candidate_identity", "versioned_write"],
+    "actionDirective": {
+      "type": "patch_itinerary",
+      "operationIntent": "replace_segment_poi_from_candidate",
+      "baseVersionId": "ver_recorded",
+      "targetSegmentIds": ["seg_recorded"],
+      "requestedOutcome": "使用唯一安全候选",
+      "preserve": ["other_segments"],
+      "maxChangedSegmentCount": 1,
+      "candidateId": "candidate_recorded",
+      "amapPoiId": "B000A7BD6C"
+    },
+    "proposedWriteRisk": "medium",
+    "targetScope": {
+      "baseVersionId": "ver_recorded",
+      "segmentIds": ["seg_recorded"],
+      "operationScope": "replace_segment_poi_from_candidate",
+      "candidateId": "candidate_recorded",
+      "amapPoiId": "B000A7BD6C"
+    },
+    "stopCondition": {"type": "verified_patch"}
+  }]
+}

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Full timeout 后 Lite 决策成功并进入 staged initial pipeline。",
+  "scenarios": [{
+    "id": "controller_lite_success_initial_draft",
+    "city": "北京",
+    "turns": [{
+      "input": "10月1日北京一日游，参观大学和美术馆，中等预算，1人，公交地铁优先。",
+      "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true, "controllerFailure": "timeout", "controllerLiteMode": "success"}
+    }],
+    "expectations": {"controllerFullCallCount": 1, "controllerFullSuccessCount": 0, "controllerLiteCallCount": 1, "controllerLiteSuccessCount": 1, "verifiedWriteCount": 1, "rollbackCount": 0, "actualExecutionRoute": "staged_initial_pipeline"}
+  }]
+}

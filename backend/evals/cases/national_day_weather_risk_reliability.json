@@ -1,0 +1,69 @@
+{
+  "id": "national_day_weather_risk_reliability",
+  "scenario": "agent_message",
+  "title": "National Day future-date reliability",
+  "description": "A National Day request should keep the future travel date explicit and create an editable itinerary without treating today's weather as holiday weather.",
+  "mockAmapResponses": {
+    "故宫": {
+      "id": "B000PALACE",
+      "name": "故宫",
+      "type": "风景名胜",
+      "cityname": "北京市",
+      "adname": "东城区",
+      "address": "高德地址",
+      "location": "116.397026,39.918058",
+      "photos": []
+    }
+  },
+  "agentProviderPayloads": [
+    {
+      "reply": "已生成国庆北京 1 日草案，天气和景区公告需临近出行核对。",
+      "mode": "full_itinerary",
+      "operations": [],
+      "fullItinerary": {
+        "title": "国庆北京 1 日草案",
+        "city": "北京",
+        "days": [
+          {
+            "dayNumber": 1,
+            "date": "2026-10-01",
+            "title": "国庆核心景点",
+            "segments": [
+              {
+                "poiName": "故宫",
+                "category": "scenic",
+                "startTime": "09:00",
+                "durationMinutes": 90,
+                "notes": "国庆限流、预约和天气需核对官方公告。",
+                "estimatedCost": 60
+              }
+            ]
+          }
+        ]
+      },
+      "poiResolutionRequests": [{ "name": "故宫", "category": "scenic" }],
+      "warnings": ["forecast_not_supported_yet"]
+    }
+  ],
+  "steps": [
+    { "action": "create_session", "saveAs": "session", "payload": { "city": "北京", "title": "国庆可靠性 Eval" } },
+    {
+      "action": "send_agent_message",
+      "saveAs": "first",
+      "sessionIdFrom": "session.sessionId",
+      "content": "国庆节安排北京旅行，帮我查限流风险，不要把今天的天气当国庆天气。",
+      "context": { "selectedDayNumber": 1 }
+    }
+  ],
+  "assertions": [
+    { "path": "first.statusCode", "equals": 200 },
+    { "path": "first.version", "exists": true },
+    { "path": "first.itinerary.days[].date", "contains": "2026-10-01" },
+    { "path": "first.itinerary.days[].segments[].poi.amapId", "equalsList": ["B000PALACE"] },
+    { "path": "first.pendingPoiCandidates", "lengthEquals": 0 }
+  ],
+  "expect": {
+    "invalidPatchCount": 0,
+    "replayStages": ["plan", "resolve_poi", "apply_patch", "verify", "respond"]
+  }
+}

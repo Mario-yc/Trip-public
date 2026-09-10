@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Controller 重试再次超时后产生 attempt=2 的新 nonce 选择，旧选择已消费且不递归执行。",
+  "scenarios": [{
+    "id": "controller_timeout_retry_timeout_again",
+    "city": "北京",
+    "turns": [
+      {"input": "10月1日北京一日游，参观大学和美术馆，中等预算，1人，公交地铁优先。", "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "controllerFailure": "timeout"}},
+      {"input": "重试模型规划", "selectedAgentChoiceAction": "retry_model_planning", "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "controllerFailure": "timeout"}}
+    ],
+    "turnExpectations": [
+      {"terminalStatus": "needs_confirmation", "controllerFallbackCount": 1},
+      {"terminalStatus": "needs_confirmation", "controllerRetryCount": 1, "choiceConsumedCount": 1, "ruleSafeDraftConfirmedCount": 0, "fallbackChoiceVersionDelta": 0, "repeatedSameClarificationCount": 0}
+    ],
+    "expectations": {"turnCount": 2, "controllerRetryCount": 1, "choiceConsumedCount": 1, "fallbackChoiceVersionDelta": 0, "repeatedSameClarificationCount": 0}
+  }]
+}

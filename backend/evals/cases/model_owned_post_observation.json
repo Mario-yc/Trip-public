@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Cycle 0 draft is followed by persisted Cycle 1 POI resolution and Cycle 2 candidate arbitration.",
+  "defaultMockMapProvider": {"enabled": true, "mockRouteRefresh": true, "trustedPoiFixtures": true},
+  "scenarios": [{
+    "id": "model_owned_post_observation",
+    "city": "北京",
+    "input": "10月1日北京一日游，参观大学和美术馆，中等预算，1人，公交地铁优先。",
+    "expectations": {
+      "agentDecisionSource": "controller", "modelPrimaryDecisionRatio": 1.0,
+      "plannerCalledOnHealthyControllerCount": 0, "deterministicInitialPlanUsedCount": 0,
+      "actionDirectiveModelCount": 3, "postObservationDecisionCount": 2,
+      "unexecutedAcceptedContinuingDecisionCount": 0,
+      "executionRouteMismatchCount": 0, "verifierMustPass": true,
+      "terminalStatus": "needs_confirmation"
+    }
+  }]
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Model can see only persisted safe candidate IDs and asks on a material tradeoff without writing.",
+  "defaultMockMapProvider": {"enabled": true, "trustedPoiFixtures": true},
+  "scenarios": [{
+    "id": "model_owned_candidate_arbitration",
+    "city": "北京",
+    "seedItinerary": {
+      "title": "候选选择行程", "city": "北京", "templateType": "agent_mvp", "budgetTarget": 500,
+      "budgetEstimate": 0, "budgetDeltaExplanation": "seed", "decisionRationale": "seed", "status": "draft",
+      "days": [{"id": "day_candidate_1", "dayNumber": 1, "date": "2026-10-01", "title": "Day 1", "weatherSummary": "", "riskSummary": "", "segments": [{
+        "id": "seg_candidate_1", "startTime": "18:00", "endTime": "19:00", "kind": "meal", "intentType": "meal",
+        "poi": {"id": "pending_meal", "name": "晚餐待确认", "city": "北京", "category": "food", "latitude": null, "longitude": null, "source": "agent-text-timeline", "confidence": 0.2, "groundingStatus": "waiting_for_poi_grounding", "photos": []},
+        "transportMode": "public_transit", "estimatedCost": 0, "notes": "requiredGrounding=true；groundingStatus：waiting_for_poi_grounding"
+      }]}], "routeOptions": [], "weatherSignals": [], "trafficCrowdingSignals": [], "ticketLookupResults": []
+    },
+    "seedPendingPoiCandidates": [{
+      "id": "candidate_material_tradeoff", "query": "北京特色晚餐", "category": "food",
+      "candidates": [
+        {"id": "amap_candidate_near", "amapId": "amap_candidate_near", "name": "近路线餐厅", "district": "东城区", "category": "food", "confidence": 0.91},
+        {"id": "amap_candidate_budget", "amapId": "amap_candidate_budget", "name": "预算友好餐厅", "district": "西城区", "category": "food", "confidence": 0.90},
+        {"id": "amap_candidate_novel", "amapId": "amap_candidate_novel", "name": "特色体验餐厅", "district": "朝阳区", "category": "food", "confidence": 0.89}
+      ]
+    }],
+    "turns": [{"input": "这几个晚餐候选差异明显，先让我选择，不要直接改时间轴。"}],
+    "turnExpectations": [{
+      "agentDecisionEventRequired": true, "agentDecisionPrimaryAction": "ask_user", "agentDecisionSource": "controller",
+      "agentDecisionPolicyAccepted": true, "modelPrimaryDecisionRatio": 1.0,
+      "plannerCalledOnHealthyControllerCount": 0, "timelineParserPreDecisionCount": 0,
+      "controllerFallbackWriteCount": 0, "genericToolLoopWithoutAcceptedDecisionCount": 0,
+      "actionDirectiveModelCount": 1
+    }],
+    "expectations": {"turnCount": 1, "activeVersionChangeCount": 0, "modelPrimaryDecisionRatio": 1.0}
+  }]
+}

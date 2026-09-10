@@ -1,0 +1,560 @@
+{
+  "selectedCity": "北京",
+  "serverExecutionProfile": "simple_open_v1",
+  "simpleOpenInitialRequestSufficient": true,
+  "resolvedTripDates": {
+    "status": "resolved",
+    "startDate": "2026-10-10",
+    "endDate": "2026-10-10",
+    "dates": [
+      "2026-10-10"
+    ],
+    "source": "latestUserMessage",
+    "datePrecision": "exact_date",
+    "holidayName": null,
+    "holidayInferred": false,
+    "exactOfficialHolidayCalendar": false,
+    "weatherForecastSupported": false,
+    "reason": "date_outside_supported_forecast_window",
+    "weatherStatus": "outside_forecast_window",
+    "forecastAvailableFrom": "2026-10-07",
+    "weatherNextAction": "enable_auto_refresh"
+  },
+  "requestIntentContract": {
+    "cardinalityLimitations": [],
+    "clarificationDimensions": [],
+    "clarificationReason": null,
+    "clarificationRequired": false,
+    "completionCriteria": [],
+    "dayCount": 1,
+    "editableDefaults": [
+      {
+        "dimensionId": "route_decision.detour_tolerance",
+        "editable": true,
+        "label": "均衡路线",
+        "source": "server_safe_default_v1",
+        "userConfirmed": false
+      }
+    ],
+    "entityQualificationConstraint": null,
+    "experienceSpecs": [],
+    "explicitRestDayNumbers": [],
+    "foodExperienceGoal": null,
+    "hardConstraints": [],
+    "localExperienceConstraint": null,
+    "lockedEntities": [],
+    "negativeConstraints": [],
+    "optionalIntents": [],
+    "planningRequestEnvelope": {
+      "city": "北京",
+      "requestContractFingerprint": "f5c2e17acb6a0e50d6f7878bdbe713eff4803402c47dfe8b256039eb5e6a98a7",
+      "resolvedTripDates": {
+        "dates": [
+          "2026-10-10"
+        ],
+        "endDate": "2026-10-10",
+        "source": "latestUserMessage",
+        "startDate": "2026-10-10",
+        "status": "resolved"
+      },
+      "schemaVersion": "planning-request-envelope-v1",
+      "sourcePlanningRootTurnId": "turn_req_bb8c2f12357f669f8977208a9a2418b05c003548731b4022d25affc94ef9a8cc"
+    },
+    "requestActivityCoverage": {
+      "activities": [
+        {
+          "allowedDayNumbers": [
+            1
+          ],
+          "clauseId": "request_clause_2",
+          "dayPart": "morning",
+          "end": 24,
+          "goalId": "goal_request_2_1",
+          "intentType": "park",
+          "minCount": 1,
+          "polarity": "required",
+          "sourceText": "景山公园",
+          "start": 20
+        }
+      ],
+      "classifiedClauses": [
+        {
+          "classification": "context",
+          "clauseId": "request_clause_1"
+        },
+        {
+          "activities": [
+            {
+              "allowedDayNumbers": [
+                1
+              ],
+              "dayPart": "morning",
+              "goalId": "goal_request_2_1",
+              "intentType": "park",
+              "minCount": 1,
+              "polarity": "required",
+              "sourceText": "景山公园"
+            }
+          ],
+          "classification": "activity",
+          "clauseId": "request_clause_2"
+        },
+        {
+          "classification": "constraint",
+          "clauseId": "request_clause_3"
+        },
+        {
+          "classification": "constraint",
+          "clauseId": "request_clause_4"
+        },
+        {
+          "classification": "constraint",
+          "clauseId": "request_clause_5"
+        },
+        {
+          "classification": "constraint",
+          "clauseId": "request_clause_6"
+        },
+        {
+          "classification": "constraint",
+          "clauseId": "request_clause_7"
+        },
+        {
+          "classification": "instruction",
+          "clauseId": "request_clause_8"
+        }
+      ],
+      "clauses": [
+        {
+          "clauseId": "request_clause_1",
+          "end": 17,
+          "goalIds": [
+            "goal_request_1_1",
+            "goal_request_1_2"
+          ],
+          "start": 0,
+          "text": "2026年10月10日在北京一日游"
+        },
+        {
+          "clauseId": "request_clause_2",
+          "end": 24,
+          "goalIds": [
+            "goal_request_2_1",
+            "goal_request_2_2"
+          ],
+          "start": 18,
+          "text": "只去景山公园"
+        },
+        {
+          "clauseId": "request_clause_3",
+          "end": 36,
+          "goalIds": [
+            "goal_request_3_1",
+            "goal_request_3_2"
+          ],
+          "start": 25,
+          "text": "上午9点开始游览1小时"
+        },
+        {
+          "clauseId": "request_clause_4",
+          "end": 42,
+          "goalIds": [
+            "goal_request_4_1",
+            "goal_request_4_2"
+          ],
+          "start": 37,
+          "text": "1位成年人"
+        },
+        {
+          "clauseId": "request_clause_5",
+          "end": 49,
+          "goalIds": [
+            "goal_request_5_1",
+            "goal_request_5_2"
+          ],
+          "start": 43,
+          "text": "预算200元"
+        },
+        {
+          "clauseId": "request_clause_6",
+          "end": 52,
+          "goalIds": [
+            "goal_request_6_1",
+            "goal_request_6_2"
+          ],
+          "start": 50,
+          "text": "步行"
+        },
+        {
+          "clauseId": "request_clause_7",
+          "end": 63,
+          "goalIds": [
+            "goal_request_7_1",
+            "goal_request_7_2"
+          ],
+          "start": 53,
+          "text": "不需要餐饮或其他景点"
+        },
+        {
+          "clauseId": "request_clause_8",
+          "end": 72,
+          "goalIds": [
+            "goal_request_8_1",
+            "goal_request_8_2"
+          ],
+          "start": 64,
+          "text": "请生成可编辑行程"
+        }
+      ],
+      "goalRebinding": {
+        "goal_park": "goal_request_2_1"
+      },
+      "schemaVersion": "request-activity-coverage-v1",
+      "sourceFingerprint": "7b5d2d636bdfb8709e059d6d1692476fcf2466d6701fba73ebdce2e90d3be239",
+      "sourceText": "2026年10月10日在北京一日游，只去景山公园，上午9点开始游览1小时，1位成年人，预算200元，步行，不需要餐饮或其他景点。请生成可编辑行程。",
+      "status": "complete"
+    },
+    "requiredIntents": [
+      {
+        "allowedDayNumbers": [
+          1
+        ],
+        "cardinalitySource": "full_source_clause_coverage",
+        "distributionPolicy": "every_allowed_day",
+        "goalId": "goal_request_2_1",
+        "intentType": "park",
+        "maxCount": 1,
+        "minCount": 1,
+        "preferredCount": 1,
+        "priorityTier": "hard",
+        "rawNeed": "景山公园",
+        "requiredMin": 1,
+        "requirementLevel": "required",
+        "schedulePreference": {
+          "dayPart": "morning",
+          "preferredDayNumbers": [
+            1
+          ],
+          "priority": "hard",
+          "sourceGoalId": "goal_request_2_1",
+          "userExplicit": true
+        },
+        "source": "full_source_clause_coverage",
+        "sourceClauseId": "request_clause_2",
+        "target": 1,
+        "timeWindow": null,
+        "userExplicit": true
+      }
+    ],
+    "requiredPlanningDayNumbers": [
+      1
+    ],
+    "routeDecisionContract": {
+      "adjacentLegConstraint": {
+        "candidateSearchRadiusMeters": 8000.0,
+        "maxProviderTravelMinutes": 60.0
+      },
+      "adjacentLegConstraintSource": "versioned_product_travel_quality_floor",
+      "detourTolerance": {
+        "maxDetourRatio": 0.35,
+        "maxGeneralizedCostDelta": 35.0
+      },
+      "detourToleranceSource": "server_safe_default_v1",
+      "editableDefaults": [
+        {
+          "dimensionId": "route_decision.detour_tolerance",
+          "editable": true,
+          "label": "均衡路线",
+          "source": "server_safe_default_v1",
+          "userConfirmed": false
+        }
+      ],
+      "fingerprint": "d10c438bd7f27e72b6e529dd392f3b05178a7f2f34cc90c6d64fa2e1b4b46f2d",
+      "missingFields": [],
+      "mobilityProfile": {
+        "riskPenaltyMultiplier": 1.0,
+        "source": "explicit_request_mobility_semantics",
+        "transferPenaltyMinutes": 0.0,
+        "waitTimeMultiplier": 0.0,
+        "walkingPenaltyMinutesPerKm": 1.0
+      },
+      "provenance": {
+        "detourToleranceIntentTypes": [
+          "server_safe_default_v1"
+        ],
+        "mobilitySensitive": false,
+        "requestSemanticsPresent": true,
+        "transportMode": "walking",
+        "travelQualityFloor": {
+          "candidateSearchRadiusMeters": 8000.0,
+          "doesNotChangeDetourChoice": true,
+          "maxProviderTravelMinutes": 60.0,
+          "policyScope": "adjacent_travel_stop_reasonableness"
+        }
+      },
+      "schemaVersion": "route-decision-contract-v2",
+      "source": "request_intent_contract",
+      "status": "ready",
+      "topologyConstraint": {
+        "maxBacktrackRatio": 0.15
+      },
+      "topologyConstraintSource": "versioned_product_policy"
+    },
+    "spatialPreference": null,
+    "successCriteria": [
+      "all required intents are covered or explicitly reported as unresolved",
+      "unexpectedIntentCount=0",
+      "scheduleOverlapCount=0",
+      "assistant claims match the final persisted snapshot"
+    ],
+    "systemCreativeVariant": null,
+    "userRequestedThemes": [
+      "park"
+    ]
+  },
+  "understoodRequirements": {
+    "summary": "目的地：北京；天数：1 天；出行日期：2026年10月10日；预算：200 元；同行人数：1 人；交通：步行；旅行目的：公园休闲；偏好：用户预算约 200 左右。",
+    "fields": {
+      "destination": "北京",
+      "travelDays": "1 天",
+      "travelDate": "2026-10-10",
+      "budget": "200 元",
+      "partySize": "1 人",
+      "transportPreference": "步行",
+      "travelPurpose": "公园休闲"
+    },
+    "missingFields": [],
+    "isCompleteEnoughToPlan": true,
+    "clarificationQuestions": [],
+    "preferenceImpact": "把预算作为软约束并解释费用偏差",
+    "experienceIntent": {
+      "schemaVersion": "experience-intent-v1",
+      "tripThesis": "在真实证据与路线约束内组织用户表达的体验主线",
+      "desiredSignals": [],
+      "avoidSignals": [],
+      "decisionAxes": [
+        "classic"
+      ],
+      "allowedExperienceShapes": [
+        "single_poi"
+      ],
+      "fingerprint": "7afaca8ba894c7bc7612053de7738b104e765cd5bcae07e1919d300dd28e4aae"
+    },
+    "experienceIntentFingerprint": "7afaca8ba894c7bc7612053de7738b104e765cd5bcae07e1919d300dd28e4aae",
+    "highImpactAmbiguityDetected": false,
+    "clarificationDecisionSource": "deterministic_context_inference",
+    "experienceIntentClarificationOptions": [],
+    "experienceIntentClarificationDimensionId": "",
+    "desiredSignalCount": 0,
+    "avoidSignalCount": 0,
+    "agentPlan": {
+      "plannerVersion": "model-decision-v2",
+      "intent": "draft_itinerary",
+      "taskType": "initial_planning",
+      "taskRoute": "initial_staged_pipeline",
+      "writeIntent": "create",
+      "requiresPoiResolution": true,
+      "requiresPatch": true,
+      "requiresRollback": false,
+      "requiresRealtimeInfo": false,
+      "readOnly": false,
+      "allowedTools": [
+        "patch_itinerary",
+        "resolve_poi"
+      ],
+      "toolStrategy": {
+        "mode": "required_sequence",
+        "requiredToolSequence": [
+          "patch_itinerary",
+          "resolve_poi"
+        ]
+      },
+      "qualityFocus": [],
+      "hasCurrentItinerary": false,
+      "hasPendingPoiCandidates": false,
+      "expectedHarnessStages": [
+        "staged_initial_pipeline"
+      ],
+      "riskControls": [
+        "policy_gate",
+        "versioned_write_guard",
+        "verifier"
+      ],
+      "items": []
+    }
+  },
+  "effectiveUserMessage": "2026年10月10日在北京一日游，只去景山公园，上午9点开始游览1小时，1位成年人，预算200元，步行，不需要餐饮或其他景点。请生成可编辑行程。",
+  "latestUserMessage": "2026年10月10日在北京一日游，只去景山公园，上午9点开始游览1小时，1位成年人，预算200元，步行，不需要餐饮或其他景点。请生成可编辑行程。",
+  "agentDecisionState": {
+    "source": "controller",
+    "controlOwner": "model_controller",
+    "decisionPath": "full",
+    "primaryAction": "draft_itinerary",
+    "accepted": true,
+    "actionDirective": {
+      "type": "draft_itinerary",
+      "requestCoverage": [
+        {
+          "clauseId": "request_clause_1",
+          "classification": "context",
+          "activities": []
+        },
+        {
+          "clauseId": "request_clause_2",
+          "classification": "activity",
+          "activities": [
+            {
+              "goalId": "goal_request_2_1",
+              "sourceText": "景山公园",
+              "intentType": "park",
+              "polarity": "required",
+              "allowedDayNumbers": [
+                1
+              ],
+              "minCount": 1,
+              "dayPart": "morning"
+            }
+          ]
+        },
+        {
+          "clauseId": "request_clause_3",
+          "classification": "constraint",
+          "activities": []
+        },
+        {
+          "clauseId": "request_clause_4",
+          "classification": "constraint",
+          "activities": []
+        },
+        {
+          "clauseId": "request_clause_5",
+          "classification": "constraint",
+          "activities": []
+        },
+        {
+          "clauseId": "request_clause_6",
+          "classification": "constraint",
+          "activities": []
+        },
+        {
+          "clauseId": "request_clause_7",
+          "classification": "constraint",
+          "activities": []
+        },
+        {
+          "clauseId": "request_clause_8",
+          "classification": "instruction",
+          "activities": []
+        }
+      ],
+      "goalPriority": [],
+      "dayStrategies": [
+        {
+          "dayNumber": 1,
+          "theme": "景山公园游览",
+          "requiredGoalIds": [
+            "goal_request_2_1"
+          ],
+          "requiredGoalCounts": {},
+          "optionalGoalIds": [],
+          "pace": "relaxed",
+          "maxRouteAnchors": 1
+        }
+      ],
+      "optionalExperienceBudget": 0,
+      "searchPriority": [],
+      "candidateSelectionPolicy": {
+        "autoSelectWhenDominant": true,
+        "askWhenMaterialTradeoff": true,
+        "preferLowDetour": true,
+        "avoidRecentEntities": true
+      },
+      "schedulePolicy": {
+        "respectOpeningWindowsWhenKnown": true,
+        "allowProvisionalWhenUnknown": true
+      },
+      "routePlanningPolicy": {
+        "objective": "least_generalized_cost",
+        "source": "controller_estimate",
+        "allowExperienceDetour": false,
+        "detourEnvelope": {
+          "maxGeneralizedCostDelta": 0.0,
+          "maxDetourRatio": 1.0
+        },
+        "mobilityProfile": {
+          "transportMode": "walking",
+          "paceClass": "relaxed"
+        }
+      },
+      "occurrenceScheduleHints": [
+        {
+          "goalId": "goal_request_2_1",
+          "dayNumber": 1,
+          "dayPart": "morning",
+          "sequence": 1,
+          "preferredStartTime": "09:00",
+          "durationEstimate": {
+            "min": 60,
+            "preferred": 60,
+            "max": 60
+          },
+          "estimateSource": "controller_estimate",
+          "confidence": 1.0
+        }
+      ],
+      "routeGapSupplementHints": []
+    }
+  },
+  "routeDecisionContract": {
+    "schemaVersion": "route-decision-contract-v2",
+    "source": "request_intent_contract",
+    "status": "ready",
+    "missingFields": [],
+    "detourTolerance": {
+      "maxGeneralizedCostDelta": 35.0,
+      "maxDetourRatio": 0.35
+    },
+    "detourToleranceSource": "server_safe_default_v1",
+    "mobilityProfile": {
+      "source": "explicit_request_mobility_semantics",
+      "walkingPenaltyMinutesPerKm": 1.0,
+      "transferPenaltyMinutes": 0.0,
+      "waitTimeMultiplier": 0.0,
+      "riskPenaltyMultiplier": 1.0
+    },
+    "provenance": {
+      "detourToleranceIntentTypes": [
+        "server_safe_default_v1"
+      ],
+      "mobilitySensitive": false,
+      "requestSemanticsPresent": true,
+      "transportMode": "walking",
+      "travelQualityFloor": {
+        "candidateSearchRadiusMeters": 8000.0,
+        "doesNotChangeDetourChoice": true,
+        "maxProviderTravelMinutes": 60.0,
+        "policyScope": "adjacent_travel_stop_reasonableness"
+      }
+    },
+    "adjacentLegConstraint": {
+      "candidateSearchRadiusMeters": 8000.0,
+      "maxProviderTravelMinutes": 60.0
+    },
+    "adjacentLegConstraintSource": "versioned_product_travel_quality_floor",
+    "topologyConstraint": {
+      "maxBacktrackRatio": 0.15
+    },
+    "topologyConstraintSource": "versioned_product_policy",
+    "fingerprint": "d10c438bd7f27e72b6e529dd392f3b05178a7f2f34cc90c6d64fa2e1b4b46f2d",
+    "editableDefaults": [
+      {
+        "dimensionId": "route_decision.detour_tolerance",
+        "label": "均衡路线",
+        "source": "server_safe_default_v1",
+        "editable": true,
+        "userConfirmed": false
+      }
+    ]
+  },
+  "experienceSpecs": []
+}

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "entity-qualification-evidence-v1",
+  "source": {"publisher": "中华人民共和国教育部", "url": "https://www.moe.gov.cn/srcsite/A22/s7065/200612/t20061206_128833.html", "publishedDate": "2006-12-06", "retrievedDate": "2026-08-23", "contentVersion": "moe-985-list-v1"},
+  "qualificationScheme": "moe_project_classification",
+  "qualificationValue": "985",
+  "entities": [
+    {"canonicalName":"北京大学","locality":"北京"},{"canonicalName":"清华大学","locality":"北京"},{"canonicalName":"中国人民大学","locality":"北京"},{"canonicalName":"北京航空航天大学","locality":"北京"},{"canonicalName":"北京理工大学","locality":"北京"},{"canonicalName":"中国农业大学","locality":"北京"},{"canonicalName":"北京师范大学","locality":"北京"},{"canonicalName":"中央民族大学","locality":"北京"},
+    {"canonicalName":"南开大学","locality":"天津"},{"canonicalName":"天津大学","locality":"天津"},{"canonicalName":"大连理工大学","locality":"大连"},{"canonicalName":"东北大学","locality":"沈阳"},{"canonicalName":"吉林大学","locality":"长春"},{"canonicalName":"哈尔滨工业大学","locality":"哈尔滨"},
+    {"canonicalName":"复旦大学","locality":"上海"},{"canonicalName":"同济大学","locality":"上海"},{"canonicalName":"上海交通大学","locality":"上海"},{"canonicalName":"华东师范大学","locality":"上海"},{"canonicalName":"南京大学","locality":"南京"},{"canonicalName":"东南大学","locality":"南京"},{"canonicalName":"浙江大学","locality":"杭州"},{"canonicalName":"中国科学技术大学","locality":"合肥"},{"canonicalName":"厦门大学","locality":"厦门"},{"canonicalName":"山东大学","locality":"济南"},{"canonicalName":"中国海洋大学","locality":"青岛"},
+    {"canonicalName":"武汉大学","locality":"武汉"},{"canonicalName":"华中科技大学","locality":"武汉"},{"canonicalName":"湖南大学","locality":"长沙"},{"canonicalName":"中南大学","locality":"长沙"},{"canonicalName":"国防科技大学","locality":"长沙"},{"canonicalName":"中山大学","locality":"广州"},{"canonicalName":"华南理工大学","locality":"广州"},{"canonicalName":"四川大学","locality":"成都"},{"canonicalName":"电子科技大学","locality":"成都"},{"canonicalName":"重庆大学","locality":"重庆"},{"canonicalName":"西安交通大学","locality":"西安"},{"canonicalName":"西北工业大学","locality":"西安"},{"canonicalName":"西北农林科技大学","locality":"咸阳"},{"canonicalName":"兰州大学","locality":"兰州"}
+  ]
+}

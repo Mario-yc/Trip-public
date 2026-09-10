@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Project Agent CLI multi-turn gate for structured cafeteria candidate selection.",
+  "scenarios": [
+    {
+      "id": "beijing_structured_cafeteria_choice",
+      "city": "北京",
+      "turns": [
+        {
+          "input": "今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食",
+          "mockProviders": true,
+          "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true}
+        },
+        {
+          "input": "将第一天的护国寺小吃改为去清华学校里面的食堂吃",
+          "mockProviders": true,
+          "mockMapProvider": {"recordedFixture": "backend/evals/fixtures/beijing_amap_sanitized_recording.json"}
+        },
+        {
+          "input": "选择第二个候选",
+          "mockProviders": true,
+          "mockMapProvider": {"enabled": true}
+        }
+      ],
+      "turnExpectations": [
+        {"mustCreateTimeline": true},
+        {"terminalStatus": "needs_confirmation", "localPoiOptionCount": 3, "localPoiManualOptionMustBeAvailable": true},
+        {"changedSegmentCount": 1, "verifierMustPass": true}
+      ],
+      "expectations": {
+        "turnCount": 3,
+        "activeVersionChangeCount": 1,
+        "changedSegmentCount": 1,
+        "mustUseDeterministicTimelineCommand": true,
+        "mustNotEnterToolLoop": true,
+        "verifierMustPass": true
+      }
+    }
+  ]
+}

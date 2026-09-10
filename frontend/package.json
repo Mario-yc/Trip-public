@@ -1,0 +1,40 @@
+{
+  "name": "trip-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" \"tests/**/*.{ts,tsx}\"",
+    "format:check": "prettier --check eslint.config.js .prettierrc.json package.json tsconfig.json vite.config.ts"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "motion": "^12.42.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@testing-library/jest-dom": "^6.4.0",
+    "@testing-library/react": "^16.0.0",
+    "@types/node": "^22.20.1",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "jsdom": "^24.1.0",
+    "prettier": "^3.8.4",
+    "typescript": "^5.5.0",
+    "typescript-eslint": "^8.61.1",
+    "vite": "^5.4.0",
+    "vitest": "^2.0.0"
+  }
+}

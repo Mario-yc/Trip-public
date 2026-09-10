@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Remove uses the same local mutation transaction channel.",
+  "scenarios": [{
+    "id": "timeline_mutation_remove_segment", "city": "北京",
+    "seedItinerary": {"title": "remove", "city": "北京", "templateType": "agent_mvp", "budgetEstimate": 0, "budgetDeltaExplanation": "fixture", "decisionRationale": "fixture", "status": "draft", "days": [{"id": "day_tmr_1", "dayNumber": 1, "date": "2026-10-01", "title": "Day 1", "weatherSummary": "", "riskSummary": "", "segments": [{"id": "seg_tmr_campus", "startTime": "09:00", "endTime": "10:30", "kind": "visit", "poi": {"id": "poi_tmr_campus", "amapId": "B0PKU", "name": "北京大学", "city": "北京", "category": "education", "type": "科教文化服务;学校;高等院校", "latitude": 39.99, "longitude": 116.31, "source": "amap-place-search", "confidence": 0.95, "photos": []}, "transportMode": "walking", "estimatedCost": 0, "notes": "高校"}, {"id": "seg_tmr_museum", "startTime": "16:15", "endTime": "17:45", "kind": "visit", "poi": {"id": "poi_tmr_museum", "amapId": "B0MUSEUM", "name": "美术馆", "city": "北京", "category": "museum", "type": "科教文化服务;博物馆", "latitude": 40.0, "longitude": 116.3, "source": "amap-place-search", "confidence": 0.95, "intentType": "museum", "photos": []}, "transportMode": "walking", "estimatedCost": 0, "semanticMetadata": {"intentType": "museum", "groundingStatus": "selected", "aliases": ["美术馆", "博物馆"]}, "notes": "美术馆"}]}], "routeOptions": [], "weatherSignals": [], "trafficCrowdingSignals": [], "ticketLookupResults": []},
+    "turns": [{"input": "删除第一天的美术馆", "mockMapProvider": {"enabled": true, "skipRouteRefresh": true}}],
+    "expectations": {"localMutationDetected": true, "timelineMutationStatus": "success", "controllerFullCallCount": 0, "controllerLiteCallCount": 0, "versionDelta": 1, "patchDelta": 1, "postconditionMustPass": true, "structuralVerifierMustPass": true, "falseTimelineMutationSuccessCount": 0, "maxAmapPoiExternalCalls": 0}
+  }]
+}

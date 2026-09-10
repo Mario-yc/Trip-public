@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Controller 超时后，用户显式确认规则安全草案；确认轮不再调用 Controller，且只产生一个已验证版本。",
+  "scenarios": [{
+    "id": "controller_timeout_rule_safe_draft_confirmation",
+    "city": "北京",
+    "turns": [
+      {
+        "input": "10月1日北京一日游，参观大学和美术馆，中等预算，1人，公交地铁优先。",
+        "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true, "controllerFailure": "timeout"}
+      },
+      {
+        "input": "执行已确认的规则安全草案",
+        "selectedAgentChoiceAction": "confirm_rule_safe_draft",
+        "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true, "controllerFailure": "timeout"}
+      }
+    ],
+    "turnExpectations": [
+      {"controllerFallbackCount": 1, "falseTimelineWriteEventCount": 0},
+      {"terminalStatus": "needs_confirmation", "ruleSafeDraftConfirmedCount": 1, "deterministicSafeDraftExecutionCount": 1, "fallbackChoiceVersionDelta": 1, "syntheticChoicePreferenceExtractionCount": 0, "verifiedWriteCount": 1, "rollbackCount": 0, "controllerFallbackCount": 0, "executionRouteMismatchCount": 0}
+    ],
+    "expectations": {"turnCount": 2, "ruleSafeDraftConfirmedCount": 1, "choiceConsumedCount": 1, "fallbackChoiceVersionDelta": 1, "syntheticChoicePreferenceExtractionCount": 0, "falseTimelineWriteEventCount": 0, "repeatedSameClarificationCount": 0}
+  }]
+}

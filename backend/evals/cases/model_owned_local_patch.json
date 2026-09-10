@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "A concrete local edit is selected by the model and compiled into a bounded patch executor.",
+  "defaultMockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true},
+  "scenarios": [{
+    "id": "model_owned_local_patch",
+    "city": "北京",
+    "seedItinerary": {
+      "title": "北京一日游", "city": "北京", "templateType": "agent_mvp", "budgetTarget": 500,
+      "budgetEstimate": 0, "budgetDeltaExplanation": "seed", "decisionRationale": "seed", "status": "draft",
+      "days": [{"id": "day_patch_1", "dayNumber": 1, "date": "2026-10-01", "title": "Day 1", "weatherSummary": "", "riskSummary": "", "segments": [{
+        "id": "seg_patch_1", "startTime": "10:00", "endTime": "12:00", "kind": "visit",
+        "poi": {"id": "B0PKU", "amapId": "B0PKU", "name": "北京大学", "city": "北京", "category": "campus", "type": "科教文化服务;学校", "latitude": 39.992, "longitude": 116.311, "source": "amap-place-search", "confidence": 0.95, "photos": []},
+        "transportMode": "public_transit", "estimatedCost": 0, "notes": "高校"
+      }]}], "routeOptions": [], "weatherSignals": [], "trafficCrowdingSignals": [], "ticketLookupResults": []
+    },
+    "turns": [{"input": "把第一天这个景点的开始时间改到九点，其他内容不要动。"}],
+    "turnExpectations": [{
+      "agentDecisionEventRequired": true, "agentDecisionPrimaryAction": "patch_itinerary", "agentDecisionSource": "controller",
+      "agentDecisionPolicyAccepted": true, "modelPrimaryDecisionRatio": 1.0, "plannerCalledOnHealthyControllerCount": 0,
+      "timelineParserPreDecisionCount": 0, "legacyPhaseRouterPreemptionCount": 0,
+      "genericToolLoopWithoutAcceptedDecisionCount": 0, "actionDirectiveModelCount": 1
+    }],
+    "expectations": {"turnCount": 1, "modelPrimaryDecisionRatio": 1.0, "plannerCalledOnHealthyControllerCount": 0}
+  }]
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "scenarios": [
+    {
+      "id": "agent_timeline_conversation_20260719_convergence",
+      "city": "北京",
+      "input": "今年国庆参观985大学两日游，然后去体验下北京当地博物馆陶冶情操。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食",
+      "recorded": {"controller": "runtime_mock", "map": "runtime_mock", "route": "runtime_mock"},
+      "mockMapProvider": {"trustedPoiFixtures": true, "trustedFoodForDeterministicEdit": true, "mockRouteRefresh": true},
+      "expectations": {
+        "agentDecisionEventRequired": true,
+        "agentDecisionPrimaryAction": "draft_itinerary",
+        "agentDecisionProposedExecutionRoute": "staged_initial_pipeline",
+        "terminalStatus": "needs_confirmation",
+        "proposalStageEvidenceUsed": 1,
+        "versionDelta": 0,
+        "patchDelta": 0,
+        "goalOccurrencePlanCount": 1,
+        "goalOccurrenceExpectedCount": 3,
+        "goalOccurrenceActualCount": 3,
+        "goalOccurrenceCoverageFailureCount": 0,
+        "dailyGoalCoverageFailureCount": 0,
+        "groundedExplicitMealOccurrenceExpectedCount": 1,
+        "groundedExplicitMealOccurrenceActualCount": 1,
+        "backendRegexOccurrenceDecisionCount": 0,
+        "controllerDayStrategyOccurrenceCount": 3,
+        "occurrenceEvidenceMissingCount": 0
+      }
+    }
+  ]
+}

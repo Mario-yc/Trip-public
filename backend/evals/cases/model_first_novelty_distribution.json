@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Twelve independent natural sessions gate full-itinerary signature diversity without relaxing verifier rules.",
+  "defaultMockMapProvider": {"enabled": true, "mockRouteRefresh": true, "trustedPoiFixtures": true, "trustedFoodForDeterministicEdit": true, "mealDiversitySeed": "model-first-novelty-v1"},
+  "aggregateExpectations": {"minFullItinerarySampleCount": 12, "minDistinctFullItinerarySignatures": 4, "maxFullItinerarySignatureShare": 0.35},
+  "scenarios": [
+    {"id":"model_first_novelty_01","city":"北京","input":"10月1日到2日北京高校两日游，晚上看夜景，沿途吃北京特色美食，公交地铁优先。","expectations":{"maxDuplicateMealBrandCount":0,"verifierMustPass":true}},
+    {"id":"model_first_novelty_02","city":"北京","input":"10月1日到2日北京高校两日游，晚上看夜景，沿途吃北京特色美食，公交地铁优先。","expectations":{"maxDuplicateMealBrandCount":0,"verifierMustPass":true}},
+    {"id":"model_first_novelty_03","city":"北京","input":"10月1日到2日北京高校两日游，晚上看夜景，沿途吃北京特色美食，公交地铁优先。","expectations":{"maxDuplicateMealBrandCount":0,"verifierMustPass":true}},
+    {"id":"model_first_novelty_04","city":"北京","input":"10月1日到2日北京高校两日游，晚上看夜景，沿途吃北京特色美食，公交地铁优先。","expectations":{"maxDuplicateMealBrandCount":0,"verifierMustPass":true}},
+    {"id":"model_first_novelty_05","city":"北京","input":"10月1日到2日北京高校两日游，晚上看夜景，沿途吃北京特色美食，公交地铁优先。","expectations":{"maxDuplicateMealBrandCount":0,"verifierMustPass":true}},
+    {"id":"model_first_novelty_06","city":"北京","input":"10月1日到2日北京高校两日游，晚上看夜景，沿途吃北京特色美食，公交地铁优先。","expectations":{"maxDuplicateMealBrandCount":0,"verifierMustPass":true}},
+    {"id":"model_first_novelty_07","city":"北京","input":"10月1日到2日北京高校两日游，晚上看夜景，沿途吃北京特色美食，公交地铁优先。","expectations":{"maxDuplicateMealBrandCount":0,"verifierMustPass":true}},
+    {"id":"model_first_novelty_08","city":"北京","input":"10月1日到2日北京高校两日游，晚上看夜景，沿途吃北京特色美食，公交地铁优先。","expectations":{"maxDuplicateMealBrandCount":0,"verifierMustPass":true}},
+    {"id":"model_first_novelty_09","city":"北京","input":"10月1日到2日北京高校两日游，晚上看夜景，沿途吃北京特色美食，公交地铁优先。","expectations":{"maxDuplicateMealBrandCount":0,"verifierMustPass":true}},
+    {"id":"model_first_novelty_10","city":"北京","input":"10月1日到2日北京高校两日游，晚上看夜景，沿途吃北京特色美食，公交地铁优先。","expectations":{"maxDuplicateMealBrandCount":0,"verifierMustPass":true}},
+    {"id":"model_first_novelty_11","city":"北京","input":"10月1日到2日北京高校两日游，晚上看夜景，沿途吃北京特色美食，公交地铁优先。","expectations":{"maxDuplicateMealBrandCount":0,"verifierMustPass":true}},
+    {"id":"model_first_novelty_12","city":"北京","input":"10月1日到2日北京高校两日游，晚上看夜景，沿途吃北京特色美食，公交地铁优先。","expectations":{"maxDuplicateMealBrandCount":0,"verifierMustPass":true}}
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "id": "pending_poi_multiple_candidates",
+  "providerMode": "tool_loop",
+  "scenario": "agent_message",
+  "title": "Pending POI stops safely for user selection",
+  "description": "Ambiguous AMap POI candidates remain a persisted selection group. The Agent does not invent a final POI or write a new itinerary version before the user selects a candidate.",
+  "mockAmapResponses": {
+    "胡同餐厅": [
+      {
+        "id": "B000FOOD1",
+        "name": "胡同餐厅",
+        "type": "餐饮服务",
+        "cityname": "北京市",
+        "adname": "东城区",
+        "address": "高德地址 1",
+        "location": "116.410000,39.920000",
+        "photos": []
+      },
+      {
+        "id": "B000FOOD2",
+        "name": "胡同餐厅",
+        "type": "餐饮服务",
+        "cityname": "北京市",
+        "adname": "东城区",
+        "address": "高德地址 2",
+        "location": "116.411000,39.921000",
+        "photos": []
+      }
+    ]
+  },
+  "toolLoopScript": [
+    {
+      "toolCalls": [
+        {
+          "id": "call_resolve_pending_restaurant",
+          "name": "resolve_poi",
+          "arguments": {
+            "queries": [
+              {
+                "name": "胡同餐厅",
+                "category": "food"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "reply": "找到了多个同名胡同餐厅候选，请先选择；本轮没有修改时间轴。"
+    }
+  ],
+  "steps": [
+    {
+      "action": "create_session",
+      "saveAs": "session",
+      "payload": {
+        "city": "北京",
+        "title": "北京离线 Eval"
+      }
+    },
+    {
+      "action": "send_agent_message",
+      "saveAs": "first",
+      "sessionIdFrom": "session.sessionId",
+      "content": "查找胡同餐厅，候选不明确时先让我选择，不要直接写入时间轴",
+      "context": {
+        "selectedDayNumber": 1
+      }
+    },
+    {
+      "action": "get_session",
+      "saveAs": "loaded",
+      "sessionIdFrom": "session.sessionId"
+    }
+  ],
+  "assertions": [
+    {
+      "path": "first.statusCode",
+      "equals": 200
+    },
+    {
+      "path": "first.version",
+      "isNull": true
+    },
+    {
+      "path": "first.itinerary",
+      "isNull": true
+    },
+    {
+      "path": "first.terminalStatus",
+      "equals": "needs_confirmation"
+    },
+    {
+      "path": "first.pendingPoiCandidates",
+      "lengthEquals": 1
+    },
+    {
+      "path": "first.pendingPoiCandidates.0.status",
+      "equals": "pending"
+    },
+    {
+      "path": "first.pendingPoiCandidates.0.candidates",
+      "lengthEquals": 2
+    },
+    {
+      "path": "loaded.pendingPoiCandidates",
+      "lengthEquals": 1
+    },
+    {
+      "path": "loaded.activeVersionId",
+      "isNull": true
+    }
+  ],
+  "expect": {
+    "invalidPatchCount": 0,
+    "replayStages": []
+  }
+}

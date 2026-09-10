@@ -1,0 +1,82 @@
+{
+  "id": "manual_patch_stale_version",
+  "scenario": "manual_patch_stale_version",
+  "title": "Manual patch rejects stale baseVersionId",
+  "description": "A stale manual patch returns 409 and does not change activeVersionId.",
+  "mockAmapResponses": {
+    "故宫": {
+      "id": "B000PALACE",
+      "name": "故宫",
+      "type": "风景名胜",
+      "cityname": "北京市",
+      "adname": "东城区",
+      "address": "高德地址",
+      "location": "116.397026,39.918058",
+      "photos": []
+    }
+  },
+  "agentProviderPayloads": [
+    {
+      "reply": "已生成北京故宫 1 日游。",
+      "mode": "full_itinerary",
+      "operations": [],
+      "fullItinerary": {
+        "title": "北京故宫 1 日游",
+        "city": "北京",
+        "days": [
+          {
+            "dayNumber": 1,
+            "title": "离线 Eval Day 1",
+            "segments": [
+              {
+                "poiName": "故宫",
+                "category": "scenic",
+                "startTime": "09:00",
+                "durationMinutes": 90,
+                "notes": "离线 eval 安排：故宫",
+                "estimatedCost": 60
+              }
+            ]
+          }
+        ]
+      },
+      "poiResolutionRequests": [{ "name": "故宫", "category": "scenic" }],
+      "warnings": []
+    }
+  ],
+  "steps": [
+    { "action": "create_session", "saveAs": "session", "payload": { "city": "北京", "title": "北京离线 Eval" } },
+    {
+      "action": "send_agent_message",
+      "saveAs": "first",
+      "sessionIdFrom": "session.sessionId",
+      "content": "帮我安排北京一天，轻松一点，想去故宫",
+      "context": { "selectedDayNumber": 1 }
+    },
+    {
+      "action": "patch_itinerary",
+      "saveAs": "okPatch",
+      "planIdFrom": "first.itinerary.id",
+      "baseVersionIdFrom": "first.version.id",
+      "operations": [{ "op": "replace_trip_title", "value": "北京第二版" }]
+    },
+    {
+      "action": "patch_itinerary",
+      "saveAs": "stalePatch",
+      "planIdFrom": "first.itinerary.id",
+      "baseVersionIdFrom": "first.version.id",
+      "operations": [{ "op": "replace_trip_title", "value": "不应生效" }]
+    },
+    { "action": "get_session", "saveAs": "loaded", "sessionIdFrom": "session.sessionId" }
+  ],
+  "assertions": [
+    { "path": "okPatch.statusCode", "equals": 200 },
+    { "path": "stalePatch.statusCode", "equals": 409 },
+    { "path": "loaded.activeVersionId", "equalsPath": "okPatch.version.id" },
+    { "path": "loaded.itinerary.title", "equals": "北京第二版" }
+  ],
+  "expect": {
+    "invalidPatchCount": 1,
+    "replayStages": []
+  }
+}

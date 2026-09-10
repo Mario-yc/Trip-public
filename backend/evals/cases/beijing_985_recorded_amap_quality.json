@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "No-network sanitized AMap replay through production POI ranking and route parsing.",
+  "scenarios": [
+    {
+      "id": "beijing_985_recorded_amap_quality",
+      "recordedAmapProbe": {
+        "fixture": "backend/evals/fixtures/beijing_amap_sanitized_recording.json",
+        "controllerFixture": "backend/evals/fixtures/recorded_controller_candidate_decision.json",
+        "city": "北京",
+        "fromQuery": "清华大学",
+        "toQuery": "北京大学",
+        "category": "campus",
+        "mode": "transit"
+      },
+      "expectations": {
+        "recordedReplayMustPass": true,
+        "recordedControllerMustPass": true,
+        "fromPoiName": "清华大学",
+        "toPoiName": "北京大学",
+        "routeDistanceMeters": 2406,
+        "routeDurationSeconds": 2230,
+        "networkCallCount": 0,
+        "recordedRequestCount": 3
+      }
+    }
+  ]
+}

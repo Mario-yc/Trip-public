@@ -1,0 +1,123 @@
+Trip Attribution NonCommercial License 1.0
+SPDX-License-Identifier: LicenseRef-Trip-Attribution-NonCommercial-1.0
+
+Copyright (c) 2026 Mario-yc and other respective copyright holders.
+Original project: https://github.com/Mario-yc/Trip-public
+Author: https://github.com/Mario-yc
+
+1. Scope and acceptance
+
+This license applies to the original Trip source code, documentation and other
+materials for which the copyright holder has made this license applicable
+(the "Software"). Third-party materials are excluded as described in section 6.
+By exercising rights granted by this license, you accept its conditions.
+Rights available without a license under applicable law are not restricted.
+
+2. Noncommercial permission
+
+Subject to all conditions below, each copyright holder grants you a worldwide,
+nonexclusive, royalty-free copyright license to use, run, study, copy, modify
+and redistribute the Software, including modified versions, solely for
+Noncommercial Purposes. All rights not expressly granted are reserved.
+
+"Noncommercial Purposes" means purposes that are not intended for, directed
+toward, or in support of commercial advantage, business operations, or monetary
+compensation, whether directly or indirectly. Actual revenue or profit is not
+required for a use to be commercial. Personal study, personal travel planning,
+unpaid noncommercial teaching and noncommercial research are permitted when
+they do not serve such commercial purposes.
+
+Without separate prior written permission from the relevant copyright holders,
+you may not use the Software, any modified version, or any substantial portion:
+
+(a) in a business's internal operations, workflows, or services;
+(b) in products or services sold, licensed, rented, subscribed to, or otherwise
+    provided for payment, including hosted services and APIs;
+(c) to provide paid installation, deployment, customization, support, consulting,
+    travel planning, or other services based on the Software;
+(d) to earn advertising, sponsorship, referral, affiliate, or lead-generation
+    revenue, or to promote or attract customers to a commercial activity;
+(e) in paid courses, paid training, paid tutorials, or paid learning materials;
+(f) for any other direct or indirect commercial exploitation.
+
+Free access, lack of profit, nonprofit status, or a different project name does
+not by itself make a commercial use permissible. A separate written commercial
+license covers only the rights and uses expressly stated in that agreement.
+Silence, attribution, or a request for permission is not commercial permission.
+
+3. Mandatory attribution
+
+Keep this LICENSE and the NOTICE file, all copyright notices, and all applicable
+third-party notices in every redistributed copy or substantial portion of the
+Software, including source distributions and packaged or compiled distributions.
+
+Clearly identify the original author and original project using this notice:
+
+    Based on Trip by Mario-yc
+    https://github.com/Mario-yc/Trip-public
+    Licensed for noncommercial use only; see LICENSE.
+
+For source distributions, include the notice in the top-level README or an
+equally prominent document. For an application or website you make available
+to users, also display the notice in a readily accessible About, Credits, or
+footer area, with a working link to the original project when links are
+supported. For a command-line-only distribution, provide it in help or version
+information, or an accompanying prominently identified attribution document.
+Include it with presentations or tutorials that reproduce substantial parts
+of the Software. Merely retaining an otherwise hidden source-code comment is
+not sufficient for a user-facing distribution.
+
+Identify your modifications and their author without implying that Mario-yc
+created, approved, endorsed, or supports your version. You may not remove,
+obscure, or falsely replace the original author's attribution.
+
+4. Redistribution and modifications
+
+Redistribution of the Software and its modified versions must preserve this
+license and these restrictions for the covered portions. Provide recipients
+with this license and do not purport to grant commercial rights you do not
+have. This license does not require publication of private modifications.
+
+5. Commercial permission and contributions
+
+To request commercial permission, contact Mario-yc through the GitHub profile
+linked above or the project's issue tracker. Do not send credentials or other
+confidential information in a public issue. Permission from Mario-yc covers
+only rights Mario-yc is entitled to license; separately owned contributions or
+third-party components may require additional permission. Submission of a
+contribution alone does not transfer its copyright to Mario-yc.
+
+6. Third-party rights and prior grants
+
+Third-party dependencies, separately licensed code, fonts, trademarks, map
+imagery, externally sourced content and other third-party materials remain
+subject to their respective licenses and terms. This license neither replaces
+those terms nor grants rights in those materials. No trademark, endorsement,
+or separate patent license is granted by this license. Existing lawful grants
+under other licenses are not retroactively revoked by this license.
+
+7. Termination
+
+Your rights under this license terminate automatically if you materially
+violate its conditions. After termination, stop exercising the rights granted
+here, except to the extent required by applicable law or separately authorized
+in writing. Termination does not terminate licenses of compliant downstream
+recipients or remove their obligation to comply with this license.
+
+8. Disclaimer and limitation of liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE SOFTWARE IS PROVIDED
+"AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NONINFRINGEMENT.
+NO COPYRIGHT HOLDER OR CONTRIBUTOR IS LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR ITS USE, EXCEPT WHERE SUCH LIMITATION IS
+PROHIBITED BY APPLICABLE LAW.
+
+9. Interpretation
+
+If a provision is unenforceable, the remaining provisions remain effective to
+the extent permitted by law. This English text is the authoritative license;
+translations and summaries are provided for convenience. This is a custom
+source-available license with noncommercial restrictions, not an OSI-approved
+open-source license.

@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "react-offline-harness-v2",
+  "id": "creative_portfolio_search_profile_recorded",
+  "scenario": "fixed_creative_portfolio_goal_recorded_red",
+  "title": "Fixed Creative Portfolio Goal recorded-evidence RED",
+  "description": "Deterministic pre-capture case for the fixed two-day Beijing university goal. It deliberately has no mock AMap identity, recorded fixture, hand-authored search result, route matrix, or certificate.",
+  "creativePortfolioEnabled": true,
+  "creativePortfolioTargetCount": 4,
+  "controllerMode": "creative_search_profile_route_detour",
+  "searchProfileEval": {
+    "required": true,
+    "minimumCompiledProfileCount": 1,
+    "minimumFamilySpecificAmapCandidateCount": 1,
+    "minimumSemanticCandidateRejectedCount": 1,
+    "minimumDuplicateExcludedBeforeRouteCount": 1,
+    "minimumCoverageShortcutHitCount": 1,
+    "minimumConsumerAdmissionCoverageRejectedCount": 0,
+    "minimumExcludedPhysicalPoiCount": 1,
+    "minimumAdapterPlanAdoptionCount": 1,
+    "minimumWebProviderCallCount": 1,
+    "minimumPlanningRunCount": 1,
+    "minimumPlanningRunMetricEventCount": 1,
+    "minimumPlanningRunMetricCycleCount": 1,
+    "minimumPlanningRunStagedVerifierCycleCount": 1,
+    "minimumPortfolioStageCallCount": 1,
+    "minimumPortfolioVerifierCallCount": 1,
+    "expectedPortfolioVerifierFailureCount": 0,
+    "expectedPreAdoptionVersionWriteCount": 0,
+    "expectedPreAdoptionPatchWriteCount": 0,
+    "expectedPreAdoptionRouteWriteCount": 0
+  },
+  "steps": [
+    {
+      "action": "create_session",
+      "saveAs": "session",
+      "payload": {
+        "city": "北京",
+        "title": "固定 Creative Portfolio Goal recorded RED"
+      }
+    },
+    {
+      "action": "send_agent_message",
+      "saveAs": "first",
+      "sessionIdFrom": "session.sessionId",
+      "content": "2026年10月1日至10月2日，北京高校主题两日游，1人，公共交通，每日午餐体验当地特色美食，仅安排一晚公共城市夜景。",
+      "context": {
+        "travelDateRange": {
+          "startDate": "2026-10-01",
+          "endDate": "2026-10-02"
+        }
+      }
+    },
+    {
+      "action": "send_persisted_clarification_choice",
+      "saveAs": "routeChoice",
+      "sessionIdFrom": "session.sessionId",
+      "sourceFrom": "first",
+      "dimensionId": "route_decision.detour_tolerance",
+      "semanticValueFingerprint": "961fcc619d00843ce42ecfe9cfe3200bb1a4e627e0d284a0f4b6507a52c48cb2"
+    }
+  ],
+  "assertions": [
+    {"path": "first.statusCode", "equals": 200},
+    {"path": "first.version", "isNull": true},
+    {"path": "routeChoice.statusCode", "equals": 200},
+    {"path": "routeChoice.version", "isNull": true},
+    {"path": "persistedClarificationChoiceReplay.sourceAssistantTurnId", "equalsPath": "first.assistantTurn.id"},
+    {"path": "persistedClarificationChoiceReplay.dimensionId", "equals": "route_decision.detour_tolerance"},
+    {"path": "persistedClarificationChoiceReplay.routeDecisionContract.status", "equals": "ready"},
+    {"path": "persistedClarificationChoiceReplay.routeDecisionContract.missingFields", "lengthEquals": 0},
+    {"path": "persistedClarificationChoiceReplay.routeDecisionContract.preferredMode", "equals": "transit"},
+    {"path": "persistedClarificationChoiceReplay.routeDecisionContract.detourToleranceSource", "equals": "controller_semantic_choice"},
+    {"path": "persistedClarificationChoiceReplay.resolvedAnswer.source", "equals": "structured_option"},
+    {"path": "persistedClarificationChoiceReplay.resolvedAnswerMatchesPersistedOption", "equals": true},
+    {"path": "persistedClarificationChoiceReplay.initialExperienceSpecDetourToleranceCount", "equals": 0},
+    {"path": "persistedClarificationChoiceReplay.experienceSpecDetourToleranceCount", "equals": 1},
+    {"path": "persistedClarificationChoiceReplay.activeVersionId", "isNull": true},
+    {"path": "persistedClarificationChoiceReplay.writeDelta.version", "equals": 0},
+    {"path": "persistedClarificationChoiceReplay.writeDelta.patch", "equals": 0},
+    {"path": "persistedClarificationChoiceReplay.writeDelta.route", "equals": 0}
+  ],
+  "expect": {
+    "invalidPatchCount": 0,
+    "replayStages": [
+      "compile_experience_search_profile",
+      "portfolio_candidate_discovery"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "A broad local-food experience is a soft bounded goal rather than a hidden every-meal hard constraint.",
+  "defaultMockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "trustedFoodForDeterministicEdit": true, "mockRouteRefresh": true},
+  "scenarios": [{
+    "id": "food_experience_cardinality",
+    "city": "北京",
+    "input": "10月1日到2日北京两日游，参观985大学，路途中体验北京当地特色美食，公交地铁优先。",
+    "expectations": {
+      "foodExperienceMinCount": 1,
+      "foodExperiencePreferredCount": 2,
+      "foodExperienceMaxCount": 2,
+      "requiredMealTargetCount": 1,
+      "verifierMustPass": true
+    }
+  }]
+}

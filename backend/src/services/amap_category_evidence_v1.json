@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "provider-category-evidence-v1",
+  "provider": "amap-place-search",
+  "source": {
+    "publisher": "高德开放平台",
+    "url": "https://lbs.amap.com/api/webservice/download",
+    "artifactUrl": "https://a.amap.com/lbs/static/code_resource/Amap_poicode.zip",
+    "artifactSha256": "6fc13305a1cf8dead9b96a2679807b7861ab6a22a1b709c2a04a5b318c1f7422",
+    "contentVersion": "V1.06_20230208",
+    "retrievedDate": "2026-08-24"
+  },
+  "experienceRoles": {
+    "standalone_park": {
+      "acceptedCategories": [
+        {
+          "typecode": "110101",
+          "providerType": "风景名胜;公园广场;公园"
+        },
+        {
+          "typecode": "110103",
+          "providerType": "风景名胜;公园广场;植物园"
+        }
+      ],
+      "rejectedCategories": [
+        {
+          "typecode": "110106",
+          "providerType": "风景名胜;公园广场;公园内部设施"
+        },
+        {
+          "typecode": "070306",
+          "providerType": "生活服务;售票处;公园景点售票处"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,315 @@
+{
+  "requestIntentContract": {
+    "dayCount": 1,
+    "requiredPlanningDayNumbers": [
+      1
+    ],
+    "explicitRestDayNumbers": [],
+    "hardConstraints": [],
+    "spatialPreference": null,
+    "entityQualificationConstraint": null,
+    "localExperienceConstraint": null,
+    "lockedEntities": [],
+    "requiredIntents": [
+      {
+        "goalId": "goal_park",
+        "intentType": "park",
+        "target": 1,
+        "requiredMin": 1,
+        "minCount": 1,
+        "preferredCount": 1,
+        "maxCount": 1,
+        "requirementLevel": "required",
+        "source": "explicit_single_scope",
+        "cardinalitySource": "explicit_single_scope",
+        "distributionPolicy": "spread_across_distinct_days",
+        "allowedDayNumbers": [
+          1
+        ],
+        "priorityTier": "hard",
+        "userExplicit": true,
+        "schedulePreference": {},
+        "timeWindow": null
+      }
+    ],
+    "optionalIntents": [],
+    "negativeConstraints": [],
+    "userRequestedThemes": [
+      "park"
+    ],
+    "cardinalityLimitations": [],
+    "clarificationDimensions": [],
+    "completionCriteria": [],
+    "clarificationRequired": false,
+    "clarificationReason": null,
+    "systemCreativeVariant": null,
+    "experienceSpecs": [],
+    "routeDecisionContract": {
+      "schemaVersion": "route-decision-contract-v2",
+      "source": "request_intent_contract",
+      "status": "ready",
+      "missingFields": [],
+      "detourTolerance": {
+        "maxGeneralizedCostDelta": 35.0,
+        "maxDetourRatio": 0.35
+      },
+      "detourToleranceSource": "server_safe_default_v1",
+      "mobilityProfile": {
+        "source": "explicit_request_mobility_semantics",
+        "walkingPenaltyMinutesPerKm": 1.0,
+        "transferPenaltyMinutes": 0.0,
+        "waitTimeMultiplier": 0.0,
+        "riskPenaltyMultiplier": 1.0
+      },
+      "provenance": {
+        "detourToleranceIntentTypes": [
+          "server_safe_default_v1"
+        ],
+        "mobilitySensitive": false,
+        "requestSemanticsPresent": true,
+        "transportMode": "walking",
+        "travelQualityFloor": {
+          "candidateSearchRadiusMeters": 8000.0,
+          "doesNotChangeDetourChoice": true,
+          "maxProviderTravelMinutes": 60.0,
+          "policyScope": "adjacent_travel_stop_reasonableness"
+        }
+      },
+      "adjacentLegConstraint": {
+        "candidateSearchRadiusMeters": 8000.0,
+        "maxProviderTravelMinutes": 60.0
+      },
+      "adjacentLegConstraintSource": "versioned_product_travel_quality_floor",
+      "topologyConstraint": {
+        "maxBacktrackRatio": 0.15
+      },
+      "topologyConstraintSource": "versioned_product_policy",
+      "fingerprint": "d10c438bd7f27e72b6e529dd392f3b05178a7f2f34cc90c6d64fa2e1b4b46f2d",
+      "editableDefaults": [
+        {
+          "dimensionId": "route_decision.detour_tolerance",
+          "label": "均衡路线",
+          "source": "server_safe_default_v1",
+          "editable": true,
+          "userConfirmed": false
+        }
+      ]
+    },
+    "editableDefaults": [
+      {
+        "dimensionId": "route_decision.detour_tolerance",
+        "label": "均衡路线",
+        "source": "server_safe_default_v1",
+        "editable": true,
+        "userConfirmed": false
+      }
+    ],
+    "foodExperienceGoal": null,
+    "successCriteria": [
+      "all required intents are covered or explicitly reported as unresolved",
+      "unexpectedIntentCount=0",
+      "scheduleOverlapCount=0",
+      "assistant claims match the final persisted snapshot"
+    ],
+    "requestActivityCoverage": {
+      "schemaVersion": "request-activity-coverage-v1",
+      "status": "pending",
+      "sourceText": "2026年10月10日在北京一日游，只去景山公园，上午9点开始游览1小时，1位成年人，预算200元，步行，不需要餐饮或其他景点。请生成可编辑行程。",
+      "sourceFingerprint": "7b5d2d636bdfb8709e059d6d1692476fcf2466d6701fba73ebdce2e90d3be239",
+      "clauses": [
+        {
+          "clauseId": "request_clause_1",
+          "text": "2026年10月10日在北京一日游",
+          "start": 0,
+          "end": 17,
+          "goalIds": [
+            "goal_request_1_1",
+            "goal_request_1_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_2",
+          "text": "只去景山公园",
+          "start": 18,
+          "end": 24,
+          "goalIds": [
+            "goal_request_2_1",
+            "goal_request_2_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_3",
+          "text": "上午9点开始游览1小时",
+          "start": 25,
+          "end": 36,
+          "goalIds": [
+            "goal_request_3_1",
+            "goal_request_3_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_4",
+          "text": "1位成年人",
+          "start": 37,
+          "end": 42,
+          "goalIds": [
+            "goal_request_4_1",
+            "goal_request_4_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_5",
+          "text": "预算200元",
+          "start": 43,
+          "end": 49,
+          "goalIds": [
+            "goal_request_5_1",
+            "goal_request_5_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_6",
+          "text": "步行",
+          "start": 50,
+          "end": 52,
+          "goalIds": [
+            "goal_request_6_1",
+            "goal_request_6_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_7",
+          "text": "不需要餐饮或其他景点",
+          "start": 53,
+          "end": 63,
+          "goalIds": [
+            "goal_request_7_1",
+            "goal_request_7_2"
+          ]
+        },
+        {
+          "clauseId": "request_clause_8",
+          "text": "请生成可编辑行程",
+          "start": 64,
+          "end": 72,
+          "goalIds": [
+            "goal_request_8_1",
+            "goal_request_8_2"
+          ]
+        }
+      ]
+    }
+  },
+  "rawDecision": {
+    "schemaVersion": "agent-decision-v3",
+    "primaryAction": "draft_itinerary",
+    "actionDirective": {
+      "type": "draft_itinerary",
+      "requestCoverage": [
+        {
+          "clauseId": "request_clause_1",
+          "classification": "context"
+        },
+        {
+          "clauseId": "request_clause_2",
+          "classification": "activity",
+          "activities": [
+            {
+              "goalId": "goal_request_2_1",
+              "sourceText": "只去景山公园",
+              "intentType": "park",
+              "polarity": "required",
+              "allowedDayNumbers": [
+                1
+              ],
+              "minCount": 1,
+              "dayPart": "morning",
+              "exactEntity": "景山公园"
+            }
+          ]
+        },
+        {
+          "clauseId": "request_clause_3",
+          "classification": "activity",
+          "activities": [
+            {
+              "goalId": "goal_request_3_1",
+              "sourceText": "上午9点开始游览1小时",
+              "intentType": "park",
+              "polarity": "required",
+              "allowedDayNumbers": [
+                1
+              ],
+              "minCount": 1,
+              "dayPart": "morning"
+            }
+          ]
+        },
+        {
+          "clauseId": "request_clause_4",
+          "classification": "constraint"
+        },
+        {
+          "clauseId": "request_clause_5",
+          "classification": "constraint"
+        },
+        {
+          "clauseId": "request_clause_6",
+          "classification": "constraint"
+        },
+        {
+          "clauseId": "request_clause_7",
+          "classification": "constraint"
+        },
+        {
+          "clauseId": "request_clause_8",
+          "classification": "instruction"
+        }
+      ],
+      "dayStrategies": [
+        {
+          "dayNumber": 1,
+          "theme": "景山公园游览",
+          "requiredGoalIds": [
+            "goal_request_2_1"
+          ],
+          "pace": "relaxed",
+          "maxRouteAnchors": 1
+        }
+      ],
+      "occurrenceScheduleHints": [
+        {
+          "goalId": "goal_request_2_1",
+          "dayNumber": 1,
+          "dayPart": "morning",
+          "sequence": 1,
+          "preferredStartTime": "09:00",
+          "durationEstimate": {
+            "min": 60,
+            "preferred": 60,
+            "max": 60
+          },
+          "estimateSource": "controller_estimate",
+          "confidence": 1
+        }
+      ],
+      "routePlanningPolicy": {
+        "objective": "least_generalized_cost",
+        "source": "controller_estimate",
+        "allowExperienceDetour": false,
+        "detourEnvelope": {
+          "maxGeneralizedCostDelta": 0,
+          "maxDetourRatio": 0
+        },
+        "mobilityProfile": {
+          "transportMode": "walking",
+          "paceClass": "relaxed"
+        }
+      },
+      "schedulePolicy": {
+        "respectOpeningWindowsWhenKnown": true,
+        "allowProvisionalWhenUnknown": true
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "trip-recorded-amap-v1",
+  "recordedAt": "2026-08-24T00:00:00Z",
+  "recordingType": "recorded/non-live",
+  "recordedProvider": "Offline deterministic AMap-shaped replay",
+  "responseHashAlgorithm": "sha256-canonical-json-v1",
+  "sanitization": "Deterministic offline fixture. It is Provider-shaped contract evidence, not a live Provider success claim.",
+  "responses": [
+    {
+      "requestPair": {
+        "fromAmapId": "B000PALACE",
+        "toAmapId": "B000JINGSHAN",
+        "mode": "transit"
+      },
+      "responseSha256": "2143e945958ccb1f55ff0b695d0463792f40e6f8a7eb726377b8253090963f3c",
+      "response": {
+        "status": "1",
+        "info": "OK",
+        "infocode": "10000",
+        "route": {
+          "origin": "116.397026,39.918058",
+          "destination": "116.396155,39.925221",
+          "transits": [
+            {
+              "cost": "2.0",
+              "duration": "540",
+              "distance": "1100",
+              "walking_distance": "600",
+              "segments": [
+                {
+                  "walking": {
+                    "steps": [
+                      {
+                        "instruction": "Walk to destination area",
+                        "road": "Recorded Road",
+                        "distance": "600",
+                        "duration": "480",
+                        "polyline": "116.397026,39.918058;116.396155,39.925221"
+                      }
+                    ]
+                  },
+                  "bus": {
+                    "buslines": [
+                      {
+                        "name": "Recorded transit",
+                        "departure_stop": {"name": "Origin stop"},
+                        "arrival_stop": {"name": "Destination stop"},
+                        "distance": "500",
+                        "duration": "60",
+                        "polyline": "116.397026,39.918058;116.396155,39.925221"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

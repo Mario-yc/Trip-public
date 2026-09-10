@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "从上一轮 artifact 的第二个 option 读取 exact ID 后执行规则安全草稿。",
+  "scenarios": [{
+    "id": "rule_safe_draft_exact_choice_id",
+    "city": "北京",
+    "turns": [
+      {
+        "input": "10月1日北京一日游，参观大学和美术馆，中等预算，1人，公交地铁优先。",
+        "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true, "controllerFailure": "timeout", "controllerLiteFailure": "timeout"}
+      },
+      {
+        "input": "执行已确认的规则安全草稿",
+        "selectedAgentChoiceExactIdFromTurn": 1,
+        "selectedAgentChoiceOptionIndex": 2,
+        "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true, "controllerFailure": "timeout", "controllerLiteFailure": "timeout"}
+      }
+    ],
+    "turnExpectations": [
+      {"terminalStatus": "needs_confirmation", "controllerFullCallCount": 1, "controllerLiteCallCount": 1},
+      {"structuredChoiceIdentityMismatchCount": 0, "controllerCallOnRuleSafeConfirmCount": 0, "ruleSafeDraftExecutionCount": 1, "fallbackChoiceVersionDelta": 1, "verifiedWriteCount": 1, "rollbackCount": 0}
+    ],
+    "expectations": {"turnCount": 2, "structuredChoiceIdentityMismatchCount": 0, "controllerCallOnRuleSafeConfirmCount": 0, "ruleSafeDraftExecutionCount": 1, "fallbackChoiceVersionDelta": 1, "repeatedSameClarificationCount": 0}
+  }]
+}

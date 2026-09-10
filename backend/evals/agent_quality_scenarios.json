@@ -1,0 +1,1223 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "scenarios": [
+    {
+      "id": "retry_after_rate_limit_reuses_previous_requirements",
+      "city": "北京",
+      "turns": [
+        {
+          "input": "今年国庆参观北京高校两日游，每晚都看北京夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。想要体验当地特色美食",
+          "mockMapProvider": {
+            "rateLimitAtStage": "immediate"
+          }
+        },
+        {
+          "input": "重新构建",
+          "mockMapProvider": {
+            "recover": true
+          }
+        }
+      ],
+      "expectations": {
+        "activeVersionEventuallyCreated": true,
+        "minDays": 2,
+        "secondTurnDoesNotAskForTripDates": true,
+        "effectiveUserMessageContainsOriginalTrip": true,
+        "noRawProviderRateLimitAsOnlyReply": true,
+        "rateLimitDoesNotCreateUnassignedPoolNoise": true,
+        "explicitLocalFoodMustBeRelevant": true,
+        "forbidInstitutionalOrHotelMealsForLocalFood": true,
+        "forbidPoorRouteQuality": true,
+        "forbidMealDetourHigh": true,
+        "maxTotalRouteKmPerDay": 40,
+        "maxMealAdjacentLegKm": 12,
+        "riskSearchMustSkipOrdinaryMeals": true,
+        "nightViewMustBeDistinctFamily": true,
+        "forbidWeakNightViewPoi": true
+      }
+    },
+    {
+      "id": "retry_after_rate_limit_without_active_version",
+      "city": "北京",
+      "turns": [
+        {
+          "input": "今年国庆参观北京高校两日游，每晚都看北京夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。想要体验当地特色美食",
+          "mockMapProvider": {
+            "rateLimitAtStage": "immediate"
+          }
+        }
+      ],
+      "expectations": {
+        "activeVersionEventuallyCreated": true,
+        "noRawProviderRateLimitAsOnlyReply": true,
+        "rateLimitDoesNotCreateUnassignedPoolNoise": true
+      }
+    },
+    {
+      "id": "retry_after_partial_provider_rate_limit_preserves_initial_plan",
+      "city": "北京",
+      "turns": [
+        {
+          "input": "今年国庆参观北京高校两日游，每晚都看北京夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。想要体验当地特色美食",
+          "mockMapProvider": {
+            "rateLimitAtStage": "meal_pool_after_one_selection"
+          }
+        },
+        {
+          "input": "重新构建",
+          "mockMapProvider": {
+            "recover": true
+          }
+        }
+      ],
+      "expectations": {
+        "activeVersionEventuallyCreated": true,
+        "minDays": 2,
+        "secondTurnDoesNotAskForTripDates": true,
+        "effectiveUserMessageContainsOriginalTrip": true,
+        "noRawProviderRateLimitAsOnlyReply": true,
+        "rateLimitDoesNotCreateUnassignedPoolNoise": true,
+        "explicitLocalFoodMustBeRelevant": true,
+        "forbidInstitutionalOrHotelMealsForLocalFood": true,
+        "forbidPoorRouteQuality": true,
+        "forbidMealDetourHigh": true,
+        "maxTotalRouteKmPerDay": 40,
+        "maxMealAdjacentLegKm": 12,
+        "riskSearchMustSkipOrdinaryMeals": true,
+        "nightViewMustBeDistinctFamily": true,
+        "forbidWeakNightViewPoi": true
+      }
+    },
+    {
+      "id": "rate_limit_does_not_create_unassigned_pool_noise",
+      "city": "北京",
+      "turns": [
+        {
+          "input": "今年国庆参观北京高校两日游，每晚都看北京夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。想要体验当地特色美食",
+          "mockMapProvider": {
+            "rateLimitAtStage": "immediate"
+          }
+        }
+      ],
+      "expectations": {
+        "noRawProviderRateLimitAsOnlyReply": true,
+        "rateLimitDoesNotCreateUnassignedPoolNoise": true,
+        "activeVersionEventuallyCreated": true
+      }
+    },
+    {
+      "id": "regenerate_after_low_quality_active_version",
+      "city": "北京",
+      "turns": [
+        {
+          "input": "今年国庆参观北京高校两日游，每晚都看北京夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。想要体验当地特色美食",
+          "mockMapProvider": {
+            "recover": true
+          }
+        },
+        {
+          "input": "重新生成",
+          "mockMapProvider": {
+            "recover": true
+          }
+        }
+      ],
+      "expectations": {
+        "activeVersionEventuallyCreated": true,
+        "minDays": 2,
+        "secondTurnDoesNotAskForTripDates": true,
+        "effectiveUserMessageContainsOriginalTrip": true,
+        "regeneratePlanningRequestEnabled": true,
+        "explicitLocalFoodMustBeRelevant": true,
+        "forbidInstitutionalOrHotelMealsForLocalFood": true,
+        "forbidPoorRouteQuality": true,
+        "forbidMealDetourHigh": true,
+        "riskSearchMustSkipOrdinaryMeals": true,
+        "nightViewMustBeDistinctFamily": true,
+        "forbidWeakNightViewPoi": true
+      }
+    },
+    {
+      "id": "beijing_campus_night_view_plain_meal",
+      "city": "北京",
+      "input": "今年国庆参观高校两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先",
+      "expectations": {
+        "mustCreateTimeline": true,
+        "agentDecisionEventRequired": true,
+        "agentDecisionPrimaryAction": "draft_itinerary",
+        "agentDecisionEffectiveWriteRisk": "high",
+        "agentDecisionEffectiveToolsExact": ["amap_weather", "patch_itinerary", "web_search"],
+        "agentDecisionStopConditionType": "existing_route_terminal",
+        "agentDecisionSource": "planner_fallback",
+        "agentDecisionProposedExecutionRoute": "staged_initial_pipeline",
+        "agentDecisionPolicyAccepted": true,
+        "maxAgentDecisionDurationMs": 100,
+        "minDays": 2,
+        "minRouteableAnchorsPerDay": 2,
+        "allowOrdinaryMealPlaceholder": true,
+        "ordinaryMealMustBeExpandable": true,
+        "forbidWeakNightViewPoi": true,
+        "nightViewMustBeDistinctFamily": true,
+        "riskSearchMustSkipOrdinaryMeals": true,
+        "forbidPoorRouteQuality": true,
+        "riskUnknownMustNotShowLow": true
+      }
+    },
+    {
+      "id": "beijing_campus_night_view_explicit_food",
+      "city": "北京",
+      "input": "今年国庆参观高校两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。午餐晚餐想体验当地美食",
+      "expectations": {
+        "mustCreateTimeline": true,
+        "minDays": 2,
+        "minRouteableAnchorsPerDay": 2,
+        "explicitMealMustBeGroundedOrPending": true,
+        "explicitLocalFoodMustBeRelevant": true,
+        "forbidMockOrSyntheticMealsMapReady": true,
+        "forbidMockOrSyntheticMealsRouteable": true,
+        "forbidInstitutionalOrHotelMealsForLocalFood": true,
+        "forbidPoorRouteQuality": true,
+        "forbidMealDetourHigh": true,
+        "maxTotalRouteKmPerDay": 40,
+        "maxMealAdjacentLegKm": 12,
+        "maxNonPreferredRouteLegRatio": 0.25,
+        "nonPreferredRouteRequiresCaveat": true,
+        "riskSearchMustSkipOrdinaryMeals": true,
+        "nightViewMustBeDistinctFamily": true,
+        "forbidWeakNightViewPoi": true,
+        "riskUnknownMustNotShowLow": true
+      }
+    },
+    {
+      "id": "hangzhou_outdoor_night_view_local_food",
+      "city": "杭州",
+      "input": "杭州两日自然户外和城市夜景，想体验当地美食。10月3日到4日，2天，中等预算，2人，公共交通优先，节奏轻松",
+      "expectations": {
+        "mustCreateTimeline": true,
+        "minDays": 2,
+        "minRouteableAnchorsPerDay": 2,
+        "explicitMealMustBeGroundedOrPending": true,
+        "explicitLocalFoodMustBeRelevant": true,
+        "forbidMockOrSyntheticMealsMapReady": true,
+        "forbidMockOrSyntheticMealsRouteable": true,
+        "forbidInstitutionalOrHotelMealsForLocalFood": true,
+        "forbidPoorRouteQuality": true,
+        "forbidMealDetourHigh": true,
+        "maxTotalRouteKmPerDay": 40,
+        "maxMealAdjacentLegKm": 12,
+        "maxNonPreferredRouteLegRatio": 0.25,
+        "nonPreferredRouteRequiresCaveat": true,
+        "riskSearchMustSkipOrdinaryMeals": true,
+        "nightViewMustBeDistinctFamily": true,
+        "forbidWeakNightViewPoi": true,
+        "riskUnknownMustNotShowLow": true
+      }
+    },
+    {
+      "id": "shanghai_family_easy_plain_meal",
+      "city": "上海",
+      "input": "上海亲子轻松两日游，孩子想看城市地标和公园，10月5日到6日，2天，中等预算，2大1小，地铁优先，中午留吃饭时间",
+      "expectations": {
+        "mustCreateTimeline": true,
+        "minDays": 2,
+        "minRouteableAnchorsPerDay": 2,
+        "allowOrdinaryMealPlaceholder": true,
+        "ordinaryMealMustBeExpandable": true,
+        "forbidPoorRouteQuality": true,
+        "riskSearchMustSkipOrdinaryMeals": true,
+        "riskUnknownMustNotShowLow": true
+      }
+    },
+    {
+      "id": "guangzhou_cross_area_route_quality",
+      "city": "广州",
+      "input": "广州两日城市建筑、博物馆和夜景，想尽量少绕路。10月1日到2日，2天，中等预算，1人，公交地铁优先",
+      "expectations": {
+        "mustCreateTimeline": true,
+        "minDays": 2,
+        "minRouteableAnchorsPerDay": 2,
+        "forbidPoorRouteQuality": true,
+        "forbidMealDetourHigh": true,
+        "maxTotalRouteKmPerDay": 40,
+        "maxMealAdjacentLegKm": 12,
+        "maxNonPreferredRouteLegRatio": 0.25,
+        "nonPreferredRouteRequiresCaveat": true,
+        "riskSearchMustSkipOrdinaryMeals": true,
+        "nightViewMustBeDistinctFamily": true,
+        "forbidWeakNightViewPoi": true,
+        "riskUnknownMustNotShowLow": true
+      }
+    },
+    {
+      "id": "web_search_free_provider_fallback",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {"dayNumber": 1, "segments": [{"id": "seg_pku", "kind": "visit", "poi": {"name": "北京大学"}}]}
+          ],
+          "poiRiskAlerts": [
+            {
+              "segmentId": "seg_pku",
+              "status": "degraded",
+              "sources": [
+                {"type": "riskSearchDiagnostics", "query": "北京 北京大学 2026 国庆 官方公告 预约 限流", "queryLength": 31, "acceptedSourceCount": 1, "riskStatusReason": "search_success_degraded"},
+                {
+                  "type": "webSearchProviderDiagnostics",
+                  "attemptedProviders": ["duckduckgo-html-search", "baidu-html-search"],
+                  "successfulProviders": ["baidu-html-search"],
+                  "failedProviders": ["duckduckgo-html-search"],
+                  "skippedProviders": ["bocha-web-search"],
+                  "providerDiagnostics": [
+                    {"providerName": "duckduckgo-html-search", "status": "failed", "reason": "timeout", "resultCount": 0, "proxyUsed": true, "proxyHost": "127.0.0.1:10793"},
+                    {"providerName": "baidu-html-search", "status": "success", "reason": "ok", "resultCount": 1, "proxyUsed": true, "proxyHost": "127.0.0.1:10793"},
+                    {"providerName": "bocha-web-search", "status": "skipped", "reason": "circuit_open", "resultCount": 0}
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "riskSearchProviderDiagnosticsMustBePresent": true,
+        "riskSearchMustAttemptAtLeastOneStableProvider": true,
+        "riskSearchAttemptedProvidersMustInclude": ["duckduckgo-html-search", "baidu-html-search"],
+        "riskSearchSuccessfulProvidersMustInclude": ["baidu-html-search"],
+        "riskSearchFailedProvidersMustInclude": ["duckduckgo-html-search"],
+        "riskSearchSkippedProvidersMustInclude": ["bocha-web-search"],
+        "riskSearchAcceptedSourceCountAtLeast": 1,
+        "riskSearchQueryMaxChars": 180,
+        "riskSearchDuplicateQueryMaxCount": 0,
+        "riskSearchMustSkipOrdinaryMeals": true
+      }
+    },
+    {
+      "id": "risk_search_tavily_success",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {"dayNumber": 1, "segments": [{"id": "seg_pku", "kind": "visit", "poi": {"name": "北京大学"}}]}
+          ],
+          "poiRiskAlerts": [
+            {
+              "segmentId": "seg_pku",
+              "status": "available",
+              "sources": [
+                {"type": "riskSearchDiagnostics", "query": "北京 北京大学 2026 国庆 官方公告 预约 限流", "queryLength": 31, "acceptedSourceCount": 1, "riskStatusReason": "search_success_available"},
+                {"type": "webSearchProviderDiagnostics", "attemptedProviders": ["tavily"], "successfulProviders": ["tavily"], "failedProviders": [], "skippedProviders": [], "providerDiagnostics": [{"providerName": "tavily", "status": "success", "reason": "ok", "resultCount": 1}]}
+              ]
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "riskSearchProviderDiagnosticsMustBePresent": true,
+        "riskSearchMustAttemptAtLeastOneStableProvider": true,
+        "riskSearchAcceptedSourceCountAtLeast": 1,
+        "riskSearchQueryMaxChars": 180,
+        "riskSearchDuplicateQueryMaxCount": 0,
+        "riskSearchMustSkipOrdinaryMeals": true
+      }
+    },
+    {
+      "id": "risk_search_brave_success_after_tavily_fail",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {"dayNumber": 1, "segments": [{"id": "seg_pku", "kind": "visit", "poi": {"name": "北京大学"}}]}
+          ],
+          "poiRiskAlerts": [
+            {
+              "segmentId": "seg_pku",
+              "status": "degraded",
+              "sources": [
+                {"type": "riskSearchDiagnostics", "query": "北京 北京大学 2026 国庆 官方公告 预约 限流", "queryLength": 31, "acceptedSourceCount": 1, "riskStatusReason": "search_success_degraded"},
+                {"type": "webSearchProviderDiagnostics", "attemptedProviders": ["tavily", "brave-web-search"], "successfulProviders": ["brave-web-search"], "failedProviders": ["tavily"], "skippedProviders": [], "providerDiagnostics": [{"providerName": "tavily", "status": "failed", "reason": "timeout", "resultCount": 0}, {"providerName": "brave-web-search", "status": "success", "reason": "ok", "resultCount": 1}]}
+              ]
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "riskSearchProviderDiagnosticsMustBePresent": true,
+        "riskSearchMustAttemptAtLeastOneStableProvider": true,
+        "riskSearchAcceptedSourceCountAtLeast": 1,
+        "riskSearchQueryMaxChars": 180,
+        "riskSearchDuplicateQueryMaxCount": 0,
+        "riskSearchMustSkipOrdinaryMeals": true
+      }
+    },
+    {
+      "id": "risk_search_searxng_success_after_api_keys_missing",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {"dayNumber": 1, "segments": [{"id": "seg_pku", "kind": "visit", "poi": {"name": "北京大学"}}]}
+          ],
+          "poiRiskAlerts": [
+            {
+              "segmentId": "seg_pku",
+              "status": "degraded",
+              "sources": [
+                {"type": "riskSearchDiagnostics", "query": "北京 北京大学 2026 国庆 官方公告 预约 限流", "queryLength": 31, "acceptedSourceCount": 1, "riskStatusReason": "search_success_degraded"},
+                {"type": "webSearchProviderDiagnostics", "attemptedProviders": ["searxng"], "successfulProviders": ["searxng"], "failedProviders": [], "skippedProviders": ["tavily", "brave-web-search"], "providerDiagnostics": [{"providerName": "tavily", "status": "skipped", "reason": "skipped_missing_config", "resultCount": 0}, {"providerName": "brave-web-search", "status": "skipped", "reason": "skipped_missing_config", "resultCount": 0}, {"providerName": "searxng", "status": "success", "reason": "ok", "resultCount": 1}]}
+              ]
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "riskSearchProviderDiagnosticsMustBePresent": true,
+        "riskSearchMustAttemptAtLeastOneStableProvider": true,
+        "riskSearchAcceptedSourceCountAtLeast": 1,
+        "riskSearchQueryMaxChars": 180,
+        "riskSearchDuplicateQueryMaxCount": 0,
+        "riskSearchMustSkipOrdinaryMeals": true
+      }
+    },
+    {
+      "id": "free_web_search_ddgs_api_provider_success",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {"dayNumber": 1, "segments": [{"id": "seg_pku", "kind": "visit", "poi": {"name": "北京大学"}}]}
+          ],
+          "poiRiskAlerts": [
+            {
+              "segmentId": "seg_pku",
+              "status": "available",
+              "sources": [
+                {"type": "riskSearchDiagnostics", "query": "北京 北京大学 2026 国庆 官方公告 预约 限流", "queryLength": 31, "acceptedSourceCount": 1, "riskStatusReason": "search_success_available"},
+                {"type": "webSearchProviderDiagnostics", "attemptedProviders": ["ddgs"], "successfulProviders": ["ddgs"], "failedProviders": [], "skippedProviders": ["searxng"], "providerDiagnostics": [{"providerName": "searxng", "status": "skipped", "reason": "skipped_missing_config", "resultCount": 0}, {"providerName": "ddgs", "status": "success", "reason": "ok", "resultCount": 1}]}
+              ]
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "riskSearchProviderDiagnosticsMustBePresent": true,
+        "riskSearchMustAttemptAtLeastOneStableProvider": true,
+        "riskSearchAttemptedProvidersMustInclude": ["ddgs"],
+        "riskSearchSuccessfulProvidersMustInclude": ["ddgs"],
+        "riskSearchSkippedProvidersMustInclude": ["searxng"],
+        "riskSearchAcceptedSourceCountAtLeast": 1,
+        "riskSearchQueryMaxChars": 180,
+        "riskSearchDuplicateQueryMaxCount": 0,
+        "riskSearchMustSkipOrdinaryMeals": true
+      }
+    },
+    {
+      "id": "free_web_search_cheetah_ddg_provider_success",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {"dayNumber": 1, "segments": [{"id": "seg_pku", "kind": "visit", "poi": {"name": "北京大学"}}]}
+          ],
+          "poiRiskAlerts": [
+            {
+              "segmentId": "seg_pku",
+              "status": "available",
+              "sources": [
+                {"type": "riskSearchDiagnostics", "query": "北京 北京大学 2026 国庆 官方公告 预约 限流", "queryLength": 31, "acceptedSourceCount": 1, "riskStatusReason": "search_success_available"},
+                {"type": "webSearchProviderDiagnostics", "attemptedProviders": ["cheetah-duckduckgo-html-search"], "successfulProviders": ["cheetah-duckduckgo-html-search"], "failedProviders": [], "skippedProviders": [], "providerDiagnostics": [{"providerName": "cheetah-duckduckgo-html-search", "status": "success", "reason": "ok", "parserName": "cheetahclaws_result_regex", "endpointHost": "html.duckduckgo.com", "resultCount": 1}]}
+              ]
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "riskSearchProviderDiagnosticsMustBePresent": true,
+        "riskSearchMustAttemptAtLeastOneStableProvider": true,
+        "riskSearchAttemptedProvidersMustInclude": ["cheetah-duckduckgo-html-search"],
+        "riskSearchSuccessfulProvidersMustInclude": ["cheetah-duckduckgo-html-search"],
+        "riskSearchAcceptedSourceCountAtLeast": 1,
+        "riskSearchQueryMaxChars": 180,
+        "riskSearchDuplicateQueryMaxCount": 0,
+        "riskSearchMustSkipOrdinaryMeals": true
+      }
+    },
+    {
+      "id": "risk_search_partial_success_with_provider_statuses",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {"dayNumber": 1, "segments": [{"id": "seg_pku", "kind": "visit", "poi": {"name": "北京大学"}}]}
+          ],
+          "poiRiskAlerts": [
+            {
+              "segmentId": "seg_pku",
+              "status": "degraded",
+              "sources": [
+                {"type": "riskSearchDiagnostics", "query": "北京 北京大学 2026 国庆 官方公告 预约 限流", "queryLength": 31, "acceptedSourceCount": 1, "riskStatusReason": "search_success_degraded"},
+                {"type": "webSearchProviderDiagnostics", "attemptedProviders": ["cheetah-duckduckgo-html-search"], "successfulProviders": ["cheetah-duckduckgo-html-search"], "failedProviders": ["duckduckgo-html-search"], "skippedProviders": ["bocha-web-search", "searxng"], "providerDiagnostics": [{"providerName": "bocha-web-search", "status": "skipped", "reason": "circuit_open", "resultCount": 0}, {"providerName": "searxng", "status": "skipped", "reason": "skipped_missing_config", "resultCount": 0}, {"providerName": "cheetah-duckduckgo-html-search", "status": "success", "reason": "ok", "parserName": "cheetahclaws_result_regex", "resultCount": 1}, {"providerName": "duckduckgo-html-search", "status": "failed", "reason": "timeout", "resultCount": 0}]}
+              ]
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "riskSearchProviderDiagnosticsMustBePresent": true,
+        "riskSearchMustAttemptAtLeastOneStableProvider": true,
+        "riskSearchAttemptedProvidersMustInclude": ["cheetah-duckduckgo-html-search"],
+        "riskSearchSuccessfulProvidersMustInclude": ["cheetah-duckduckgo-html-search"],
+        "riskSearchFailedProvidersMustInclude": ["duckduckgo-html-search"],
+        "riskSearchSkippedProvidersMustInclude": ["bocha-web-search", "searxng"],
+        "riskSearchAcceptedSourceCountAtLeast": 1,
+        "riskSearchQueryMaxChars": 180,
+        "riskSearchDuplicateQueryMaxCount": 0,
+        "riskSearchMustSkipOrdinaryMeals": true
+      }
+    },
+    {
+      "id": "search_provider_failure_does_not_skip_all_pois",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {"dayNumber": 1, "segments": [{"id": "seg_pku", "kind": "visit", "poi": {"name": "北京大学"}}, {"id": "seg_tsinghua", "kind": "visit", "poi": {"name": "清华大学"}}]}
+          ],
+          "poiRiskAlerts": [
+            {
+              "segmentId": "seg_pku",
+              "status": "degraded",
+              "sources": [
+                {"type": "riskSearchDiagnostics", "query": "北京 北京大学 2026 国庆 官方公告 预约 限流", "queryLength": 31, "acceptedSourceCount": 1, "riskStatusReason": "search_success_degraded"},
+                {"type": "webSearchProviderDiagnostics", "attemptedProviders": ["bocha-web-search", "ddgs"], "successfulProviders": ["ddgs"], "failedProviders": ["bocha-web-search"], "skippedProviders": [], "providerDiagnostics": [{"providerName": "bocha-web-search", "status": "failed", "reason": "http_403", "resultCount": 0}, {"providerName": "ddgs", "status": "success", "reason": "ok", "resultCount": 1}]}
+              ]
+            },
+            {
+              "segmentId": "seg_tsinghua",
+              "status": "degraded",
+              "sources": [
+                {"type": "riskSearchDiagnostics", "query": "北京 清华大学 2026 国庆 官方公告 预约 限流", "queryLength": 31, "acceptedSourceCount": 1, "riskStatusReason": "search_success_degraded"},
+                {"type": "webSearchProviderDiagnostics", "attemptedProviders": ["ddgs"], "successfulProviders": ["ddgs"], "failedProviders": [], "skippedProviders": ["bocha-web-search"], "providerDiagnostics": [{"providerName": "bocha-web-search", "status": "skipped", "reason": "circuit_open", "resultCount": 0}, {"providerName": "ddgs", "status": "success", "reason": "ok", "resultCount": 1}]}
+              ]
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "riskSearchProviderDiagnosticsMustBePresent": true,
+        "riskSearchMustAttemptAtLeastOneStableProvider": true,
+        "riskSearchAttemptedProvidersMustInclude": ["bocha-web-search", "ddgs"],
+        "riskSearchSuccessfulProvidersMustInclude": ["ddgs"],
+        "riskSearchFailedProvidersMustInclude": ["bocha-web-search"],
+        "riskSearchSkippedProvidersMustInclude": ["bocha-web-search"],
+        "riskSearchAcceptedSourceCountAtLeast": 2,
+        "riskSearchQueryMaxChars": 180,
+        "riskSearchDuplicateQueryMaxCount": 0,
+        "riskSearchMustSkipOrdinaryMeals": true
+      }
+    },
+    {
+      "id": "risk_search_all_failed_keeps_diagnostics",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {"dayNumber": 1, "segments": [{"id": "seg_pku", "kind": "visit", "poi": {"name": "北京大学"}}]}
+          ],
+          "poiRiskAlerts": [
+            {
+              "segmentId": "seg_pku",
+              "status": "unavailable",
+              "sources": [
+                {"type": "riskSearchDiagnostics", "query": "北京 北京大学 2026 国庆 官方公告 预约 限流", "queryLength": 31, "acceptedSourceCount": 0, "riskStatusReason": "search_provider_unavailable"},
+                {"type": "webSearchProviderDiagnostics", "attemptedProviders": ["tavily", "brave-web-search"], "successfulProviders": [], "failedProviders": ["tavily", "brave-web-search"], "skippedProviders": [], "providerDiagnostics": [{"providerName": "tavily", "status": "failed", "reason": "timeout", "resultCount": 0}, {"providerName": "brave-web-search", "status": "failed", "reason": "http_error", "resultCount": 0}]}
+              ]
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "riskSearchProviderDiagnosticsMustBePresent": true,
+        "riskSearchMustAttemptAtLeastOneStableProvider": true,
+        "riskSearchUnavailableBecauseAllProvidersFailed": true,
+        "riskSearchQueryMaxChars": 180,
+        "riskSearchDuplicateQueryMaxCount": 0,
+        "riskSearchMustSkipOrdinaryMeals": true
+      }
+    },
+    {
+      "id": "risk_search_stale_sources_rejected",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {"dayNumber": 1, "segments": [{"id": "seg_pku", "kind": "visit", "poi": {"name": "北京大学"}}]}
+          ],
+          "poiRiskAlerts": [
+            {
+              "segmentId": "seg_pku",
+              "status": "unavailable",
+              "sources": [
+                {"type": "riskSearchDiagnostics", "query": "北京 北京大学 2026 国庆 官方公告 预约 限流", "queryLength": 31, "acceptedSourceCount": 0, "rejectedStaleSourceCount": 2, "riskStatusReason": "search_results_all_stale"},
+                {"type": "webSearchProviderDiagnostics", "attemptedProviders": ["tavily"], "successfulProviders": ["tavily"], "failedProviders": [], "skippedProviders": [], "providerDiagnostics": [{"providerName": "tavily", "status": "success", "reason": "ok", "resultCount": 2}]}
+              ]
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "riskSearchProviderDiagnosticsMustBePresent": true,
+        "riskSearchMustAttemptAtLeastOneStableProvider": true,
+        "riskSearchQueryMaxChars": 180,
+        "riskSearchDuplicateQueryMaxCount": 0,
+        "riskSearchMustSkipOrdinaryMeals": true
+      }
+    },
+    {
+      "id": "risk_search_skip_meals",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {"dayNumber": 1, "segments": [{"id": "seg_lunch", "kind": "meal", "poi": {"name": "午餐"}}, {"id": "seg_pku", "kind": "visit", "poi": {"name": "北京大学"}}]}
+          ],
+          "poiRiskAlerts": [
+            {
+              "segmentId": "seg_pku",
+              "status": "available",
+              "sources": [
+                {"type": "riskSearchDiagnostics", "query": "北京 北京大学 2026 国庆 官方公告 预约 限流", "queryLength": 31, "acceptedSourceCount": 1, "riskStatusReason": "search_success_available"},
+                {"type": "webSearchProviderDiagnostics", "attemptedProviders": ["tavily"], "successfulProviders": ["tavily"], "failedProviders": [], "skippedProviders": [], "providerDiagnostics": [{"providerName": "tavily", "status": "success", "reason": "ok", "resultCount": 1}]}
+              ]
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "riskSearchProviderDiagnosticsMustBePresent": true,
+        "riskSearchMustAttemptAtLeastOneStableProvider": true,
+        "riskSearchAcceptedSourceCountAtLeast": 1,
+        "riskSearchQueryMaxChars": 180,
+        "riskSearchDuplicateQueryMaxCount": 0,
+        "riskSearchMustSkipOrdinaryMeals": true
+      }
+    },
+    {
+      "id": "timeline_precision_edit_fill_day2_dinner",
+      "city": "北京",
+      "mockArtifact": {
+        "context": {
+          "timelinePrecisionExpectations": {
+            "targetDayNumber": 2,
+            "unchangedDaySegmentIds": {
+              "1": ["seg_d1_campus", "seg_d1_night"]
+            }
+          }
+        },
+        "itinerarySnapshot": {
+          "days": [
+            {
+              "dayNumber": 1,
+              "segments": [
+                {"id": "seg_d1_campus", "kind": "visit", "startTime": "09:00", "poi": {"name": "北京大学"}},
+                {"id": "seg_d1_night", "kind": "visit", "startTime": "19:30", "poi": {"name": "景山公园夜景"}}
+              ]
+            },
+            {
+              "dayNumber": 2,
+              "segments": [
+                {"id": "seg_d2_campus", "kind": "visit", "startTime": "15:00", "poi": {"name": "清华大学"}},
+                {
+                  "id": "seg_d2_dinner",
+                  "kind": "meal",
+                  "startTime": "18:00",
+                  "estimatedCost": 120,
+                  "notes": "groundingStatus：waiting_for_poi_grounding；costBasis=per_person; costPerPerson=120; partySize=1; totalCost=120; costSource=budget_policy",
+                  "poi": {"name": "晚餐 当地特色美食", "sourceNote": "groundingStatus：waiting_for_poi_grounding"}
+                },
+                {"id": "seg_d2_night", "kind": "visit", "startTime": "19:30", "poi": {"name": "奥林匹克塔夜景"}}
+              ]
+            }
+          ]
+        },
+        "planningSteps": [
+          {
+            "type": "timeline_edit",
+            "metadata": {
+              "resultPreview": {
+                "timelineCommand": {"operation": "replace_or_fill", "dayNumber": 2},
+                "globalReorder": false
+              }
+            }
+          }
+        ]
+      },
+      "expectations": {
+        "timelinePrecisionEditFillDay2Dinner": true,
+        "mealCostPerPersonDisplay": true
+      }
+    },
+    {
+      "id": "second_turn_food_edit_no_tool_loop_exceeded",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {
+              "dayNumber": 1,
+              "segments": [
+                {"id": "seg_d1_campus", "kind": "visit", "startTime": "09:00", "poi": {"name": "北京大学"}},
+                {"id": "seg_d1_meal", "kind": "meal", "startTime": "18:00", "poi": {"name": "北京烤鸭餐厅"}},
+                {"id": "seg_d1_night", "kind": "visit", "startTime": "19:30", "poi": {"name": "景山公园夜景"}}
+              ]
+            }
+          ]
+        },
+        "planningSteps": [
+          {
+            "type": "timeline_edit",
+            "metadata": {
+              "resultPreview": {
+                "timelineCommand": {"scope": "meal", "operation": "replace_or_fill", "dayNumber": 1},
+                "changedScope": "day1_meal_only",
+                "globalReorder": false,
+                "toolLoopEntered": false,
+                "webSearchCalls": 0,
+                "ticketLookupCalls": 0,
+                "amapWeatherCalls": 0,
+                "operationCount": 1,
+                "amapCallBudget": {
+                  "usedPlaceText": 0,
+                  "usedPlaceAround": 3,
+                  "usedRoute": 0,
+                  "usedTotalExternal": 3,
+                  "cacheHitCount": 1,
+                  "skippedBecauseBudget": 0
+                }
+              }
+            }
+          }
+        ]
+      },
+      "expectations": {
+        "mustUseDeterministicTimelineCommand": true,
+        "mustNotContainFailure": "Agent tool loop exceeded",
+        "mustNotEnterToolLoop": true,
+        "maxToolRoundsUsed": 0,
+        "maxWebSearchCalls": 0,
+        "maxTicketLookupCalls": 0,
+        "maxAmapWeatherCalls": 0,
+        "maxAmapPoiExternalCalls": 4,
+        "modifiedScope": "day1_meal_only"
+      }
+    },
+    {
+      "id": "replace_unwanted_campuses_reuses_candidates",
+      "city": "北京",
+      "mockArtifact": {
+        "planningSteps": [
+          {
+            "type": "timeline_edit",
+            "metadata": {
+              "resultPreview": {
+                "timelineCommand": {"scope": "campus", "operation": "replace_kind"},
+                "changedScope": "campus_only",
+                "toolLoopEntered": false,
+                "webSearchCalls": 0,
+                "ticketLookupCalls": 0,
+                "amapWeatherCalls": 0,
+                "amapCallBudget": {"usedPlaceText": 2, "usedPlaceAround": 0, "usedTotalExternal": 2}
+              }
+            }
+          }
+        ]
+      },
+      "expectations": {
+        "mustUseDeterministicTimelineCommand": true,
+        "mustNotContainFailure": "Agent tool loop exceeded",
+        "mustNotEnterToolLoop": true,
+        "maxWebSearchCalls": 0,
+        "maxTicketLookupCalls": 0,
+        "maxAmapPoiTextExternalCalls": 2,
+        "modifiedScope": "campus_only"
+      }
+    },
+    {
+      "id": "second_turn_night_view_concrete_grounding_no_tool_loop",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {
+              "dayNumber": 2,
+              "segments": [
+                {"id": "seg_d2_campus", "kind": "visit", "startTime": "15:00", "poi": {"name": "清华大学"}},
+                {
+                  "id": "seg_d2_night",
+                  "kind": "visit",
+                  "startTime": "19:30",
+                  "notes": "groundingStatus：agent_selected_candidate；intentType=night_view；needsConcretePoi=false",
+                  "poi": {
+                    "id": "amap_jingshan",
+                    "name": "景山公园",
+                    "source": "amap-place-search",
+                    "amapId": "amap_jingshan",
+                    "longitude": 116.3969,
+                    "latitude": 39.9236,
+                    "confidence": 0.94,
+                    "mapReady": true,
+                    "routeable": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "planningSteps": [
+          {
+            "type": "timeline_edit",
+            "metadata": {
+              "resultPreview": {
+                "timelineCommand": {"scope": "night_view", "operation": "ground_or_replace_specific_poi", "dayNumber": 2},
+                "changedScope": "night_view_concrete_grounding",
+                "toolLoopEntered": false,
+                "webSearchCalls": 0,
+                "ticketLookupCalls": 0,
+                "amapWeatherCalls": 0,
+                "amapCallBudget": {"usedPlaceText": 2, "usedPlaceAround": 0, "usedTotalExternal": 2}
+              }
+            }
+          }
+        ]
+      },
+      "expectations": {
+        "mustUseDeterministicTimelineCommand": true,
+        "mustNotContainFailure": "Agent tool loop exceeded",
+        "mustNotEnterToolLoop": true,
+        "maxToolRoundsUsed": 0,
+        "maxWebSearchCalls": 0,
+        "maxTicketLookupCalls": 0,
+        "maxAmapWeatherCalls": 0,
+        "maxAmapPoiTextExternalCalls": 2,
+        "modifiedScope": "night_view_concrete_grounding",
+        "forbidWeakNightViewPoi": true
+      }
+    },
+    {
+      "id": "route_optimize_fastest_and_cheapest_options",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {
+              "dayNumber": 1,
+              "segments": [
+                {"id": "seg_d1_pku", "kind": "visit", "startTime": "09:00", "poi": {"name": "北京大学"}},
+                {"id": "seg_d1_tsinghua", "kind": "visit", "startTime": "10:25", "poi": {"name": "清华大学"}}
+              ]
+            }
+          ],
+          "routeOptions": [
+            {"id": "route_transit", "isSelected": false, "mode": "transit", "transportMode": "transit", "distanceMeters": 5200, "durationMinutes": 34, "cost": 4},
+            {"id": "route_taxi", "isSelected": true, "mode": "taxi", "transportMode": "taxi", "distanceMeters": 5600, "durationMinutes": 18, "cost": 28}
+          ]
+        },
+        "planningSteps": [
+          {
+            "type": "route_optimize",
+            "metadata": {
+              "resultPreview": {
+                "optimizationObjective": "fastest",
+                "routeOptimization": {
+                  "objective": "fastest",
+                  "changedCount": 1,
+                  "changes": [{"fromRouteId": "route_transit", "toRouteId": "route_taxi", "reasons": ["objective_fastest", "shorter_duration"]}]
+                },
+                "schedulePolicy": "computed_from_selected_routes",
+                "scheduleUpdatedCount": 1
+              }
+            }
+          },
+          {
+            "type": "route_optimize",
+            "metadata": {
+              "resultPreview": {
+                "optimizationObjective": "cheapest",
+                "routeOptimization": {
+                  "objective": "cheapest",
+                  "changedCount": 1,
+                  "changes": [{"fromRouteId": "route_taxi", "toRouteId": "route_transit", "reasons": ["objective_cheapest", "lower_cost"]}]
+                },
+                "schedulePolicy": "computed_from_selected_routes",
+                "scheduleUpdatedCount": 1
+              }
+            }
+          }
+        ]
+      },
+      "expectations": {
+        "routeOptimizationObjectivesMustInclude": ["fastest", "cheapest"],
+        "routeOptimizationChangedCountAtLeast": 2,
+        "scheduleUpdatedCountAtLeast": 1
+      }
+    },
+    {
+      "id": "route_selection_recomputes_downstream_times",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {
+              "dayNumber": 1,
+              "segments": [
+                {"id": "seg_d1_pku", "kind": "visit", "startTime": "09:00", "durationMinutes": 70, "poi": {"name": "北京大学"}},
+                {"id": "seg_d1_tsinghua", "kind": "visit", "startTime": "10:14", "durationMinutes": 80, "poi": {"name": "清华大学"}},
+                {"id": "seg_d1_lunch", "kind": "meal", "startTime": "11:44", "durationMinutes": 60, "poi": {"name": "午餐"}}
+              ]
+            }
+          ]
+        },
+        "planningSteps": [
+          {
+            "type": "route_select",
+            "metadata": {
+              "resultPreview": {
+                "schedulePolicy": "computed_from_selected_routes",
+                "scheduleUpdatedCount": 2
+              }
+            }
+          }
+        ]
+      },
+      "expectations": {
+        "scheduleUpdatedCountAtLeast": 2,
+        "segmentStartTimes": {
+          "seg_d1_tsinghua": "10:14",
+          "seg_d1_lunch": "11:44"
+        }
+      }
+    },
+    {
+      "id": "manual_time_edit_recomputes_downstream_times",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {
+              "dayNumber": 1,
+              "segments": [
+                {"id": "seg_d1_pku", "kind": "visit", "startTime": "10:00", "durationMinutes": 70, "poi": {"name": "北京大学"}},
+                {"id": "seg_d1_tsinghua", "kind": "visit", "startTime": "11:14", "durationMinutes": 80, "poi": {"name": "清华大学"}},
+                {"id": "seg_d1_lunch", "kind": "meal", "startTime": "12:44", "durationMinutes": 60, "poi": {"name": "午餐"}}
+              ]
+            }
+          ]
+        },
+        "planningSteps": [
+          {
+            "type": "timeline_edit",
+            "metadata": {
+              "resultPreview": {
+                "timelineCommand": {"scope": "time", "operation": "replace_segment_start_time", "segmentId": "seg_d1_pku"},
+                "changedScope": "manual_time_edit",
+                "schedulePolicy": "computed_from_selected_routes",
+                "scheduleUpdatedCount": 2,
+                "globalReorder": false
+              }
+            }
+          }
+        ]
+      },
+      "expectations": {
+        "scheduleUpdatedCountAtLeast": 2,
+        "segmentStartTimes": {
+          "seg_d1_pku": "10:00",
+          "seg_d1_tsinghua": "11:14",
+          "seg_d1_lunch": "12:44"
+        }
+      }
+    },
+    {
+      "id": "poi_diversity_quality_gate_night_view",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {
+              "dayNumber": 1,
+              "segments": [
+                {
+                  "id": "seg_d1_night",
+                  "kind": "visit",
+                  "notes": "intentType：night_view；groundingStatus：agent_selected_candidate",
+                  "poi": {"name": "中央广播电视塔夜景", "sourceNote": "intentType：night_view", "type": "风景名胜;地标"}
+                }
+              ]
+            },
+            {
+              "dayNumber": 2,
+              "segments": [
+                {
+                  "id": "seg_d2_night",
+                  "kind": "visit",
+                  "notes": "intentType：night_view；groundingStatus：agent_selected_candidate",
+                  "poi": {"name": "奥林匹克塔夜景", "sourceNote": "intentType：night_view", "type": "风景名胜;地标"}
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "forbidWeakNightViewPoi": true,
+        "nightViewMustBeDistinctFamily": true
+      }
+    },
+    {
+      "id": "regenerate_creative_variant_citywalk_novelty",
+      "city": "北京",
+      "mockArtifact": {
+        "context": {
+          "effectiveUserMessage": "北京两日游，换一版更有创意，不要大众路线",
+          "creativeVariant": {
+            "creativeVariantId": "citywalk_hidden_gems",
+            "creativeVariantLabel": "隐藏 CityWalk",
+            "creativityLevel": 3,
+            "userRequestedCreativity": true
+          },
+          "previousItinerarySnapshot": {
+            "days": [
+              {
+                "dayNumber": 1,
+                "segments": [
+                  {"id": "prev_forbidden_city", "kind": "visit", "poi": {"name": "故宫博物院"}},
+                  {"id": "prev_wangfujing", "kind": "visit", "poi": {"name": "王府井步行街"}}
+                ]
+              }
+            ]
+          }
+        },
+        "planningSteps": [
+          {
+            "type": "collect_candidates",
+            "label": "候选检索完成",
+            "status": "completed",
+            "detail": "已按创意变体和新颖性策略重排候选。",
+            "providerName": "agent-staged-pipeline",
+            "fallbackUsed": false,
+            "metadata": {
+              "resultPreview": {
+                "poolReports": [
+                  {
+                    "poolId": "area_walk_pool",
+                    "intentType": "area_walk",
+                    "creativeVariantId": "citywalk_hidden_gems",
+                    "creativeVariantLabel": "隐藏 CityWalk",
+                    "creativityLevel": 3,
+                    "noveltyReferencePoiCount": 2,
+                    "selectedCount": 2,
+                    "uniqueEligibleEntityCount": 4
+                  }
+                ]
+              }
+            },
+            "timestamp": "2026-07-09T10:00:00Z"
+          }
+        ],
+        "itinerarySnapshot": {
+          "days": [
+            {
+              "dayNumber": 1,
+              "segments": [
+                {
+                  "id": "seg_wudaoying",
+                  "kind": "visit",
+                  "notes": "intentType：area_walk；groundingStatus：agent_selected_candidate",
+                  "poi": {"name": "五道营胡同", "sourceNote": "intentType：area_walk", "type": "风景名胜;特色街区"}
+                },
+                {
+                  "id": "seg_798",
+                  "kind": "visit",
+                  "notes": "intentType：area_walk；groundingStatus：agent_selected_candidate",
+                  "poi": {"name": "798艺术区", "sourceNote": "intentType：area_walk", "type": "风景名胜;创意园区"}
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "mockFinalResponse": {
+        "activeVersionId": "ver_creative_citywalk",
+        "assistantReply": "这版按隐藏 CityWalk 安排，优先尝试街巷、小众文化点和独立店周边体验。"
+      },
+      "expectations": {
+        "creativeStyleMustBeDeclared": true,
+        "creativeVariantMustBePresent": true,
+        "maxRepeatedPoiNames": 0
+      }
+    },
+    {
+      "id": "initial_route_respects_transit_preference_with_fallback_reason",
+      "city": "北京",
+      "mockArtifact": {
+        "context": {
+          "effectiveUserMessage": "北京两日游，公交地铁优先。",
+          "understoodRequirements": {"transportMode": "transit"}
+        },
+        "itinerarySnapshot": {
+          "days": [
+            {
+              "dayNumber": 1,
+              "segments": [
+                {"id": "seg_d1_pku", "kind": "visit", "startTime": "09:00", "poi": {"name": "北京大学"}},
+                {"id": "seg_d1_short_walk", "kind": "visit", "startTime": "10:12", "poi": {"name": "未名湖"}}
+              ]
+            }
+          ],
+          "routeOptions": [
+            {
+              "id": "route_transit_main",
+              "isSelected": true,
+              "mode": "transit",
+              "transportMode": "transit",
+              "distanceMeters": 5200,
+              "durationMinutes": 32,
+              "providerPayload": {}
+            },
+            {
+              "id": "route_short_walk_fallback",
+              "isSelected": true,
+              "mode": "walking",
+              "transportMode": "walking",
+              "distanceMeters": 800,
+              "durationMinutes": 8,
+              "providerPayload": {
+                "fallbackFromPreferredMode": "transit",
+                "fallbackReason": "preferred_mode_route_unavailable",
+                "userVisibleCaveat": "公交/地铁路线暂不可用，这一小段先用步行估算。"
+              }
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "selectedRouteModesMustInclude": ["transit"],
+        "maxNonPreferredRouteLegRatio": 0,
+        "nonPreferredRouteRequiresCaveat": true,
+        "nonPreferredRouteFallbackReasonsMustInclude": ["preferred_mode_route_unavailable"]
+      }
+    },
+    {
+      "id": "transport_preference_route_only",
+      "city": "北京",
+      "mockArtifact": {
+        "planningSteps": [
+          {
+            "type": "timeline_edit",
+            "metadata": {
+              "resultPreview": {
+                "timelineCommand": {"scope": "route", "operation": "update_transport_preference"},
+                "changedScope": "route_preference_only",
+                "toolLoopEntered": false,
+                "webSearchCalls": 0,
+                "ticketLookupCalls": 0,
+                "amapWeatherCalls": 0
+              }
+            }
+          }
+        ]
+      },
+      "expectations": {
+        "mustUseDeterministicTimelineCommand": true,
+        "mustNotEnterToolLoop": true,
+        "maxWebSearchCalls": 0,
+        "maxTicketLookupCalls": 0,
+        "modifiedScope": "route_preference_only"
+      }
+    },
+    {
+      "id": "multi_free_search_preserved_but_not_used_for_local_edit",
+      "city": "北京",
+      "mockArtifact": {
+        "context": {"agentPlan": {"allowedTools": ["read_itinerary", "patch_itinerary"]}},
+        "planningSteps": [
+          {
+            "type": "timeline_edit",
+            "metadata": {
+              "resultPreview": {
+                "timelineCommand": {"scope": "meal", "operation": "replace_or_fill"},
+                "changedScope": "day1_meal_only",
+                "toolLoopEntered": false,
+                "webSearchCalls": 0
+              }
+            }
+          }
+        ]
+      },
+      "expectations": {
+        "mustUseDeterministicTimelineCommand": true,
+        "mustNotEnterToolLoop": true,
+        "maxWebSearchCalls": 0,
+        "modifiedScope": "day1_meal_only"
+      }
+    },
+    {
+      "id": "amap_budget_prevents_rate_limit_spike",
+      "city": "北京",
+      "mockArtifact": {
+        "planningSteps": [
+          {
+            "type": "collect_candidates",
+            "metadata": {
+              "resultPreview": {
+                "amapCallBudget": {
+                  "used": {"usedPlaceText": 6, "usedPlaceAround": 8, "usedRoute": 2, "usedTotalExternal": 16},
+                  "cacheHitCount": 5,
+                  "skippedBecauseBudget": 3
+                }
+              }
+            }
+          }
+        ]
+      },
+      "expectations": {
+        "maxAmapPoiExternalCalls": 16,
+        "minAmapSkippedBecauseBudget": 1
+      }
+    },
+    {
+      "id": "meal_cost_per_person_display",
+      "city": "北京",
+      "mockArtifact": {
+        "itinerarySnapshot": {
+          "days": [
+            {
+              "dayNumber": 1,
+              "segments": [
+                {
+                  "id": "seg_d1_lunch",
+                  "kind": "meal",
+                  "startTime": "12:00",
+                  "estimatedCost": 160,
+                  "notes": "costBasis=per_person; costPerPerson=80; partySize=2; totalCost=160; costSource=budget_policy",
+                  "poi": {"name": "午餐 当地特色美食", "sourceNote": "groundingStatus：waiting_for_poi_grounding"}
+                },
+                {
+                  "id": "seg_d1_dinner",
+                  "kind": "meal",
+                  "startTime": "18:00",
+                  "estimatedCost": 240,
+                  "notes": "costBasis=per_person; costPerPerson=120; partySize=2; totalCost=240; costSource=budget_policy",
+                  "poi": {"name": "晚餐 当地特色美食", "sourceNote": "groundingStatus：waiting_for_poi_grounding"}
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expectations": {
+        "mealCostPerPersonDisplay": true
+      }
+    }
+  ]
+}

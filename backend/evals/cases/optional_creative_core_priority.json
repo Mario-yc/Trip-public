@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Optional creative filler cannot consume candidate budget ahead of explicit campus and museum goals.",
+  "defaultMockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true},
+  "scenarios": [{
+    "id": "optional_creative_core_priority",
+    "city": "北京",
+    "input": "10月1日到2日北京两日游，必须参观985大学和美术馆；有余力再安排创意街区漫步，公交地铁优先。",
+    "expectations": {
+      "requiredIntentPoolCoverage": {"campus_visit": "covered", "museum": "covered"},
+      "requiredPoolsMustPrecedeOptional": true,
+      "museumSemanticMismatchSelectedCount": 0,
+      "goalClaimMismatchCount": 0,
+      "verifierMustPass": true
+    }
+  }]
+}

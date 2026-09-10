@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "scenarios": [
+    {
+      "id": "local_meal_inside_complex_bounded",
+      "city": "北京",
+      "seedItinerary": {
+        "title": "北京局部餐饮编辑 CLI 场景",
+        "city": "北京",
+        "templateType": "agent_mvp",
+        "budgetTarget": 800,
+        "budgetEstimate": 160,
+        "budgetDeltaExplanation": "CLI 场景初始时间轴。",
+        "decisionRationale": "验证大融城仅作为餐饮搜索锚点。",
+        "status": "draft",
+        "days": [{
+          "id": "day_cli_1", "dayNumber": 1, "date": "2026-10-01", "title": "Day 1", "weatherSummary": "", "riskSummary": "",
+          "segments": [
+            {"id": "seg_cli_campus", "startTime": "09:00", "endTime": "11:00", "kind": "visit", "poi": {"id": "poi_cli_campus", "amapId": "B000PKU", "name": "北京大学", "city": "北京", "category": "scenic", "latitude": 39.9929, "longitude": 116.3109, "source": "amap-place-search", "confidence": 0.94, "photos": []}, "transportMode": "public_transit", "estimatedCost": 0, "notes": "上午校园"},
+            {"id": "seg_zhajiangmian", "startTime": "12:00", "endTime": "13:00", "kind": "meal", "poi": {"id": "poi_cli_noodle", "amapId": "B0OLDNOODLE", "name": "老北京炸酱面", "city": "北京", "category": "food", "latitude": 39.99, "longitude": 116.32, "source": "amap-place-search", "confidence": 0.94, "photos": []}, "transportMode": "walk", "estimatedCost": 40, "notes": "午餐"},
+            {"id": "seg_cli_night", "startTime": "19:30", "endTime": "21:00", "kind": "visit", "poi": {"id": "poi_cli_night", "amapId": "B000JINGSHAN", "name": "景山公园", "city": "北京", "category": "scenic", "latitude": 39.9236, "longitude": 116.3969, "source": "amap-place-search", "confidence": 0.94, "photos": []}, "transportMode": "public_transit", "estimatedCost": 60, "notes": "晚间游览"}
+          ]
+        }],
+        "routeOptions": [], "weatherSignals": [], "trafficCrowdingSignals": [], "ticketLookupResults": []
+      },
+      "turns": [{
+        "input": "第一天的炸酱面太远了，改到大融城里面的店吃吧",
+        "mockProviders": true,
+        "mockMapProvider": {"enabled": true, "trustedFoodForDeterministicEdit": true}
+      }],
+      "expectations": {
+        "mustCreateTimeline": true,
+        "mustUseDeterministicTimelineCommand": true,
+        "mustNotEnterToolLoop": true,
+        "maxToolRoundsUsed": 0,
+        "maxWebSearchCalls": 0,
+        "maxTicketLookupCalls": 0,
+        "maxAmapWeatherCalls": 0,
+        "maxAmapPoiExternalCalls": 2,
+        "minAmapPoiExternalCalls": 2,
+        "changedSegmentCount": 1,
+        "changedMealMustBeFood": true,
+        "changedMealMustNotContain": ["大融城"],
+        "riskSearchMustSkipOrdinaryMeals": true
+      }
+    }
+  ]
+}

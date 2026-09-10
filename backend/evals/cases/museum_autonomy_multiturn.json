@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "A museum planning write followed by a timeline lookup preserves the same version and never escalates the lookup to external search.",
+  "scenarios": [{
+    "id": "museum_autonomy_multiturn",
+    "city": "北京",
+    "expectedDecisions": ["draft_itinerary", "read_itinerary"],
+    "expectedActions": ["staged_initial_pipeline", "read_only"],
+    "expectedVersionDelta": 0,
+    "turns": [
+      {
+        "input": "10月1日到2日北京两日游，必须参观985大学和美术馆，中等预算，1人，公交地铁优先。",
+        "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true}
+      },
+      {
+        "input": "哪个行程是美术馆",
+        "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "mockRouteRefresh": true}
+      }
+    ],
+    "turnExpectations": [
+      {
+        "agentDecisionSource": "controller",
+        "agentDecisionPrimaryAction": "draft_itinerary",
+        "museumSemanticMismatchSelectedCount": 0,
+        "requiredIntentPoolCoverage": {"campus_visit": "covered", "museum": "covered"},
+        "goalClaimMismatchCount": 0,
+        "verifierMustPass": true
+      },
+      {
+        "agentDecisionPrimaryAction": "read_itinerary",
+        "agentDecisionProposedExecutionRoute": "read_only",
+        "museumTimelineInvalidClaimCount": 0,
+        "readOnlyExternalCallCount": 0,
+        "readOnlyPatchCount": 0,
+        "readOnlyVersionDelta": 0,
+        "readOnlyUnchangedVerifierMustPass": true,
+        "genericToolLoopWithoutDecisionCount": 0,
+        "maxWebSearchCalls": 0,
+        "maxTicketLookupCalls": 0,
+        "maxAmapWeatherCalls": 0
+      }
+    ],
+    "expectations": {
+      "turnCount": 2,
+      "activeVersionEventuallyCreated": true,
+      "activeVersionChangeCount": 0,
+      "genericToolLoopWithoutDecisionCount": 0
+    }
+  }]
+}

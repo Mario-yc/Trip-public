@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Explicit required goals retain map budget ahead of optional creative filler.",
+  "defaultMockMapProvider": {"enabled": true, "mockRouteRefresh": true, "trustedPoiFixtures": true, "trustedFoodForDeterministicEdit": true},
+  "scenarios": [{
+    "id": "required_museum_before_optional_walk",
+    "city": "北京",
+    "input": "10月1日到2日北京两日游，必须参观985大学和博物馆，也想顺路体验本地街区和特色美食，公交地铁优先。",
+    "expectations": {
+      "mustCreateTimeline": true,
+      "explicitMealMustBeGroundedOrPending": true,
+      "requiredIntentPoolCoverage": {"campus_visit": "covered", "museum": "covered"},
+      "requiredPoolsMustPrecedeOptional": true,
+      "maxDuplicateMealBrandCount": 0,
+      "verifierMustPass": true
+    }
+  }]
+}

@@ -1,0 +1,626 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Recorded provider-shaped V3 alias, continuation, POI dominance, truthful no-safe-action, and unquantified 985 GoalLedger coverage for the P0 ReAct live contract.",
+  "recordingProvenance": {
+    "kind": "sanitized_provider_shaped",
+    "source": "P0 live-contract debugging evidence",
+    "sanitization": "Private reasoning, credentials, provider headers, request URLs, and machine-local paths removed.",
+    "liveProviderClaim": false
+  },
+  "recordedProviderShapeFixtures": [
+    {
+      "id": "resolve_poi_segment_id_search_text",
+      "rawDecision": {
+        "schemaVersion": "agent-decision-v3",
+        "primaryAction": "resolve_poi",
+        "actionDirective": {
+          "type": "resolve_poi",
+          "targetGoalId": "goal_museum",
+          "segmentId": "seg_day1_museum",
+          "searchText": "清华美术馆",
+          "searchMode": "text",
+          "maxCandidates": 4,
+          "autoSelectPolicy": "dominant_safe_candidate_only",
+          "askUserPolicy": "material_tradeoff_only"
+        }
+      },
+      "expectedNormalization": {
+        "aliases": [
+          "actionDirective.segmentId->targetSegmentIds",
+          "actionDirective.searchText->searchIntent"
+        ],
+        "normalizedDirective": {
+          "type": "resolve_poi",
+          "targetGoalId": "goal_museum",
+          "targetSegmentIds": ["seg_day1_museum"],
+          "searchIntent": "清华美术馆",
+          "searchMode": "text",
+          "maxCandidates": 4,
+          "autoSelectPolicy": "dominant_safe_candidate_only",
+          "askUserPolicy": "material_tradeoff_only"
+        }
+      },
+      "canonicalContext": {
+        "latestUserMessage": "重试一次，将第一天美术馆修改为清华美术馆",
+        "effectiveUserMessage": "今年国庆参观985大学两日游，然后去体验下北京当地博物馆陶冶情操。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食。当前修改：将第一天美术馆修改为清华美术馆",
+        "activeVersionId": "ver_recorded_v3",
+        "resolvedTripDates": {
+          "startDate": "2026-10-01",
+          "endDate": "2026-10-02",
+          "dayCount": 2,
+          "dates": ["2026-10-01", "2026-10-02"]
+        },
+        "requestIntentContract": {
+          "sourceUserTurnId": "turn_recorded_source",
+          "goals": [
+            {
+              "goalId": "goal_campus_visit",
+              "intentType": "campus_visit",
+              "requirementLevel": "hard",
+              "requiredMin": 1,
+              "preferred": 1,
+              "max": null
+            },
+            {
+              "goalId": "goal_museum",
+              "intentType": "museum",
+              "requirementLevel": "hard",
+              "requiredMin": 1,
+              "preferred": 1,
+              "max": 1
+            },
+            {
+              "goalId": "goal_meal",
+              "intentType": "meal",
+              "requirementLevel": "soft_experience",
+              "requiredMin": 1,
+              "preferred": 2,
+              "max": 2
+            }
+          ]
+        },
+        "observation": {
+          "schemaVersion": "agent-observation-v1",
+          "cycleIndex": 0,
+          "versionLineage": {
+            "currentVersionId": "ver_recorded_v3",
+            "baseVersionId": "ver_recorded_v3"
+          },
+          "targetInventory": {
+            "versionIds": ["ver_recorded_v3"],
+            "dayIds": ["day_recorded_1", "day_recorded_2"],
+            "segmentIds": ["seg_day1_campus", "seg_day1_museum", "seg_day2_meal"],
+            "goalIds": ["goal_campus_visit", "goal_museum", "goal_meal"],
+            "candidateIds": [],
+            "amapPoiIds": []
+          },
+          "segmentRefs": [
+            {
+              "segmentId": "seg_day1_campus",
+              "dayId": "day_recorded_1",
+              "dayNumber": 1,
+              "goalId": "goal_campus_visit",
+              "intentType": "campus_visit",
+              "poiName": "清华大学"
+            },
+            {
+              "segmentId": "seg_day1_museum",
+              "dayId": "day_recorded_1",
+              "dayNumber": 1,
+              "goalId": "goal_museum",
+              "intentType": "museum",
+              "poiName": "美术馆待确认"
+            },
+            {
+              "segmentId": "seg_day2_meal",
+              "dayId": "day_recorded_2",
+              "dayNumber": 2,
+              "goalId": "goal_meal",
+              "intentType": "meal",
+              "poiName": "北京特色餐饮待确认"
+            }
+          ],
+          "requirementCoverage": {
+            "required": [
+              {
+                "goalId": "goal_campus_visit",
+                "intentType": "campus_visit",
+                "requirementLevel": "hard",
+                "requiredMin": 1,
+                "scheduledCount": 1
+              },
+              {
+                "goalId": "goal_museum",
+                "intentType": "museum",
+                "requirementLevel": "hard",
+                "requiredMin": 1,
+                "scheduledCount": 1
+              },
+              {
+                "goalId": "goal_meal",
+                "intentType": "meal",
+                "requirementLevel": "soft_experience",
+                "requiredMin": 1,
+                "scheduledCount": 1
+              }
+            ]
+          },
+          "unresolvedSlots": [
+            {
+              "slotId": "slot_day1_museum",
+              "segmentId": "seg_day1_museum",
+              "goalId": "goal_museum",
+              "dayNumber": 1,
+              "intentType": "museum",
+              "rawNeed": "美术馆参观",
+              "required": true
+            }
+          ],
+          "candidateState": {"pendingGroups": []}
+        }
+      }
+    },
+    {
+      "id": "resolve_poi_target_segment_id_day_number",
+      "rawDecision": {
+        "schemaVersion": "agent-decision-v3",
+        "primaryAction": "resolve_poi",
+        "actionDirective": {
+          "type": "resolve_poi",
+          "targetGoalId": "goal_museum",
+          "targetSegmentId": "seg_day1_museum",
+          "dayNumber": 1,
+          "searchIntent": "清华美术馆",
+          "searchMode": "text",
+          "maxCandidates": 4,
+          "autoSelectPolicy": "dominant_safe_candidate_only",
+          "askUserPolicy": "material_tradeoff_only"
+        }
+      },
+      "expectedNormalization": {
+        "aliases": [
+          "actionDirective.targetSegmentId->targetSegmentIds",
+          "actionDirective.dayNumber->validationEvidence"
+        ],
+        "normalizedDirective": {
+          "type": "resolve_poi",
+          "targetGoalId": "goal_museum",
+          "targetSegmentIds": ["seg_day1_museum"],
+          "searchIntent": "清华美术馆",
+          "searchMode": "text",
+          "maxCandidates": 4,
+          "autoSelectPolicy": "dominant_safe_candidate_only",
+          "askUserPolicy": "material_tradeoff_only"
+        }
+      },
+      "canonicalContextRef": "resolve_poi_segment_id_search_text.canonicalContext"
+    }
+  ],
+  "defaultMockMapProvider": {
+    "enabled": true,
+    "trustedPoiFixtures": true,
+    "trustedFoodForDeterministicEdit": true,
+    "mockRouteRefresh": true,
+    "reactMultiturnMuseumEdit": true
+  },
+  "scenarios": [
+    {
+      "id": "react_live_contract_initial_request",
+      "city": "北京",
+      "providerShapeFixtureId": "resolve_poi_segment_id_search_text",
+      "requiresTurn1CreatedItinerary": true,
+      "forbidSeedItinerary": true,
+      "turns": [
+        {
+          "input": "今年国庆参观985大学两日游，然后去体验下北京当地博物馆陶冶情操。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"
+        }
+      ],
+      "turnExpectations": [
+        {
+          "agentDecisionSource": "controller",
+          "agentDecisionPrimaryAction": "draft_itinerary",
+          "activeVersionCreated": true,
+          "verifierMustPass": true,
+          "dayCount": 2,
+          "falseSuccessClaimCount": 0,
+          "transactionEvidenceMissingCount": 0
+        }
+      ],
+      "expectations": {
+        "turnCount": 1,
+        "seededItineraryCount": 0,
+        "turn1CreatedActiveVersionCount": 1,
+        "preControllerDomainRouterCount": 0,
+        "localMutationBypassCount": 0,
+        "genericToolLoopWithoutAcceptedDecisionCount": 0
+      }
+    },
+    {
+      "id": "react_live_contract_retry_choice",
+      "city": "北京",
+      "providerShapeFixtureId": "resolve_poi_segment_id_search_text",
+      "turns": [
+        {
+          "input": "今年国庆参观985大学两日游，然后去体验下北京当地博物馆陶冶情操。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食",
+          "mockMapProvider": {
+            "enabled": true,
+            "trustedPoiFixtures": true,
+            "mockRouteRefresh": true,
+            "reactMultiturnMuseumEdit": true,
+            "controllerFailure": "timeout"
+          }
+        },
+        {
+          "input": "重试本次修改",
+          "selectedAgentChoiceAction": "retry_model_planning"
+        }
+      ],
+      "turnExpectations": [
+        {"terminalStatus": "needs_confirmation", "controllerFallbackCount": 1},
+        {
+          "controllerRetryCount": 1,
+          "choiceConsumedCount": 1,
+          "ruleSafeDraftConfirmedCount": 0,
+          "verifiedWriteCount": 1,
+          "rollbackCount": 0
+        }
+      ],
+      "expectations": {
+        "turnCount": 2,
+        "controllerRetryCount": 1,
+        "choiceConsumedCount": 1,
+        "ruleSafeDraftConfirmedCount": 0,
+        "effectiveUserMessageContainsOriginalTrip": true,
+        "repeatedSameClarificationCount": 0
+      }
+    },
+    {
+      "id": "react_live_contract_manual_museum_replacement",
+      "city": "北京",
+      "providerShapeFixtureId": "resolve_poi_target_segment_id_day_number",
+      "requiresTurn1CreatedItinerary": true,
+      "forbidSeedItinerary": true,
+      "turns": [
+        {
+          "input": "今年国庆参观985大学两日游，然后去体验下北京当地博物馆陶冶情操。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"
+        },
+        {
+          "input": "重试一次，将第一天美术馆修改为清华美术馆",
+          "mockMapProvider": {
+            "enabled": true,
+            "trustedPoiFixtures": true,
+            "mockRouteRefresh": true,
+            "reactMultiturnMuseumEdit": true,
+            "controllerFailure": "timeout"
+          }
+        },
+        {
+          "input": "清华美术馆",
+          "selectedAgentChoiceAction": "manual_continuation",
+          "manualValue": "清华美术馆"
+        }
+      ],
+      "turnExpectations": [
+        {"activeVersionCreated": true, "verifierMustPass": true, "dayCount": 2},
+        {"terminalStatus": "needs_confirmation", "controllerFallbackCount": 1},
+        {
+          "choiceConsumedCount": 1,
+          "preControllerDomainRouterCount": 0,
+          "localMutationBypassCount": 0,
+          "genericToolLoopWithoutAcceptedDecisionCount": 0
+        }
+      ],
+      "expectations": {
+        "turnCount": 3,
+        "seededItineraryCount": 0,
+        "turn1CreatedActiveVersionCount": 1,
+        "choiceConsumedCount": 1,
+        "effectiveUserMessageContainsOriginalTrip": true,
+        "falseSuccessClaimCount": 0
+      }
+    },
+    {
+      "id": "react_poi_dominant_museum_auto_select",
+      "city": "北京",
+      "providerShapeFixtureId": "resolve_poi_segment_id_search_text",
+      "requiresTurn1CreatedItinerary": true,
+      "forbidSeedItinerary": true,
+      "expectedDecisions": ["draft_itinerary", "finish", "resolve_poi", "patch_itinerary", "finish"],
+      "expectedActions": ["staged_initial_pipeline", "terminal_response", "poi_grounding", "timeline_mutation_executor", "terminal_response"],
+      "turns": [
+        {
+          "input": "今年国庆参观985大学两日游，然后去体验下北京当地博物馆陶冶情操。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"
+        },
+        {"input": "重试一次，将第一天美术馆修改为清华美术馆"}
+      ],
+      "turnExpectations": [
+        {"activeVersionCreated": true, "verifierMustPass": true, "dayCount": 2},
+        {
+          "agentDecisionPrimaryAction": "finish",
+          "postObservationDecisionCount": 2,
+          "verifiedWriteCount": 1,
+          "candidateSelectionPatchCount": 1,
+          "candidateSelectionMustUseIdentity": true,
+          "candidateSelectionChangedSegmentCount": 1,
+          "durationPreservationFailureCount": 0,
+          "transactionEvidenceMissingCount": 0,
+          "falseSuccessClaimCount": 0,
+          "maxWebSearchCalls": 0,
+          "maxTicketLookupCalls": 0,
+          "maxAmapWeatherCalls": 0
+        }
+      ],
+      "expectations": {
+        "turnCount": 2,
+        "seededItineraryCount": 0,
+        "turn1CreatedActiveVersionCount": 1,
+        "preControllerDomainRouterCount": 0,
+        "localMutationBypassCount": 0,
+        "genericToolLoopWithoutAcceptedDecisionCount": 0,
+        "transactionEvidenceMissingCount": 0,
+        "falseSuccessClaimCount": 0
+      }
+    },
+    {
+      "id": "react_poi_material_tradeoff_asks",
+      "city": "北京",
+      "providerShapeFixtureId": "resolve_poi_target_segment_id_day_number",
+      "seedItinerary": {
+        "title": "美术馆候选权衡",
+        "city": "北京",
+        "templateType": "agent_mvp",
+        "budgetTarget": 500,
+        "budgetEstimate": 0,
+        "budgetDeltaExplanation": "eval seed",
+        "decisionRationale": "POI autonomy material tradeoff fixture",
+        "status": "draft",
+        "days": [
+          {
+            "id": "day_museum_tradeoff_1",
+            "dayNumber": 1,
+            "date": "2026-10-01",
+            "title": "第一天",
+            "weatherSummary": "",
+            "riskSummary": "",
+            "segments": [
+              {
+                "id": "seg_museum_tradeoff_1",
+                "startTime": "15:30",
+                "endTime": "18:00",
+                "kind": "museum",
+                "intentType": "museum",
+                "poi": {
+                  "id": "pending_museum_tradeoff",
+                  "name": "美术馆待确认",
+                  "city": "北京",
+                  "category": "museum",
+                  "latitude": null,
+                  "longitude": null,
+                  "source": "agent-text-timeline",
+                  "confidence": 0.2,
+                  "groundingStatus": "waiting_for_poi_grounding",
+                  "photos": []
+                },
+                "transportMode": "public_transit",
+                "estimatedCost": 0,
+                "notes": "requiredGrounding=true；groundingStatus：waiting_for_poi_grounding"
+              }
+            ]
+          }
+        ],
+        "routeOptions": [],
+        "weatherSignals": [],
+        "trafficCrowdingSignals": [],
+        "ticketLookupResults": []
+      },
+      "seedPendingPoiCandidates": [
+        {
+          "id": "candidate_museum_tradeoff",
+          "query": "北京艺术博物馆",
+          "category": "museum",
+          "candidates": [
+            {
+              "id": "amap_museum_tradeoff_a",
+              "amapId": "amap_museum_tradeoff_a",
+              "name": "甲艺术博物馆",
+              "type": "科教文化服务;博物馆",
+              "city": "北京",
+              "district": "海淀区",
+              "address": "记录地址 A",
+              "longitude": 116.3301,
+              "latitude": 39.9901,
+              "category": "museum",
+              "source": "amap-place-search",
+              "confidence": 0.93,
+              "photos": []
+            },
+            {
+              "id": "amap_museum_tradeoff_b",
+              "amapId": "amap_museum_tradeoff_b",
+              "name": "乙艺术博物馆",
+              "type": "科教文化服务;博物馆",
+              "city": "北京",
+              "district": "海淀区",
+              "address": "记录地址 B",
+              "longitude": 116.3311,
+              "latitude": 39.9911,
+              "category": "museum",
+              "source": "amap-place-search",
+              "confidence": 0.92,
+              "photos": []
+            }
+          ]
+        }
+      ],
+      "turns": [{"input": "两个美术馆候选差异实质相当时先让我选择，不要直接写入。"}],
+      "turnExpectations": [
+        {
+          "agentDecisionSource": "controller",
+          "agentDecisionPrimaryAction": "ask_user",
+          "agentDecisionPolicyAccepted": true,
+          "actionDirectiveModelCount": 1,
+          "falseSuccessClaimCount": 0
+        }
+      ],
+      "expectations": {"turnCount": 1, "activeVersionChangeCount": 0, "falseSuccessClaimCount": 0}
+    },
+    {
+      "id": "react_restaurant_dominant_auto_select",
+      "city": "北京",
+      "seedItinerary": {
+        "title": "唯一顺路特色餐厅",
+        "city": "北京",
+        "templateType": "agent_mvp",
+        "budgetTarget": 500,
+        "budgetEstimate": 0,
+        "budgetDeltaExplanation": "eval seed",
+        "decisionRationale": "restaurant dominance fixture",
+        "status": "draft",
+        "days": [
+          {
+            "id": "day_restaurant_dominant_1",
+            "dayNumber": 1,
+            "date": "2026-10-01",
+            "title": "第一天",
+            "weatherSummary": "",
+            "riskSummary": "",
+            "segments": [
+              {
+                "id": "seg_restaurant_dominant_1",
+                "startTime": "18:00",
+                "endTime": "19:00",
+                "kind": "meal",
+                "intentType": "meal",
+                "poi": {
+                  "id": "pending_restaurant_dominant",
+                  "name": "北京特色晚餐待确认",
+                  "city": "北京",
+                  "category": "food",
+                  "latitude": null,
+                  "longitude": null,
+                  "source": "agent-text-timeline",
+                  "confidence": 0.2,
+                  "groundingStatus": "waiting_for_poi_grounding",
+                  "photos": []
+                },
+                "transportMode": "public_transit",
+                "estimatedCost": 0,
+                "notes": "requiredGrounding=true；explicit_food_experience"
+              }
+            ]
+          }
+        ],
+        "routeOptions": [],
+        "weatherSignals": [],
+        "trafficCrowdingSignals": [],
+        "ticketLookupResults": []
+      },
+      "seedPendingPoiCandidates": [
+        {
+          "id": "candidate_restaurant_dominant",
+          "query": "北京特色晚餐",
+          "category": "food",
+          "candidates": [
+            {
+              "id": "amap_restaurant_dominant",
+              "amapId": "amap_restaurant_dominant",
+              "name": "顺路老北京铜锅涮肉馆",
+              "type": "餐饮服务;中餐厅;火锅店",
+              "city": "北京",
+              "district": "东城区",
+              "address": "记录地址",
+              "longitude": 116.4074,
+              "latitude": 39.9042,
+              "category": "food",
+              "source": "amap-place-search",
+              "sourceNote": "sanitized dominant restaurant fixture",
+              "confidence": 0.96,
+              "photos": []
+            }
+          ]
+        }
+      ],
+      "turns": [{"input": "只有一个语义正确、预算合适且顺路的北京特色晚餐候选时直接替换。"}],
+      "turnExpectations": [
+        {
+          "agentDecisionSource": "controller",
+          "agentDecisionPrimaryAction": "patch_itinerary",
+          "agentDecisionPolicyAccepted": true,
+          "candidateSelectionPatchCount": 1,
+          "candidateSelectionUsesIdentity": true,
+          "candidateSelectionChangedSegmentCount": 1,
+          "transactionEvidenceMissingCount": 0,
+          "falseSuccessClaimCount": 0
+        }
+      ],
+      "expectations": {"turnCount": 1, "falseSuccessClaimCount": 0, "transactionEvidenceMissingCount": 0}
+    },
+    {
+      "id": "react_no_safe_action_truthful_trace",
+      "city": "北京",
+      "turns": [
+        {
+          "input": "今年国庆参观985大学两日游，然后去体验下北京当地博物馆陶冶情操。10月1日到2日，2天，中等预算，1人，公交地铁优先。",
+          "mockMapProvider": {
+            "enabled": true,
+            "trustedPoiFixtures": true,
+            "mockRouteRefresh": true,
+            "controllerFailure": "timeout"
+          }
+        }
+      ],
+      "turnExpectations": [
+        {
+          "terminalStatus": "needs_confirmation",
+          "controllerFallbackCount": 1,
+          "verifiedWriteCount": 0,
+          "activeVersionChanged": false,
+          "falseSuccessClaimCount": 0,
+          "maxAmapPoiExternalCalls": 0,
+          "maxWebSearchCalls": 0,
+          "maxTicketLookupCalls": 0,
+          "maxAmapWeatherCalls": 0
+        }
+      ],
+      "expectations": {
+        "turnCount": 1,
+        "activeVersionChangeCount": 0,
+        "falseSuccessClaimCount": 0,
+        "genericToolLoopWithoutAcceptedDecisionCount": 0
+      }
+    },
+    {
+      "id": "react_goal_cardinality_unquantified_985",
+      "city": "北京",
+      "expectedGoalLedger": {
+        "goalId": "goal_campus_visit",
+        "intentType": "campus_visit",
+        "requirementLevel": "hard",
+        "requiredMin": 1,
+        "preferred": 1,
+        "max": null,
+        "mustNotInferCountFromDayCount": true
+      },
+      "turns": [
+        {
+          "input": "今年国庆参观985大学两日游，然后去体验下北京当地博物馆陶冶情操。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"
+        }
+      ],
+      "turnExpectations": [
+        {
+          "agentDecisionSource": "controller",
+          "agentDecisionPrimaryAction": "draft_itinerary",
+          "dayCount": 2,
+          "activeVersionCreated": true,
+          "verifierMustPass": true,
+          "falseSuccessClaimCount": 0
+        }
+      ],
+      "expectations": {
+        "turnCount": 1,
+        "turn1CreatedActiveVersionCount": 1,
+        "falseSuccessClaimCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "The model auto-selects the only dominant safe candidate ID and the deterministic patch executor verifies the write.",
+  "defaultMockMapProvider": {"enabled": true, "trustedPoiFixtures": true},
+  "scenarios": [{
+    "id": "model_owned_dominant_candidate_patch",
+    "city": "北京",
+    "seedItinerary": {
+      "title": "唯一候选行程", "city": "北京", "templateType": "agent_mvp", "budgetTarget": 500,
+      "budgetEstimate": 0, "budgetDeltaExplanation": "seed", "decisionRationale": "seed", "status": "draft",
+      "days": [{"id": "day_dominant_1", "dayNumber": 1, "date": "2026-10-01", "title": "Day 1", "weatherSummary": "", "riskSummary": "", "segments": [{
+        "id": "seg_dominant_1", "startTime": "18:00", "endTime": "19:00", "kind": "meal", "intentType": "meal",
+        "poi": {"id": "pending_meal", "name": "晚餐待确认", "city": "北京", "category": "food", "latitude": null, "longitude": null, "source": "agent-text-timeline", "confidence": 0.2, "groundingStatus": "waiting_for_poi_grounding", "photos": []},
+        "transportMode": "public_transit", "estimatedCost": 0, "notes": "requiredGrounding=true；groundingStatus：waiting_for_poi_grounding"
+      }]}], "routeOptions": [], "weatherSignals": [], "trafficCrowdingSignals": [], "ticketLookupResults": []
+    },
+    "seedPendingPoiCandidates": [{
+      "id": "candidate_dominant_group", "sourceSegmentId": "seg_dominant_1", "query": "北京特色晚餐", "category": "food",
+      "candidates": [{
+        "id": "amap_dominant_safe", "amapId": "amap_dominant_safe", "name": "唯一顺路特色餐厅",
+        "type": "餐饮服务;中餐厅", "city": "北京", "district": "东城区", "address": "测试地址",
+        "longitude": 116.4074, "latitude": 39.9042, "category": "food", "source": "amap-place-search",
+        "sourceNote": "recorded safe candidate", "confidence": 0.95, "photos": []
+      }]
+    }],
+    "turns": [{"input": "如果只有一个高置信、语义正确且顺路的晚餐候选，就直接替换这个待确认地点。"}],
+    "turnExpectations": [{
+      "agentDecisionEventRequired": true, "agentDecisionPrimaryAction": "patch_itinerary", "agentDecisionSource": "controller",
+      "agentDecisionPolicyAccepted": true, "modelPrimaryDecisionRatio": 1.0,
+      "plannerCalledOnHealthyControllerCount": 0, "timelineParserPreDecisionCount": 0,
+      "controllerFallbackWriteCount": 0, "genericToolLoopWithoutAcceptedDecisionCount": 0,
+      "unexecutedAcceptedContinuingDecisionCount": 0,
+      "actionDirectiveModelCount": 1, "candidateSelectionPatchCount": 1,
+      "candidateSelectionUsesIdentity": true, "candidateSelectionChangedSegmentCount": 1
+    }],
+    "expectations": {"turnCount": 1, "activeVersionChangeCount": 0, "modelPrimaryDecisionRatio": 1.0}
+  }]
+}

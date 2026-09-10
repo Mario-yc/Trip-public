@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "agent-autonomy-required-scenarios-v1",
+  "scenarios": [
+    {
+      "id": "01_complete_initial_planning",
+      "evidenceTests": ["backend/tests/unit/test_agent_service.py::test_draft_executor_reuses_staged_pipeline"]
+    },
+    {
+      "id": "02_missing_information_clarification",
+      "evidenceTests": ["backend/tests/unit/test_agent_service.py::test_controller_checkpoint_choice_persists_semantics_and_drives_next_dynamic_question"]
+    },
+    {
+      "id": "03_read_only_query",
+      "evidenceTests": ["backend/tests/unit/test_agent_service.py::test_read_executor_uses_read_only_channel_without_version_write"]
+    },
+    {
+      "id": "04_search_candidates_for_user_choice",
+      "evidenceTests": ["backend/tests/unit/test_agent_service.py::test_timeline_night_view_options_return_structured_local_poi_options_without_writing_version"]
+    },
+    {
+      "id": "05_structured_candidate_click",
+      "evidenceTests": ["backend/tests/unit/test_agent_service.py::test_candidate_patch_executor_reuses_candidate_guard_and_patch_pipeline"]
+    },
+    {
+      "id": "06a_natural_language_react_local_edit",
+      "evidenceTests": ["backend/tests/integration/test_react_agent_multiturn.py::test_p0_golden_same_session_draft_resolve_patch_reload_finish"]
+    },
+    {
+      "id": "06b_typed_or_executor_local_edit",
+      "evidenceTests": ["backend/tests/unit/test_agent_service.py::test_patch_executor_single_segment_time_edit_uses_existing_patch_and_verifier"]
+    },
+    {
+      "id": "07_route_optimization",
+      "evidenceTests": ["backend/tests/unit/test_agent_service.py::test_route_executor_single_day_optimization_reuses_route_service_and_version_guard"]
+    },
+    {
+      "id": "08_far_future_weather_uncertainty",
+      "evidenceTests": ["backend/tests/unit/test_agent_service.py::test_finish_executor_does_not_repeat_unverified_far_future_weather_claim_without_snapshot"]
+    },
+    {
+      "id": "09_trip_only_vs_long_term_memory",
+      "evidenceTests": [
+        "backend/tests/unit/test_agent_service.py::test_strict_v3_finish_cannot_fabricate_trip_only_memory_side_effect",
+        "backend/tests/unit/test_agent_service.py::test_strict_v3_finish_cannot_force_inferred_memory_into_confirmation",
+        "backend/tests/unit/test_agent_service.py::test_strict_v3_finish_cannot_promote_model_supplied_memory_globally"
+      ]
+    },
+    {
+      "id": "10_controller_timeout",
+      "evidenceTests": ["backend/tests/unit/test_agent_autonomy_service.py::test_controller_timeout_uses_safe_fallback_without_waiting_or_planner_write"]
+    },
+    {
+      "id": "11_schema_invalid",
+      "evidenceTests": ["backend/tests/unit/test_agent_autonomy_service.py::test_controller_schema_invalid_uses_safe_fallback_without_planner_write"]
+    },
+    {
+      "id": "12_unauthorized_tool",
+      "evidenceTests": ["backend/tests/unit/test_agent_autonomy_service.py::test_policy_gate_clips_tools_and_recomputes_write_risk"]
+    },
+    {
+      "id": "13_write_risk_miscalculation",
+      "evidenceTests": ["backend/tests/unit/test_agent_autonomy_service.py::test_policy_gate_clips_tools_and_recomputes_write_risk"]
+    },
+    {
+      "id": "14_version_conflict",
+      "evidenceTests": ["backend/tests/unit/test_agent_service.py::test_patch_executor_stale_or_duplicate_time_edit_is_noop_without_extra_version"]
+    },
+    {
+      "id": "15_duplicate_request",
+      "evidenceTests": ["backend/tests/unit/test_agent_service.py::test_patch_executor_stale_or_duplicate_time_edit_is_noop_without_extra_version"]
+    },
+    {
+      "id": "16_verifier_failure_and_rollback",
+      "evidenceTests": ["backend/tests/unit/test_agent_service.py::test_patch_executor_verifier_failure_restores_active_version_and_marks_patch_rolled_back"]
+    },
+    {
+      "id": "17_singular_night_cardinality_and_partial_timeline",
+      "evidenceTests": [
+        "backend/tests/unit/test_agent_service.py::test_singular_night_view_contract_does_not_expand_to_each_day",
+        "backend/tests/unit/test_agent_service.py::test_draft_executor_reuses_staged_pipeline",
+        "backend/tests/integration/test_creative_portfolio_choice_commit.py::test_density_shortfall_creates_partial_timeline_with_pending_slot"
+      ]
+    },
+    {
+      "id": "18_every_night_cardinality_distribution",
+      "evidenceTests": [
+        "backend/tests/unit/test_agent_service.py::test_every_night_contract_completes_one_night_view_per_allowed_day"
+      ]
+    },
+    {
+      "id": "19_invalid_daily_cardinality_repair_and_fallback",
+      "evidenceTests": [
+        "backend/tests/unit/test_agent_control_ownership.py::test_invalid_daily_cardinality_uses_authoritative_fallback_without_model_repair"
+      ]
+    },
+    {
+      "id": "20_pending_slot_read_only_navigation",
+      "evidenceTests": [
+        "backend/tests/integration/test_creative_portfolio_choice_commit.py::test_density_shortfall_creates_partial_timeline_with_pending_slot"
+      ]
+    }
+  ]
+}

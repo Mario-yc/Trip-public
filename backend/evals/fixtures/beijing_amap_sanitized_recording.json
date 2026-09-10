@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "trip-recorded-amap-v1",
+  "recordedAt": "2026-07-11T00:00:00Z",
+  "recordingType": "recorded/non-live",
+  "recordedProvider": "AMap Web Service",
+  "responseHashAlgorithm": "sha256-canonical-json-v1",
+  "sanitization": "Credentials, signatures, headers and machine paths removed; public POI and route fields retained.",
+  "responses": [
+    {
+      "request": {"endpoint": "/v3/place/text", "params": {"keywords": "清华美术馆", "city": "110000"}},
+      "responseSha256": "c7e0666ea57a08e7084ebc415570bbaa1d774a297d3b771dc5bd8364d43c5d2f",
+      "response": {
+        "status": "1", "info": "OK", "infocode": "10000",
+        "pois": [{"id": "B0THUAM001", "name": "清华大学艺术博物馆", "type": "科教文化服务;博物馆", "typecode": "140100", "address": "清华大学校内", "location": "116.330532,40.009117", "pname": "北京市", "cityname": "北京市", "adname": "海淀区", "photos": []}]
+      }
+    },
+    {
+      "request": {"endpoint": "/v3/place/text", "params": {"keywords": "改为去清华学校里面的食堂吃", "city": "110000"}},
+      "responseSha256": "69b27cfafbb187753de7bccbc33f6c4c068532f81ceab6c0c68cd3797ed9dd53",
+      "response": {
+        "status": "1", "info": "OK", "infocode": "10000",
+        "pois": [
+          {"id":"B0CAFETERIA01","name":"清华大学清芬园","type":"餐饮服务;中餐厅","typecode":"050100","address":"清华大学校内","location":"116.326310,40.002510","pname":"北京市","cityname":"北京市","adname":"海淀区","photos":[]},
+          {"id":"B0CAFETERIA02","name":"清华大学紫荆园","type":"餐饮服务;中餐厅","typecode":"050100","address":"清华大学紫荆公寓区","location":"116.333120,40.012260","pname":"北京市","cityname":"北京市","adname":"海淀区","photos":[]},
+          {"id":"B0CAFETERIA03","name":"清华大学桃李园","type":"餐饮服务;中餐厅","typecode":"050100","address":"清华大学校内","location":"116.326890,40.005740","pname":"北京市","cityname":"北京市","adname":"海淀区","photos":[]}
+        ]
+      }
+    },
+    {
+      "request": {"endpoint": "/v3/place/around", "params": {"keywords": "改为去清华学校里面的食堂吃", "city": "110000", "types": "050000"}},
+      "responseSha256": "69b27cfafbb187753de7bccbc33f6c4c068532f81ceab6c0c68cd3797ed9dd53",
+      "response": {
+        "status": "1", "info": "OK", "infocode": "10000",
+        "pois": [
+          {"id":"B0CAFETERIA01","name":"清华大学清芬园","type":"餐饮服务;中餐厅","typecode":"050100","address":"清华大学校内","location":"116.326310,40.002510","pname":"北京市","cityname":"北京市","adname":"海淀区","photos":[]},
+          {"id":"B0CAFETERIA02","name":"清华大学紫荆园","type":"餐饮服务;中餐厅","typecode":"050100","address":"清华大学紫荆公寓区","location":"116.333120,40.012260","pname":"北京市","cityname":"北京市","adname":"海淀区","photos":[]},
+          {"id":"B0CAFETERIA03","name":"清华大学桃李园","type":"餐饮服务;中餐厅","typecode":"050100","address":"清华大学校内","location":"116.326890,40.005740","pname":"北京市","cityname":"北京市","adname":"海淀区","photos":[]}
+        ]
+      }
+    },
+    {
+      "request": {"endpoint": "/v3/place/text", "params": {"keywords": "清华大学", "city": "110000"}},
+      "responseSha256": "077f12990dafe106519d2ebc26d0d25c571d6ad284f712df736dbb0f337e657a",
+      "response": {
+        "status": "1", "info": "OK", "infocode": "10000",
+        "pois": [{"id": "B000A7BD6C", "name": "清华大学", "type": "科教文化服务;学校;高等院校", "typecode": "141201", "address": "双清路30号", "location": "116.326936,40.003213", "pname": "北京市", "cityname": "北京市", "adname": "海淀区", "photos": []}]
+      }
+    },
+    {
+      "request": {"endpoint": "/v3/place/text", "params": {"keywords": "北京大学", "city": "110000"}},
+      "responseSha256": "520fcfd9c664ba1cff4c251705fb8edb8c7b9809f26d75ef5490660353e5094b",
+      "response": {
+        "status": "1", "info": "OK", "infocode": "10000",
+        "pois": [{"id": "B000A816R6", "name": "北京大学", "type": "科教文化服务;学校;高等院校", "typecode": "141201", "address": "颐和园路5号", "location": "116.310918,39.992873", "pname": "北京市", "cityname": "北京市", "adname": "海淀区", "photos": []}]
+      }
+    },
+    {
+      "request": {"endpoint": "/v3/direction/transit/integrated", "params": {"origin": "116.326936,40.003213", "destination": "116.310918,39.992873", "city": "北京市", "cityd": "北京市", "strategy": "0"}},
+      "requestPair": {"fromAmapId": "B000A7BD6C", "toAmapId": "B000A816R6", "mode": "transit"},
+      "responseSha256": "dfa5392a725b6f83b52e5fe6b5541af04a24f3dbba88a21b9f2bf1557ca207c6",
+      "response": {
+        "status": "1", "info": "OK", "infocode": "10000",
+        "route": {
+          "origin": "116.326936,40.003213",
+          "destination": "116.310918,39.992873",
+          "transits": [{
+            "cost": "2.0",
+            "duration": "2230",
+            "distance": "2406",
+            "walking_distance": "2160",
+            "segments": [{
+              "walking": {"steps": [{"instruction": "沿清华路步行至清华大学西门", "road": "清华路", "distance": "1456", "duration": "1248", "polyline": "116.326797,40.003162;116.315109,39.998112"}]},
+              "bus": {"buslines": [{"name": "982路", "departure_stop": {"name": "清华大学西门"}, "arrival_stop": {"name": "中关园北站"}, "distance": "246", "duration": "379", "polyline": "116.315109,39.998108;116.315311,39.995905"}]}
+            }, {
+              "walking": {"steps": [{"instruction": "步行至北京大学", "road": "临湖路", "distance": "704", "duration": "603", "polyline": "116.315331,39.995651;116.310837,39.992870"}]},
+              "bus": {"buslines": []}
+            }]
+          }]
+        }
+      }
+    }
+  ]
+}

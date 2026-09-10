@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "选择生成后活动版本发生变化时，确认请求以 409 语义拒绝且不写时间轴。",
+  "scenarios": [{
+    "id": "fallback_confirmation_stale_version",
+    "city": "北京",
+    "turns": [
+      {"input": "10月1日北京一日游，中等预算，1人，公交地铁优先。", "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "controllerFailure": "timeout"}},
+      {"input": "确认规则安全草案", "selectedAgentChoiceAction": "confirm_rule_safe_draft", "forceActiveVersionIdBeforeTurn": "ver_external_change", "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true}}
+    ],
+    "turnExpectations": [
+      {"terminalStatus": "needs_confirmation"},
+      {"terminalStatus": "failed", "fallbackChoiceVersionDelta": 0, "choiceConsumedCount": 0}
+    ],
+    "expectedTerminalStatus": "failed",
+    "expectations": {"turnCount": 2, "fallbackChoiceVersionDelta": 0, "choiceConsumedCount": 0, "falseTimelineWriteEventCount": 0}
+  }]
+}

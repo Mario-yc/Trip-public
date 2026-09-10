@@ -1,0 +1,127 @@
+{
+  "schemaVersion": "react-offline-harness-v2",
+  "id": "react_controller_staged_draft",
+  "recordProviderRoutes": true,
+  "recordedProviderRouteFixture": "backend/evals/fixtures/react_staged_route_recording.json",
+  "scenario": "react_controller_staged_draft",
+  "title": "Controller V3 strict staged draft with recorded route evidence",
+  "description": "A model decision enters the strict staged executor and may persist a real version only after the exact adjacent pair is covered by hash-bound recorded AMap route evidence.",
+  "initialPlanningMode": "strict_portfolio",
+  "mockAmapResponses": {
+    "故宫博物院": {
+      "id": "B000PALACE",
+      "name": "故宫博物院",
+      "type": "科教文化服务;博物馆;风景名胜",
+      "cityname": "北京市",
+      "adname": "东城区",
+      "address": "景山前街4号",
+      "location": "116.397026,39.918058",
+      "photos": []
+    },
+    "景山公园": {
+      "id": "B000JINGSHAN",
+      "name": "景山公园",
+      "type": "风景名胜;公园广场",
+      "cityname": "北京市",
+      "adname": "西城区",
+      "address": "景山西街44号",
+      "location": "116.396155,39.925221",
+      "photos": []
+    }
+  },
+  "initialPlanPayloads": [
+    {
+      "reply": "已拆解两个可验证地标。",
+      "mode": "day_slots",
+      "daySlots": [
+        {
+          "slotId": "day1_palace",
+          "dayNumber": 1,
+          "date": "2026-10-01",
+          "timeWindow": "09:00-11:00",
+          "startTime": "09:00",
+          "durationMinutes": 120,
+          "kind": "landmark",
+          "rawNeed": "故宫博物院",
+          "routeAnchor": true,
+          "priority": 100,
+          "notes": "requiredGrounding=true"
+        },
+        {
+          "slotId": "day1_jingshan",
+          "dayNumber": 1,
+          "date": "2026-10-01",
+          "timeWindow": "13:30-15:00",
+          "startTime": "13:30",
+          "durationMinutes": 90,
+          "kind": "landmark",
+          "rawNeed": "景山公园",
+          "routeAnchor": true,
+          "priority": 90,
+          "notes": "requiredGrounding=true"
+        }
+      ],
+      "intentPools": [
+        {
+          "poolId": "palace_pool",
+          "rawNeed": "故宫博物院",
+          "city": "北京",
+          "intentType": "landmark",
+          "targetCount": 1,
+          "preferredTypes": ["风景名胜", "人文景观"],
+          "rejectedTypes": ["停车场", "公司"],
+          "routePreference": {"sameDayUnique": true},
+          "assignToSlots": ["day1_palace"],
+          "candidateHints": ["故宫博物院"],
+          "hintPolicy": "user_explicit_hint"
+        },
+        {
+          "poolId": "jingshan_pool",
+          "rawNeed": "景山公园",
+          "city": "北京",
+          "intentType": "landmark",
+          "targetCount": 1,
+          "preferredTypes": ["风景名胜", "公园"],
+          "rejectedTypes": ["停车场", "公司"],
+          "routePreference": {"sameDayUnique": true},
+          "assignToSlots": ["day1_jingshan"],
+          "candidateHints": ["景山公园"],
+          "hintPolicy": "user_explicit_hint"
+        }
+      ],
+      "warnings": []
+    }
+  ],
+  "steps": [
+    {
+      "action": "create_session",
+      "saveAs": "session",
+      "payload": {"city": "北京", "title": "ReAct offline smoke"}
+    },
+    {
+      "action": "send_agent_message",
+      "saveAs": "first",
+      "sessionIdFrom": "session.sessionId",
+      "content": "10月1日安排故宫博物院和景山公园，公共交通，绕行最多30分钟，绕行比例最多35%"
+    }
+  ],
+  "assertions": [
+    {"path": "first.statusCode", "equals": 200},
+    {"path": "first.version", "exists": true},
+    {"path": "first.itinerary.days[].segments[].poi.amapId", "equalsList": ["B000PALACE", "B000JINGSHAN"]}
+  ],
+  "expect": {
+    "invalidPatchCount": 0,
+    "replayStages": [
+      "normalize_request",
+      "initial_day_slot_provider",
+      "generate_day_slots",
+      "decompose_intent_pools",
+      "collect_candidates",
+      "build_persistable_segment_plans",
+      "create_itinerary_version",
+      "basic_verifier",
+      "deterministic_enrichment"
+    ]
+  }
+}

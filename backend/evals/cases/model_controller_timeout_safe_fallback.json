@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Controller timeout is visible and cannot silently perform a deterministic full write.",
+  "scenarios": [{
+    "id": "model_controller_timeout_safe_fallback",
+    "city": "北京",
+    "input": "10月1日北京一日游，参观大学和美术馆，中等预算，1人，公交地铁优先。",
+    "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true, "controllerFailure": "timeout"},
+    "expectations": {
+      "agentDecisionEventRequired": true, "controllerFallbackCount": 1,
+      "terminalStatus": "needs_confirmation",
+      "plannerCalledOnHealthyControllerCount": 0, "genericToolLoopWithoutAcceptedDecisionCount": 0,
+      "actionDirectiveModelCount": 0, "postObservationDecisionCount": 0
+    }
+  }]
+}

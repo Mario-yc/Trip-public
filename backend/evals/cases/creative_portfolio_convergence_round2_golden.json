@@ -1,0 +1,6 @@
+{
+  "id": "creative_portfolio_convergence_round2_golden",
+  "input": "10月1日至2日北京两日游，1人，中等预算，公交地铁优先，必须参观一所985大学和一座美术馆，想吃北京特色美食，希望有创意但不要太赶。",
+  "recorded": {"controller": "runtime_mock", "portfolioProvider": "runtime_mock", "map": "runtime_mock", "route": "existing_grounded_candidate_route_evidence"},
+  "expectations": {"portfolioGeneratedProposalCount": 4, "portfolioVisibleProposalCount": 3, "minPairwiseStructuralDistanceWithoutAxis": 0.25}
+}

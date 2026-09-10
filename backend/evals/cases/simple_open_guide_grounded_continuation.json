@@ -1,0 +1,524 @@
+{
+  "schemaVersion": "react-offline-harness-v2",
+  "id": "simple_open_guide_grounded_continuation",
+  "initialPlanningMode": "simple_open_v1",
+  "intentRoutingMode": "active-all",
+  "requestCoveragePayloads": [[
+    {"clauseId":"request_clause_1","classification":"constraint","activities":[]},
+    {"clauseId":"request_clause_2","classification":"activity","activities":[
+      {"goalId":"goal_request_2_1","sourceText":"参观高校","intentType":"campus_visit","polarity":"required","allowedDayNumbers":[1],"minCount":1,"dayPart":"flexible"},
+      {"goalId":"goal_request_2_2","sourceText":"逛城市公园","intentType":"park","polarity":"required","allowedDayNumbers":[1],"minCount":1,"dayPart":"flexible"}
+    ]},
+    {"clauseId":"request_clause_3","classification":"constraint","activities":[]},
+    {"clauseId":"request_clause_4","classification":"constraint","activities":[]},
+    {"clauseId":"request_clause_5","classification":"constraint","activities":[]}
+  ]],
+  "semanticActionPayloads": [
+    {"choices": [{"finish_reason": "tool_calls", "message": {"tool_calls": [{"type": "function", "function": {"name": "create", "arguments": "{}"}}]}}]},
+    {"choices": [{"finish_reason": "tool_calls", "message": {"tool_calls": [{"type": "function", "function": {"name": "continue_with_guide", "arguments": "{}"}}]}}]}
+  ],
+  "recordProviderRoutes": true,
+  "recordedProviderRouteFixture": "backend/evals/fixtures/simple_open_guide_grounded_continuation_routes.json",
+  "scenario": "agent_message",
+  "title": "Simple Open guide-grounded continuation stays proposal-only",
+  "description": "Offline-only case: initial Simple Open proposal -> exact server-issued travel-guide choice -> natural-language continuation. Guide hints must ground into a new proposal while formal version, patch, and route writes remain zero.",
+  "mockAmapResponses": {
+    "A大学": [
+      {
+        "id": "B0GUIDEA01",
+        "name": "A大学",
+        "type": "科教文化服务;学校;高等院校",
+        "typecode": "141200",
+        "business_status": "营业中",
+        "biz_ext": { "opentime_today": "08:00-18:00", "opentime_week": "周一至周日 08:00-18:00" },
+        "cityname": "北京市",
+        "adname": "海淀区",
+        "address": "A大学路1号",
+        "location": "116.384000,39.938000",
+        "photos": []
+      }
+    ],
+    "B大学": [
+      {
+        "id": "B0GUIDEB02",
+        "name": "B大学",
+        "type": "科教文化服务;学校;高等院校",
+        "typecode": "141200",
+        "business_status": "营业中",
+        "biz_ext": { "opentime_today": "08:00-18:00", "opentime_week": "周一至周日 08:00-18:00" },
+        "cityname": "北京市",
+        "adname": "海淀区",
+        "address": "B大学路2号",
+        "location": "116.379000,39.942000",
+        "photos": []
+      }
+    ],
+    "C大学": [
+      {
+        "id": "B0GUIDEC03",
+        "name": "C大学",
+        "type": "科教文化服务;学校;高等院校",
+        "typecode": "141200",
+        "business_status": "营业中",
+        "biz_ext": { "opentime_today": "08:00-18:00", "opentime_week": "周一至周日 08:00-18:00" },
+        "cityname": "北京市",
+        "adname": "海淀区",
+        "address": "C大学路3号",
+        "location": "116.370000,39.935000",
+        "photos": []
+      }
+    ],
+    "景山公园": [
+      {
+        "id": "B0GUIDEPJ1",
+        "name": "景山公园",
+        "type": "风景名胜;公园广场;公园",
+        "typecode": "110101",
+        "business_status": "营业中",
+        "biz_ext": { "opentime_today": "06:00-20:00", "opentime_week": "周一至周日 06:00-20:00" },
+        "cityname": "北京市",
+        "adname": "西城区",
+        "address": "景山西街44号",
+        "location": "116.396155,39.925221",
+        "photos": []
+      }
+    ],
+    "北海公园": [
+      {
+        "id": "B0GUIDEPH2",
+        "name": "北海公园",
+        "type": "风景名胜;公园广场;公园",
+        "typecode": "110101",
+        "business_status": "营业中",
+        "biz_ext": { "opentime_today": "06:00-20:00", "opentime_week": "周一至周日 06:00-20:00" },
+        "cityname": "北京市",
+        "adname": "西城区",
+        "address": "文津街1号",
+        "location": "116.389000,39.930000",
+        "photos": []
+      }
+    ]
+    ,
+    "陶然亭公园": [
+      {
+        "id": "B0GUIDEPT4",
+        "name": "陶然亭公园",
+        "type": "风景名胜;公园广场;公园",
+        "typecode": "110101",
+        "business_status": "营业中",
+        "biz_ext": { "opentime_today": "06:00-21:00", "opentime_week": "周一至周日 06:00-21:00" },
+        "cityname": "北京市",
+        "adname": "西城区",
+        "address": "太平街19号",
+        "location": "116.374000,39.930000",
+        "photos": []
+      }
+    ]
+  },
+  "recordedWebSearchResponses": {
+    "高校参观 城市公园": [
+      {
+        "title": "北京 B大学 参观攻略",
+        "url": "https://example.com/recorded/beijing-b-university-guide",
+        "snippet": "北京高校参观攻略建议把 B大学 放在线路里，适合作为半日校园游玩路线。",
+        "sourceName": "recorded-fixture",
+        "credibilityRank": "recorded",
+        "confidence": 0.96
+      },
+      {
+        "title": "北京 北海公园 游玩攻略",
+        "url": "https://example.com/recorded/beihai-park-guide",
+        "snippet": "北京城市公园游玩攻略建议安排北海公园散步，适合作为高校后半天的公园路线。",
+        "sourceName": "recorded-fixture",
+        "credibilityRank": "recorded",
+        "confidence": 0.96
+      }
+    ]
+  },
+  "recordedSourceDocuments": {
+    "https://example.com/recorded/beijing-b-university-guide": {
+      "title": "离线正文样本：高校参观",
+      "bodyText": "B大学适合上午参观。以下是离线正文样本，不是真实网页读取结果。参观前应核对学校公告和预约政策，保留足够入校时间。原旅行需求和实时高德核验仍然优先。"
+    },
+    "https://example.com/recorded/beihai-park-guide": {
+      "title": "离线正文样本：公园游览",
+      "bodyText": "北海公园适合散步。以下是离线正文样本，不是真实网页读取结果。游览需要预留交通和休息时间，开放情况应以到访日期的可靠公告为准。本文不能作为路线、资格或营业时间的已核验事实。"
+    }
+  },
+  "initialPlanPayloads": [
+    {
+      "reply": "已拆解为高校参观与城市公园的 Simple Open 方向。",
+      "mode": "day_slots",
+      "daySlots": [
+        {
+          "slotId": "d1_campus",
+          "dayNumber": 1,
+          "date": "2026-10-01",
+          "timeWindow": "09:00-11:00",
+          "startTime": "09:00",
+          "durationMinutes": 120,
+          "kind": "campus",
+          "rawNeed": "高校参观",
+          "routeAnchor": true,
+          "priority": 90,
+          "notes": ""
+        },
+        {
+          "slotId": "d1_park",
+          "dayNumber": 1,
+          "date": "2026-10-01",
+          "timeWindow": "14:00-16:00",
+          "startTime": "14:00",
+          "durationMinutes": 120,
+          "kind": "park",
+          "rawNeed": "城市公园散步",
+          "routeAnchor": true,
+          "priority": 80,
+          "notes": ""
+        }
+      ],
+      "intentPools": [
+        {
+          "poolId": "campus_visit_pool",
+          "rawNeed": "高校参观",
+          "city": "北京",
+          "intentType": "campus_visit",
+          "targetCount": 1,
+          "preferredTypes": ["大学", "学院", "高等院校"],
+          "rejectedTypes": ["酒店", "公司", "停车场"],
+          "routePreference": { "transport": "transit" },
+          "assignToSlots": ["d1_campus"],
+          "candidateHints": ["A大学", "B大学"],
+          "hintPolicy": "llm_common_knowledge_hint"
+        },
+        {
+          "poolId": "park_pool",
+          "rawNeed": "城市公园散步",
+          "city": "北京",
+          "intentType": "park",
+          "targetCount": 1,
+          "preferredTypes": ["公园", "园林", "绿地"],
+          "rejectedTypes": ["停车场", "公司"],
+          "routePreference": { "transport": "transit" },
+          "assignToSlots": ["d1_park"],
+          "candidateHints": ["景山公园", "北海公园"],
+          "hintPolicy": "llm_common_knowledge_hint"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "reply": "已生成第二个保持原需求约束、地点不重复的普通方向。",
+      "mode": "day_slots",
+      "daySlots": [
+        {
+          "slotId": "d1_campus",
+          "dayNumber": 1,
+          "date": "2026-10-01",
+          "timeWindow": "09:00-11:00",
+          "startTime": "09:00",
+          "durationMinutes": 120,
+          "kind": "campus",
+          "rawNeed": "高校参观",
+          "routeAnchor": true,
+          "priority": 90,
+          "notes": ""
+        },
+        {
+          "slotId": "d1_park",
+          "dayNumber": 1,
+          "date": "2026-10-01",
+          "timeWindow": "14:00-16:00",
+          "startTime": "14:00",
+          "durationMinutes": 120,
+          "kind": "park",
+          "rawNeed": "城市公园散步",
+          "routeAnchor": true,
+          "priority": 80,
+          "notes": ""
+        }
+      ],
+      "intentPools": [
+        {
+          "poolId": "campus_visit_pool",
+          "rawNeed": "高校参观",
+          "city": "北京",
+          "intentType": "campus_visit",
+          "targetCount": 1,
+          "preferredTypes": ["大学", "学院", "高等院校"],
+          "rejectedTypes": ["酒店", "公司", "停车场"],
+          "routePreference": { "transport": "transit" },
+          "assignToSlots": ["d1_campus"],
+          "candidateHints": ["C大学"],
+          "hintPolicy": "llm_common_knowledge_hint"
+        },
+        {
+          "poolId": "park_pool",
+          "rawNeed": "城市公园散步",
+          "city": "北京",
+          "intentType": "park",
+          "targetCount": 1,
+          "preferredTypes": ["公园", "园林", "绿地"],
+          "rejectedTypes": ["停车场", "公司"],
+          "routePreference": { "transport": "transit" },
+          "assignToSlots": ["d1_park"],
+          "candidateHints": ["陶然亭公园"],
+          "hintPolicy": "llm_common_knowledge_hint"
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "reply": "已按攻略证据生成一个保持原需求约束的新方向。",
+      "mode": "day_slots",
+      "daySlots": [
+        {
+          "slotId": "d1_campus",
+          "dayNumber": 1,
+          "date": "2026-10-01",
+          "timeWindow": "09:00-11:00",
+          "startTime": "09:00",
+          "durationMinutes": 120,
+          "kind": "campus",
+          "rawNeed": "高校参观",
+          "routeAnchor": true,
+          "priority": 90,
+          "notes": ""
+        },
+        {
+          "slotId": "d1_park",
+          "dayNumber": 1,
+          "date": "2026-10-01",
+          "timeWindow": "14:00-16:00",
+          "startTime": "14:00",
+          "durationMinutes": 120,
+          "kind": "park",
+          "rawNeed": "城市公园散步",
+          "routeAnchor": true,
+          "priority": 80,
+          "notes": ""
+        }
+      ],
+      "intentPools": [
+        {
+          "poolId": "campus_visit_pool",
+          "rawNeed": "高校参观",
+          "city": "北京",
+          "intentType": "campus_visit",
+          "targetCount": 1,
+          "preferredTypes": ["大学", "学院", "高等院校"],
+          "rejectedTypes": ["酒店", "公司", "停车场"],
+          "routePreference": { "transport": "transit" },
+          "assignToSlots": ["d1_campus"],
+          "candidateHints": ["B大学"],
+          "hintPolicy": "llm_common_knowledge_hint"
+        },
+        {
+          "poolId": "park_pool",
+          "rawNeed": "城市公园散步",
+          "city": "北京",
+          "intentType": "park",
+          "targetCount": 1,
+          "preferredTypes": ["公园", "园林", "绿地"],
+          "rejectedTypes": ["停车场", "公司"],
+          "routePreference": { "transport": "transit" },
+          "assignToSlots": ["d1_park"],
+          "candidateHints": ["北海公园"],
+          "hintPolicy": "llm_common_knowledge_hint"
+        }
+      ],
+      "warnings": []
+    }
+  ],
+  "agentProviderPayloads": [
+    {
+      "reply": "legacy payload should not be used by simple-open guide continuation",
+      "mode": "cannot_plan",
+      "warnings": []
+    }
+  ],
+  "steps": [
+    {
+      "action": "create_session",
+      "saveAs": "session",
+      "payload": { "city": "北京", "title": "Simple Open guide grounded continuation Eval" }
+    },
+    {
+      "action": "send_agent_message",
+      "saveAs": "first",
+      "sessionIdFrom": "session.sessionId",
+      "content": "10月1日北京一日游，想参观高校并逛城市公园。中等预算，1人，公交地铁优先。",
+      "context": { "selectedDayNumber": 1 }
+    },
+    {
+      "action": "send_selected_agent_choice",
+      "saveAs": "second",
+      "sessionIdFrom": "session.sessionId",
+      "sourceFrom": "first",
+      "choiceAction": "continue_plan_expansion",
+      "choiceKind": "simple_direction_more_plans",
+      "content": "继续生成另一个不重复的方案"
+    },
+    {
+      "action": "send_selected_agent_choice",
+      "saveAs": "guide",
+      "sessionIdFrom": "session.sessionId",
+      "sourceFrom": "second",
+      "choiceAction": "search_travel_guide_advice",
+      "choiceKind": "travel_guide_advice",
+      "content": "搜索普通攻略并给我建议"
+    },
+    {
+      "action": "send_agent_message",
+      "saveAs": "third",
+      "sessionIdFrom": "session.sessionId",
+      "content": "参考攻略建议的地点，生成新的方案"
+    },
+    {
+      "action": "db_query",
+      "saveAs": "counts",
+      "query": "SELECT (SELECT COUNT(*) FROM agent_plan_proposals) AS proposal_count, (SELECT COUNT(DISTINCT portfolio_id) FROM agent_plan_proposals) AS portfolio_count, (SELECT COUNT(*) FROM itinerary_versions) AS version_count, (SELECT COUNT(*) FROM itinerary_patches) AS patch_count, (SELECT COUNT(*) FROM route_options) AS route_count, (SELECT COUNT(*) FROM agent_choice_executions WHERE action = 'continue_plan_expansion' AND status = 'succeeded') AS continuation_exec_count, (SELECT COUNT(*) FROM agent_choice_executions WHERE action = 'search_travel_guide_advice' AND status = 'succeeded') AS guide_choice_exec_count"
+    },
+    {
+      "action": "db_query",
+      "saveAs": "proposalEvidence",
+      "query": "SELECT evidence_json, json_extract(evidence_json, '$.guideEvidenceUsage.schemaVersion') AS usage_schema, json_extract(evidence_json, '$.guideEvidenceUsage.status') AS usage_status, json_extract(evidence_json, '$.guideEvidenceUsage.sourceReadSummary.readableCount') AS readable_count FROM agent_plan_proposals ORDER BY created_at DESC LIMIT 1"
+    },
+    {
+      "action": "db_query",
+      "saveAs": "sourceReads",
+      "query": "SELECT COUNT(*) AS readable_count FROM agent_choice_executions AS e, json_each(e.continuation_json, '$.guideContinuationRequirement.sourceDocumentEvidence.documents') AS d WHERE json_extract(d.value, '$.status') = 'succeeded' AND json_extract(d.value, '$.contentKind') = 'article'"
+    },
+    {
+      "action": "db_query",
+      "saveAs": "thirdAudit",
+      "query": "SELECT agent_request_json, agent_response_json FROM conversation_turns WHERE role = 'assistant' ORDER BY turn_index DESC LIMIT 1"
+    }
+  ],
+  "assertions": [
+    { "path": "first.statusCode", "equals": 200 },
+    { "path": "first.version", "isNull": true },
+    { "path": "first.assistantTurn.choiceOptions[].action", "contains": "search_travel_guide_advice" },
+    { "path": "guide.statusCode", "equals": 200 },
+    { "path": "guide.version", "isNull": true },
+    { "path": "guide.assistantTurn.guideAdvice.status", "equals": "completed" },
+    { "path": "guide.assistantTurn.choiceOptions[].action", "contains": "continue_plan_expansion" },
+    { "path": "second.statusCode", "equals": 200 },
+    { "path": "second.version", "isNull": true },
+    { "path": "second.assistantTurn.choiceOptions[].action", "contains": "search_travel_guide_advice" },
+    { "path": "third.statusCode", "equals": 200 },
+    { "path": "third.version", "isNull": true },
+    { "path": "sourceReads", "allFieldEquals": { "readable_count": 2 } },
+    {
+      "path": "third.assistantTurn.comparisonProjections",
+      "lengthAtLeast": 1
+    },
+    { "path": "third.assistantTurn.choiceOptions[].action", "contains": "select_plan_proposal" },
+    {
+      "path": "counts",
+      "allFieldEquals": {
+        "proposal_count": 3,
+        "portfolio_count": 1,
+        "version_count": 0,
+        "patch_count": 0,
+        "route_count": 0,
+        "continuation_exec_count": 2,
+        "guide_choice_exec_count": 1
+      }
+    },
+    {
+      "path": "proposalEvidence",
+      "allFieldContains": {
+        "evidence_json": "\"guideEvidenceUsage\":{"
+      }
+    },
+    {
+      "path": "proposalEvidence",
+      "allFieldEquals": {
+        "usage_schema": "guide-evidence-usage-v1",
+        "usage_status": "satisfied",
+        "readable_count": 2
+      }
+    },
+    {
+      "path": "thirdAudit",
+      "allFieldContains": {
+        "agent_request_json": "\"guideContinuationRequirement\": {\"schemaVersion\": \"guide-continuation-requirement-v1\""
+      }
+    },
+    {
+      "path": "thirdAudit",
+      "allFieldContains": {
+        "agent_request_json": "\"minimumNovelGroundedPlaceCount\": 1"
+      }
+    },
+    {
+      "path": "thirdAudit",
+      "allFieldContains": {
+        "agent_response_json": "\"proposalDelta\": 1"
+      }
+    },
+    {
+      "path": "thirdAudit",
+      "allFieldContains": {
+        "agent_response_json": "\"guideEvidenceUsage\": {"
+      }
+    },
+    {
+      "path": "thirdAudit",
+      "allFieldContains": {
+        "agent_response_json": "\"schemaVersion\": \"guide-evidence-usage-v1\", \"status\": \"satisfied\""
+      }
+    },
+    {
+      "path": "thirdAudit",
+      "allFieldContains": {
+        "agent_response_json": "\"agent_stop\""
+      }
+    },
+    {
+      "path": "thirdAudit",
+      "allFieldContains": {
+        "agent_response_json": "\"plannerCalled\": true"
+      }
+    },
+    {
+      "path": "thirdAudit",
+      "allFieldContains": {
+        "agent_response_json": "\"controllerFullCallCount\": 1"
+      }
+    },
+    {
+      "path": "thirdAudit",
+      "allFieldContains": {
+        "agent_response_json": "\"controllerLiteCallCount\": 0"
+      }
+    },
+    {
+      "path": "thirdAudit",
+      "allFieldContains": {
+        "agent_response_json": "\"intentProviderCallCount\": 1"
+      }
+    },
+    {
+      "path": "thirdAudit",
+      "allFieldContains": {"agent_response_json": "\"semanticActionCallCount\": 1"}
+    },
+    {
+      "path": "thirdAudit",
+      "allFieldContains": {
+        "agent_response_json": "\"fallbackControllerLiteCallCount\": 0"
+      }
+    }
+  ],
+  "expect": {
+    "invalidPatchCount": 0,
+    "replayStages": [
+      "normalize_request",
+      "initial_day_slot_provider",
+      "simple_open_draft_created",
+      "simple_direction_proposal_persisted"
+    ],
+    "allowedFailedStages": []
+  }
+}

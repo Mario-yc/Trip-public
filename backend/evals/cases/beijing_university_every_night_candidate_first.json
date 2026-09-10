@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "react-offline-harness-v2",
+  "id": "beijing_university_every_night_candidate_first",
+  "initialPlanningMode": "simple_open_v1",
+  "recordProviderRoutes": true,
+  "recordedProviderRouteFixture": "backend/evals/fixtures/simple_open_candidate_first_route_recording.json",
+  "scenario": "agent_message",
+  "stabilityMetrics": {
+    "expectedLifecycle": "proposal_only",
+    "expectedNightViewCount": 2,
+    "expectedNightViewDayNumbers": [1, 2],
+    "expectedVisibleProposalCount": 1,
+    "expectedAdoptionReadyProposalCount": 1,
+    "expectedRouteProviderAttemptCount": 2,
+    "requireRouteCoverageComplete": true,
+    "requirePersistedSelectionCapability": true,
+    "expectedVersionWriteCount": 0,
+    "expectedPatchWriteCount": 0,
+    "expectedRouteWriteCount": 0
+  },
+  "title": "Candidate-first university and every-night planning",
+  "description": "The persisted every-available-evening clarification wording expands to exactly one night-view occurrence on each day.",
+  "mockAmapResponses": {
+    "A大学": [
+      { "id": "B0EVAUNI01", "name": "A大学", "type": "科教文化服务;学校;高等院校", "cityname": "北京市", "adname": "海淀区", "address": "A大学路1号", "location": "116.315000,39.995000", "photos": [] }
+    ],
+    "B大学": [
+      { "id": "B0EVBUNI02", "name": "B大学", "type": "科教文化服务;学校;高等院校", "cityname": "北京市", "adname": "海淀区", "address": "B大学路2号", "location": "116.345000,39.991000", "photos": [] }
+    ],
+    "城市观景塔A": [
+      { "id": "B0EVERNTA1", "name": "城市观景塔A", "type": "风景名胜;观景台;电视塔", "cityname": "北京市", "adname": "海淀区", "address": "学院路观景塔", "location": "116.322000,39.985000", "biz_ext": { "opentime_today": "18:00-22:00" }, "photos": [] }
+    ],
+    "学院路城市观景区": [
+      { "id": "B0EVERNTB1", "name": "学院路城市观景区", "type": "风景名胜;观景台;城市观景点", "cityname": "北京市", "adname": "海淀区", "address": "学院路城市观景区", "location": "116.352000,39.982000", "biz_ext": { "opentime_today": "18:00-22:00" }, "photos": [] }
+    ]
+  },
+  "initialPlanPayloads": [
+    {
+      "reply": "已按每天一所高校和每晚一次夜景拆解。",
+      "mode": "day_slots",
+      "daySlots": [
+        { "slotId": "d1_campus", "dayNumber": 1, "date": "2026-10-01", "timeWindow": "09:00-11:00", "startTime": "09:00", "durationMinutes": 120, "kind": "campus", "rawNeed": "高校参观", "routeAnchor": true, "priority": 90, "notes": "" },
+        { "slotId": "d1_night", "dayNumber": 1, "date": "2026-10-01", "timeWindow": "19:00-20:30", "startTime": "19:00", "durationMinutes": 90, "kind": "night_view", "rawNeed": "夜景观景点", "routeAnchor": true, "priority": 80, "notes": "" },
+        { "slotId": "d2_campus", "dayNumber": 2, "date": "2026-10-02", "timeWindow": "09:00-11:00", "startTime": "09:00", "durationMinutes": 120, "kind": "campus", "rawNeed": "高校参观", "routeAnchor": true, "priority": 90, "notes": "" },
+        { "slotId": "d2_night", "dayNumber": 2, "date": "2026-10-02", "timeWindow": "19:00-20:30", "startTime": "19:00", "durationMinutes": 90, "kind": "night_view", "rawNeed": "夜景观景点", "routeAnchor": true, "priority": 80, "notes": "" }
+      ],
+      "intentPools": [
+        {
+          "poolId": "campus_visit_pool",
+          "rawNeed": "高校参观",
+          "city": "北京",
+          "intentType": "campus_visit",
+          "targetCount": 2,
+          "preferredTypes": ["大学", "学院", "高等院校"],
+          "rejectedTypes": ["酒店", "公司", "停车场"],
+          "routePreference": { "transport": "transit" },
+          "assignToSlots": ["d1_campus", "d2_campus"],
+          "candidateHints": ["A大学", "B大学"],
+          "hintPolicy": "llm_common_knowledge_hint"
+        },
+        {
+          "poolId": "night_view_pool",
+          "rawNeed": "夜景观景点",
+          "city": "北京",
+          "intentType": "night_view",
+          "targetCount": 2,
+          "preferredTypes": ["风景名胜", "观景台", "地标"],
+          "rejectedTypes": ["酒店", "停车场", "售票处"],
+          "routePreference": { "transport": "transit" },
+          "assignToSlots": ["d1_night", "d2_night"],
+          "candidateHints": ["城市观景塔A", "学院路城市观景区"],
+          "hintPolicy": "llm_common_knowledge_hint"
+        }
+      ],
+      "warnings": []
+    }
+  ],
+  "agentProviderPayloads": [
+    { "reply": "legacy payload should not be used by candidate-first initial planning", "mode": "cannot_plan", "warnings": [] }
+  ],
+  "steps": [
+    { "action": "create_session", "saveAs": "session", "payload": { "city": "北京", "title": "北京高校每晚夜景 Eval" } },
+    {
+      "action": "send_agent_message",
+      "saveAs": "first",
+      "sessionIdFrom": "session.sessionId",
+      "content": "2026年10月1日到2日，北京高校两日游，晚上看北京城市夜景。2天，中等预算，1人，公交地铁优先。每个可用晚上安排不同的夜景地点。绕行最多15分钟，绕行比例最多15%",
+      "context": { "selectedDayNumber": 1 }
+    }
+  ],
+  "assertions": [
+    { "path": "first.statusCode", "equals": 200 },
+    { "path": "first.version", "isNull": true },
+    { "path": "first.assistantTurn.comparisonProjections[].adoptionReady", "contains": true },
+    { "path": "first.assistantTurn.choiceOptions[].action", "contains": "select_plan_proposal" },
+    { "path": "first.pendingPoiCandidates", "lengthEquals": 0 }
+  ],
+  "expect": {
+    "invalidPatchCount": 0,
+    "replayStages": ["normalize_request", "initial_day_slot_provider", "simple_open_draft_created", "simple_direction_proposal_persisted"],
+    "allowedFailedStages": []
+  }
+}

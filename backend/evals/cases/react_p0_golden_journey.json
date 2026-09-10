@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Isolated recorded-controller and fixed-map P0 journey: real Turn 1 draft, then Day 1 museum resolve, dominant candidate patch, reload and finish.",
+  "defaultMockMapProvider": {
+    "enabled": true,
+    "trustedPoiFixtures": true,
+    "mockRouteRefresh": true
+  },
+  "scenarios": [
+    {
+      "id": "react_p0_golden_journey",
+      "city": "北京",
+      "requiresTurn1CreatedItinerary": true,
+      "forbidSeedItinerary": true,
+      "expectedDecisions": [
+        "draft_itinerary",
+        "finish",
+        "resolve_poi",
+        "patch_itinerary",
+        "finish"
+      ],
+      "expectedActions": [
+        "staged_initial_pipeline",
+        "terminal_response",
+        "poi_grounding",
+        "timeline_mutation_executor",
+        "terminal_response"
+      ],
+      "turns": [
+        {
+          "input": "今年国庆参观985大学两日游，然后去体验下北京当地博物馆陶冶情操。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"
+        },
+        {
+          "input": "重试一次，将第一天美术馆修改为清华美术馆"
+        }
+      ],
+      "turnExpectations": [
+        {
+          "agentDecisionSource": "controller",
+          "agentDecisionPrimaryAction": "draft_itinerary",
+          "activeVersionCreated": true,
+          "verifierMustPass": true,
+          "dayCount": 2,
+          "requiredIntentPoolCoverage": {
+            "campus_visit": "covered",
+            "museum": "covered"
+          }
+        },
+        {
+          "agentDecisionSource": "controller",
+          "agentDecisionPrimaryAction": "finish",
+          "controllerFullCallCount": 3,
+          "controllerLiteCallCount": 0,
+          "postObservationDecisionCount": 2,
+          "preControllerDomainRouterCount": 0,
+          "localMutationBypassCount": 0,
+          "plannerFallbackWriteCount": 0,
+          "genericToolLoopWithoutAcceptedDecisionCount": 0,
+          "verifiedWriteCount": 1,
+          "candidateSelectionPatchCount": 1,
+          "candidateSelectionMustUseIdentity": true,
+          "candidateSelectionChangedSegmentCount": 1,
+          "falseSuccessClaimCount": 0,
+          "transactionEvidenceMissingCount": 0,
+          "durationPreservationFailureCount": 0,
+          "executionRouteMismatchCount": 0,
+          "routeStatusEventSnapshotMismatch": false,
+          "mealCostPerPersonMismatchCount": 0,
+          "fallbackChoiceVersionDelta": 0,
+          "maxWebSearchCalls": 0,
+          "maxTicketLookupCalls": 0,
+          "maxAmapWeatherCalls": 0
+        }
+      ],
+      "expectations": {
+        "turnCount": 2,
+        "seededItineraryCount": 0,
+        "turn1CreatedActiveVersionCount": 1,
+        "preControllerDomainRouterCount": 0,
+        "localMutationBypassCount": 0,
+        "plannerFallbackWriteCount": 0,
+        "genericToolLoopWithoutAcceptedDecisionCount": 0,
+        "falseSuccessClaimCount": 0,
+        "transactionEvidenceMissingCount": 0,
+        "durationPreservationFailureCount": 0,
+        "executionRouteMismatchCount": 0,
+        "routeStatusEventSnapshotMismatch": false,
+        "mealCostPerPersonMismatchCount": 0,
+        "fallbackChoiceVersionDelta": 0
+      }
+    }
+  ]
+}

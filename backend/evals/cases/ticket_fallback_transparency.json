@@ -1,0 +1,67 @@
+{
+  "id": "ticket_fallback_transparency",
+  "scenario": "ticket_fallback_transparency",
+  "title": "Ticket lookup keeps source transparency",
+  "description": "Ticket refresh stays transparent whether search succeeds or the configured provider has no key; it must not fabricate ticket availability and must keep an official-channel caveat.",
+  "mockAmapResponses": {
+    "故宫": {
+      "id": "B000PALACE",
+      "name": "故宫",
+      "type": "风景名胜",
+      "cityname": "北京市",
+      "adname": "东城区",
+      "address": "高德地址",
+      "location": "116.397026,39.918058",
+      "photos": []
+    }
+  },
+  "agentProviderPayloads": [
+    {
+      "reply": "已生成北京故宫 1 日游。",
+      "mode": "full_itinerary",
+      "operations": [],
+      "fullItinerary": {
+        "title": "北京故宫 1 日游",
+        "city": "北京",
+        "days": [
+          {
+            "dayNumber": 1,
+            "title": "离线 Eval Day 1",
+            "segments": [
+              {
+                "poiName": "故宫",
+                "category": "scenic",
+                "startTime": "09:00",
+                "durationMinutes": 90,
+                "notes": "离线 eval 安排：故宫",
+                "estimatedCost": 60
+              }
+            ]
+          }
+        ]
+      },
+      "poiResolutionRequests": [{ "name": "故宫", "category": "scenic" }],
+      "warnings": []
+    }
+  ],
+  "steps": [
+    { "action": "create_session", "saveAs": "session", "payload": { "city": "北京", "title": "北京离线 Eval" } },
+    {
+      "action": "send_agent_message",
+      "saveAs": "first",
+      "sessionIdFrom": "session.sessionId",
+      "content": "帮我安排北京一天，轻松一点，想去故宫",
+      "context": { "selectedDayNumber": 1 }
+    },
+    { "action": "refresh_tickets", "saveAs": "refresh", "planIdFrom": "first.itinerary.id" },
+    { "action": "db_query", "saveAs": "tickets", "query": "SELECT credibility_rank, booking_url, caveat FROM ticket_lookup_results" }
+  ],
+  "assertions": [
+    { "path": "refresh.statusCode", "equals": 200 },
+    { "path": "tickets", "allFieldContains": { "caveat": "官方" } }
+  ],
+  "expect": {
+    "invalidPatchCount": 0,
+    "replayStages": []
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Live CLI coverage for user-visible action trace, meal-query diversity, explicit exclusions, and deterministic fast-path edits. DeepSeek schema repair/thinking continuity remain covered by focused fake-provider tests because the CLI evaluator intentionally does not call a paid provider by default.",
+  "scenarios": [
+    {
+      "id": "action_trace_two_day_meal_diversity",
+      "city": "北京",
+      "input": "今年国庆参观高校两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食",
+      "mockMapProvider": {
+        "enabled": true,
+        "trustedFoodForDeterministicEdit": true,
+        "mealDiversitySeed": "agent-action-schema-diversity-v1"
+      },
+      "expectations": {
+        "mustCreateTimeline": true,
+        "minDays": 2,
+        "explicitMealMustBeGroundedOrPending": true,
+        "executionMode": "bounded_agent",
+        "minAgentDecisionCount": 1,
+        "minVisibleActionCount": 4,
+        "maxRepeatedAmapQueryCount": 0,
+        "minUniqueMealFamilyCount": 3,
+        "maxZhajiangmianCount": 1,
+        "maxDuplicateMealBrandCount": 0,
+        "maxInventedAmapPoiCount": 0,
+        "verifierMustPass": true,
+        "maxSchemaRepairAttempts": 1,
+        "maxAmapPoiExternalCalls": 16,
+        "maxToolRoundsUsed": 0,
+        "riskSearchMustSkipOrdinaryMeals": true
+      }
+    },
+    {
+      "id": "explicit_no_zhajiangmian_fast_path",
+      "city": "北京",
+      "seedItinerary": {
+        "title": "北京餐饮局部编辑",
+        "city": "北京",
+        "templateType": "agent_mvp",
+        "budgetEstimate": 120,
+        "budgetDeltaExplanation": "CLI eval seed",
+        "decisionRationale": "验证明确排除菜品",
+        "status": "draft",
+        "days": [
+          {
+            "id": "day_no_noodle_1",
+            "dayNumber": 1,
+            "date": "2026-10-01",
+            "title": "第一天",
+            "weatherSummary": "",
+            "riskSummary": "",
+            "segments": [
+              {
+                "id": "seg_no_noodle_morning",
+                "startTime": "09:00",
+                "endTime": "11:00",
+                "kind": "visit",
+                "poi": {"id": "poi_no_noodle_morning", "amapId": "B000MORNING", "name": "北京大学", "city": "北京", "category": "scenic", "latitude": 39.9929, "longitude": 116.3109, "source": "amap-place-search", "confidence": 0.95, "photos": []},
+                "transportMode": "public_transit",
+                "estimatedCost": 0,
+                "notes": "上午高校"
+              },
+              {
+                "id": "seg_no_noodle_lunch",
+                "startTime": "12:00",
+                "endTime": "13:00",
+                "kind": "meal",
+                "poi": {"id": "poi_no_noodle_lunch", "amapId": "B000NOODLE", "name": "老北京炸酱面", "city": "北京", "category": "food", "latitude": 39.98, "longitude": 116.33, "source": "amap-place-search", "confidence": 0.95, "photos": []},
+                "transportMode": "walk",
+                "estimatedCost": 50,
+                "notes": "午餐"
+              },
+              {
+                "id": "seg_no_noodle_afternoon",
+                "startTime": "14:00",
+                "endTime": "16:00",
+                "kind": "visit",
+                "poi": {"id": "poi_no_noodle_afternoon", "amapId": "B000AFTERNOON", "name": "中国人民大学", "city": "北京", "category": "scenic", "latitude": 39.9702, "longitude": 116.3182, "source": "amap-place-search", "confidence": 0.95, "photos": []},
+                "transportMode": "public_transit",
+                "estimatedCost": 0,
+                "notes": "下午高校"
+              }
+            ]
+          }
+        ],
+        "routeOptions": [],
+        "weatherSignals": [],
+        "trafficCrowdingSignals": [],
+        "ticketLookupResults": []
+      },
+      "turns": [
+        {
+          "input": "第一天中午想换一种北京特色，不要炸酱面",
+          "mockMapProvider": {"enabled": true, "trustedFoodForDeterministicEdit": true, "mockRouteRefresh": true}
+        }
+      ],
+      "expectations": {
+        "executionMode": "deterministic_fast_path",
+        "mustUseDeterministicTimelineCommand": true,
+        "mustNotEnterToolLoop": true,
+        "modifiedScope": "day_meal_only",
+        "changedSegmentCount": 1,
+        "minSelectedRouteCount": 1,
+        "routePairCount": 2,
+        "routePairsMustTouchChangedSegments": true,
+        "changedMealMustBeFood": true,
+        "changedMealMustNotContain": ["炸酱面"],
+        "verifierMustPass": true,
+        "maxZhajiangmianCount": 0,
+        "maxWebSearchCalls": 0,
+        "maxTicketLookupCalls": 0,
+        "maxAmapWeatherCalls": 0
+      }
+    },
+    {
+      "id": "remove_lunch_deterministic_fast_path",
+      "city": "北京",
+      "seedItinerary": {
+        "title": "北京删除午餐",
+        "city": "北京",
+        "templateType": "agent_mvp",
+        "budgetEstimate": 50,
+        "budgetDeltaExplanation": "CLI eval seed",
+        "decisionRationale": "验证最小删除 patch",
+        "status": "draft",
+        "days": [
+          {
+            "id": "day_remove_1",
+            "dayNumber": 1,
+            "date": "2026-10-01",
+            "title": "第一天",
+            "weatherSummary": "",
+            "riskSummary": "",
+            "segments": [
+              {
+                "id": "seg_remove_visit",
+                "startTime": "09:00",
+                "endTime": "11:00",
+                "kind": "visit",
+                "poi": {"id": "poi_remove_visit", "amapId": "B000VISIT", "name": "北京大学", "city": "北京", "category": "scenic", "latitude": 39.9929, "longitude": 116.3109, "source": "amap-place-search", "confidence": 0.95, "photos": []},
+                "transportMode": "public_transit",
+                "estimatedCost": 0,
+                "notes": "上午高校"
+              },
+              {
+                "id": "seg_remove_lunch",
+                "startTime": "12:00",
+                "endTime": "13:00",
+                "kind": "meal",
+                "poi": {"id": "poi_remove_lunch", "amapId": "B000LUNCH", "name": "午餐京味小吃", "city": "北京", "category": "food", "latitude": 39.98, "longitude": 116.33, "source": "amap-place-search", "confidence": 0.95, "photos": []},
+                "transportMode": "walk",
+                "estimatedCost": 50,
+                "notes": "午餐"
+              }
+            ]
+          }
+        ],
+        "routeOptions": [],
+        "weatherSignals": [],
+        "trafficCrowdingSignals": [],
+        "ticketLookupResults": []
+      },
+      "turns": [
+        {"input": "删除第一天午餐", "mockMapProvider": {"enabled": true, "skipRouteRefresh": true}}
+      ],
+      "expectations": {
+        "executionMode": "deterministic_fast_path",
+        "mustUseDeterministicTimelineCommand": true,
+        "mustNotEnterToolLoop": true,
+        "modifiedScope": "day_meal_remove_only",
+        "changedSegmentCount": 1,
+        "maxWebSearchCalls": 0,
+        "maxTicketLookupCalls": 0,
+        "maxAmapWeatherCalls": 0,
+        "maxAmapPoiExternalCalls": 0
+      }
+    }
+  ]
+}

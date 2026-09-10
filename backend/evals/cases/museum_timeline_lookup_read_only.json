@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Timeline location questions are snapshot-only and truthfully expose a persisted semantic mismatch without writes or external calls.",
+  "scenarios": [{
+    "id": "museum_timeline_lookup_read_only",
+    "city": "北京",
+    "seedItinerary": {
+      "title": "美术馆语义只读查询复现",
+      "city": "北京",
+      "templateType": "agent_mvp",
+      "budgetTarget": 800,
+      "budgetEstimate": 100,
+      "budgetDeltaExplanation": "只读查询场景。",
+      "decisionRationale": "复现持久化语义错配。",
+      "status": "draft",
+      "days": [{
+        "id": "day_museum_bad_1",
+        "dayNumber": 1,
+        "date": "2026-10-01",
+        "title": "Day 1",
+        "weatherSummary": "",
+        "riskSummary": "",
+        "segments": [{
+          "id": "seg_museum_bad_1",
+          "startTime": "17:51",
+          "endTime": "19:21",
+          "kind": "visit",
+          "intentType": "museum",
+          "poi": {
+            "id": "poi_museum_bad_1",
+            "amapId": "B0BADSCENIC",
+            "name": "花海畔溪谷",
+            "city": "北京",
+            "category": "scenic",
+            "type": "风景名胜;风景名胜;风景名胜",
+            "latitude": 39.90,
+            "longitude": 116.40,
+            "source": "amap-place-search",
+            "confidence": 0.95,
+            "intentType": "museum",
+            "photos": []
+          },
+          "transportMode": "public_transit",
+          "estimatedCost": 0,
+          "notes": "intentType：museum"
+        }]
+      }],
+      "routeOptions": [],
+      "weatherSignals": [],
+      "trafficCrowdingSignals": [],
+      "ticketLookupResults": []
+    },
+    "turns": [{
+      "input": "哪个行程是美术馆",
+      "mockMapProvider": {"enabled": true, "trustedPoiFixtures": true}
+    }],
+    "turnExpectations": [{
+      "agentDecisionEventRequired": true,
+      "agentDecisionPrimaryAction": "read_itinerary",
+      "agentDecisionProposedExecutionRoute": "read_only",
+      "museumTimelineInvalidClaimCount": 1,
+      "readOnlyExternalCallCount": 0,
+      "readOnlyPatchCount": 0,
+      "readOnlyVersionDelta": 0,
+      "readOnlyUnchangedVerifierMustPass": true,
+      "genericToolLoopWithoutDecisionCount": 0,
+      "maxWebSearchCalls": 0,
+      "maxTicketLookupCalls": 0,
+      "maxAmapWeatherCalls": 0
+    }],
+    "expectations": {"turnCount": 1, "activeVersionChangeCount": 0}
+  }]
+}

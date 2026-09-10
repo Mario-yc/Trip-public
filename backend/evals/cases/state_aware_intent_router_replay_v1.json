@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "state-aware-intent-replay-v1",
+  "cases": [
+    {
+      "id": "create_en",
+      "message": "Can you draft a 2-day Beijing itinerary for Oct 2-3?",
+      "phase": "new_session",
+      "intent": "create_itinerary",
+      "scope": "new_itinerary",
+      "target": {"kind": "none"},
+      "confidence": 0.96,
+      "expectedDisposition": "execute"
+    },
+    {
+      "id": "modify_day_time",
+      "message": "把 Day 1 的美术馆改到 15:30",
+      "phase": "active_itinerary",
+      "intent": "modify_itinerary",
+      "scope": "active_itinerary",
+      "target": {"kind": "time_window", "dayNumber": 1, "timeBucket": "afternoon", "mentionText": "美术馆"},
+      "confidence": 0.96,
+      "expectedDisposition": "execute"
+    },
+    {
+      "id": "continue_proposal",
+      "message": "继续",
+      "phase": "proposal_selection",
+      "intent": "continue_plan_expansion",
+      "scope": "planning_root",
+      "target": {"kind": "planning_root"},
+      "confidence": 0.94,
+      "expectedDisposition": "execute"
+    },
+    {
+      "id": "continue_clarification",
+      "message": "继续",
+      "phase": "clarification",
+      "intent": "clarification_answer",
+      "scope": "clarification",
+      "target": {"kind": "clarification"},
+      "confidence": 0.93,
+      "expectedDisposition": "execute"
+    },
+    {
+      "id": "adopt_second",
+      "message": "就按第二个",
+      "phase": "proposal_selection",
+      "intent": "adopt_plan",
+      "scope": "portfolio",
+      "target": {"kind": "proposal_ordinal", "ordinal": 2},
+      "confidence": 0.98,
+      "expectedDisposition": "execute"
+    },
+    {
+      "id": "pending_slot",
+      "message": "把缺的那个晚间点接着补上",
+      "phase": "pending_slot",
+      "intent": "continue_pending_slot",
+      "scope": "pending_slot",
+      "target": {"kind": "pending_slot", "dayNumber": 2, "timeBucket": "evening"},
+      "confidence": 0.94,
+      "expectedDisposition": "execute"
+    },
+    {
+      "id": "manual_candidate",
+      "message": "手动搜一下亮马河能不能补 Day 2 晚上",
+      "phase": "pending_slot",
+      "intent": "manual_candidate_search",
+      "scope": "candidate_search",
+      "target": {"kind": "pending_slot", "dayNumber": 2, "mentionText": "亮马河"},
+      "confidence": 0.95,
+      "expectedDisposition": "execute"
+    },
+    {
+      "id": "guide_search_followup",
+      "message": "重新搜一下附近能顺路去的地方",
+      "phase": "guide_advice",
+      "intent": "search_travel_guide_advice",
+      "scope": "planning_root",
+      "target": {"kind": "planning_root"},
+      "confidence": 0.91,
+      "expectedDisposition": "execute"
+    },
+    {
+      "id": "guide_grounded_continuation",
+      "message": "基于搜索到的建议，给我生成一个方案出来",
+      "phase": "guide_advice",
+      "intent": "continue_plan_expansion",
+      "scope": "planning_root",
+      "continuationMode": "guide_grounded",
+      "target": {"kind": "latest_guide"},
+      "confidence": 0.96,
+      "expectedDisposition": "execute"
+    },
+    {
+      "id": "retry_stage",
+      "message": "重试一下刚才失败的阶段",
+      "phase": "failed_retryable",
+      "intent": "retry_current_stage",
+      "scope": "current_stage",
+      "target": {"kind": "current_stage"},
+      "confidence": 0.95,
+      "expectedDisposition": "execute"
+    },
+    {
+      "id": "regenerate_preserve",
+      "message": "重新规划，但保留 10/2-10/3 和北京菜",
+      "phase": "active_itinerary",
+      "intent": "regenerate_from_scratch",
+      "scope": "full_task",
+      "target": {"kind": "none"},
+      "confidence": 0.96,
+      "expectedDisposition": "execute"
+    },
+    {
+      "id": "preference_correction",
+      "message": "不是删掉，是换成公交地铁",
+      "phase": "active_itinerary",
+      "intent": "modify_itinerary",
+      "scope": "active_itinerary",
+      "target": {"kind": "current_itinerary"},
+      "confidence": 0.96,
+      "isNegated": true,
+      "correctionAfterNegation": true,
+      "expectedDisposition": "execute"
+    },
+    {
+      "id": "afternoon_referent",
+      "message": "把下午那个换掉",
+      "phase": "active_itinerary",
+      "intent": "modify_itinerary",
+      "scope": "active_itinerary",
+      "target": {"kind": "time_window", "timeBucket": "afternoon"},
+      "confidence": 0.95,
+      "expectedDisposition": "execute"
+    },
+    {
+      "id": "inspect_failure",
+      "message": "为什么继续生成方案失败？",
+      "phase": "failed_retryable",
+      "safety": "question",
+      "expectedIntent": "inspect_or_explain",
+      "expectedDisposition": "read_only"
+    },
+    {
+      "id": "cancel_generation",
+      "message": "不要继续生成方案",
+      "phase": "proposal_selection",
+      "safety": "cancel",
+      "expectedIntent": "cancel_action",
+      "expectedDisposition": "no_write"
+    },
+    {
+      "id": "quoted_command",
+      "message": "你刚才说‘继续生成方案’是什么意思？",
+      "phase": "proposal_selection",
+      "safety": "quoted",
+      "expectedIntent": "inspect_or_explain",
+      "expectedDisposition": "read_only"
+    },
+    {
+      "id": "document_quote",
+      "message": "文档里写着‘采用第二个方案’",
+      "phase": "proposal_selection",
+      "safety": "quoted",
+      "expectedIntent": "inspect_or_explain",
+      "expectedDisposition": "read_only"
+    },
+    {
+      "id": "hypothetical_adopt",
+      "message": "如果我说采用第二个方案会发生什么？",
+      "phase": "proposal_selection",
+      "safety": "hypothetical",
+      "expectedIntent": "inspect_or_explain",
+      "expectedDisposition": "read_only"
+    }
+  ]
+}

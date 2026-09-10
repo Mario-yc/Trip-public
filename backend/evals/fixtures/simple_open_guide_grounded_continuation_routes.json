@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "trip-recorded-amap-v1",
+  "recordedAt": "2026-09-03T00:00:00Z",
+  "recordingType": "recorded/non-live",
+  "recordedProvider": "Offline deterministic AMap-shaped replay",
+  "responseHashAlgorithm": "sha256-canonical-json-v1",
+  "sanitization": "Deterministic offline fixture. It is Provider-shaped contract evidence, not a live Provider success claim.",
+  "responses": [
+    {
+      "requestPair": {
+        "fromAmapId": "B0GUIDEC03",
+        "toAmapId": "B0GUIDEPT4",
+        "mode": "public_transit"
+      },
+      "responseSha256": "0c3fea545d1101ba976f905bc145f31f0e8d999e3390eebb6e3a1cbccf765756",
+      "response": {
+        "status": "1",
+        "info": "OK",
+        "infocode": "10000",
+        "route": {
+          "origin": "116.370000,39.935000",
+          "destination": "116.374000,39.930000",
+          "transits": [
+            {
+              "cost": "3.0",
+              "duration": "720",
+              "distance": "1100",
+              "walking_distance": "180",
+              "segments": [
+                {
+                  "walking": {
+                    "steps": [
+                      {
+                        "instruction": "Walk to stop",
+                        "road": "Recorded Road",
+                        "distance": "180",
+                        "duration": "150",
+                        "polyline": "116.370000,39.935000;116.374000,39.930000"
+                      }
+                    ]
+                  },
+                  "bus": {
+                    "buslines": [
+                      {
+                        "name": "Recorded transit",
+                        "departure_stop": { "name": "Origin stop" },
+                        "arrival_stop": { "name": "Destination stop" },
+                        "distance": "920",
+                        "duration": "570",
+                        "polyline": "116.370000,39.935000;116.374000,39.930000"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "requestPair": {
+        "fromAmapId": "B0GUIDEA01",
+        "toAmapId": "B0GUIDEPJ1",
+        "mode": "public_transit"
+      },
+      "responseSha256": "59dbea761d0ca87bf7ba69875b41e00ee200080224c3f824c300a6ab0b7af4d5",
+      "response": {
+        "status": "1",
+        "info": "OK",
+        "infocode": "10000",
+        "route": {
+          "origin": "116.384000,39.938000",
+          "destination": "116.396155,39.925221",
+          "transits": [
+            {
+              "cost": "4.0",
+              "duration": "900",
+              "distance": "1800",
+              "walking_distance": "300",
+              "segments": [
+                {
+                  "walking": {
+                    "steps": [
+                      {
+                        "instruction": "Walk to stop",
+                        "road": "Recorded Road",
+                        "distance": "300",
+                        "duration": "240",
+                        "polyline": "116.384000,39.938000;116.396155,39.925221"
+                      }
+                    ]
+                  },
+                  "bus": {
+                    "buslines": [
+                      {
+                        "name": "Recorded transit",
+                        "departure_stop": { "name": "Origin stop" },
+                        "arrival_stop": { "name": "Destination stop" },
+                        "distance": "1500",
+                        "duration": "660",
+                        "polyline": "116.384000,39.938000;116.396155,39.925221"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "requestPair": {
+        "fromAmapId": "B0GUIDEB02",
+        "toAmapId": "B0GUIDEPH2",
+        "mode": "public_transit"
+      },
+      "responseSha256": "7fda0763b1ed960c0a9a47de8f5688f0cb469242d38e20da40a585a81814cb65",
+      "response": {
+        "status": "1",
+        "info": "OK",
+        "infocode": "10000",
+        "route": {
+          "origin": "116.379000,39.942000",
+          "destination": "116.389000,39.930000",
+          "transits": [
+            {
+              "cost": "4.0",
+              "duration": "780",
+              "distance": "1600",
+              "walking_distance": "250",
+              "segments": [
+                {
+                  "walking": {
+                    "steps": [
+                      {
+                        "instruction": "Walk to stop",
+                        "road": "Recorded Road",
+                        "distance": "250",
+                        "duration": "180",
+                        "polyline": "116.379000,39.942000;116.389000,39.930000"
+                      }
+                    ]
+                  },
+                  "bus": {
+                    "buslines": [
+                      {
+                        "name": "Recorded transit",
+                        "departure_stop": { "name": "Origin stop" },
+                        "arrival_stop": { "name": "Destination stop" },
+                        "distance": "1350",
+                        "duration": "600",
+                        "polyline": "116.379000,39.942000;116.389000,39.930000"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

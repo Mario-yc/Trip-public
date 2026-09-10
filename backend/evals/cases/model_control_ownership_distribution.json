@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Distribution gate for natural-language control ownership.",
+  "defaultMockMapProvider": {"enabled": true, "mockRouteRefresh": true, "trustedPoiFixtures": true},
+  "scenarios": [{
+    "id": "model_control_ownership_distribution",
+    "city": "北京",
+    "turns": [{"input": "10月1日北京一日游，参观大学和美术馆，中等预算，1人，公交地铁优先。"}, {"input": "当前美术馆安排在哪一天几点？只看不要改。"}],
+    "turnExpectations": [{
+      "modelPrimaryDecisionRatio": 1.0, "plannerCalledOnHealthyControllerCount": 0,
+      "timelineParserPreDecisionCount": 0, "deterministicBusinessPreemptionCount": 0
+    }, {
+      "agentDecisionPrimaryAction": "read_itinerary", "agentDecisionSource": "controller",
+      "modelPrimaryDecisionRatio": 1.0, "plannerCalledOnHealthyControllerCount": 0,
+      "timelineParserPreDecisionCount": 0, "genericToolLoopWithoutAcceptedDecisionCount": 0
+    }],
+    "expectations": {
+      "turnCount": 2, "naturalLanguageTurnCount": 2, "modelPrimaryDecisionCount": 2,
+      "modelPrimaryDecisionRatio": 1.0, "deterministicBusinessPreemptionCount": 0,
+      "plannerCalledOnHealthyControllerCount": 0, "timelineParserPreDecisionCount": 0,
+      "legacyPhaseRouterPreemptionCount": 0, "executionRouteMismatchCount": 0,
+      "genericToolLoopWithoutAcceptedDecisionCount": 0
+    }
+  }]
+}

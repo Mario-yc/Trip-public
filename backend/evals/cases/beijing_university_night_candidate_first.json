@@ -1,0 +1,231 @@
+{
+  "schemaVersion": "react-offline-harness-v2",
+  "id": "beijing_university_night_candidate_first",
+  "initialPlanningMode": "simple_open_v1",
+  "recordProviderRoutes": true,
+  "recordedProviderRouteFixture": "backend/evals/fixtures/simple_open_candidate_first_route_recording.json",
+  "scenario": "agent_message",
+  "stabilityMetrics": {
+    "expectedLifecycle": "proposal_only",
+    "expectedNightViewCount": 2,
+    "expectedNightViewDayNumbers": [1, 2],
+    "expectedVisibleProposalCount": 1,
+    "expectedAdoptionReadyProposalCount": 1,
+    "expectedRouteProviderAttemptCount": 2,
+    "requireRouteCoverageComplete": true,
+    "requirePersistedSelectionCapability": true,
+    "expectedVersionWriteCount": 0,
+    "expectedPatchWriteCount": 0,
+    "expectedRouteWriteCount": 0
+  },
+  "title": "Candidate-first university and night-view planning",
+  "description": "Initial planner returns DaySlots and IntentPools with candidateHints. Mock AMap includes branch campuses and functional sub-POIs; final itinerary must only persist selected map-verified candidates.",
+  "mockAmapResponses": {
+    "A大学": [
+      {
+        "id": "B0NIAUNIM1",
+        "name": "A大学",
+        "type": "科教文化服务;学校;高等院校",
+        "cityname": "北京市",
+        "adname": "海淀区",
+        "address": "A大学路1号",
+        "location": "116.315000,39.995000",
+        "photos": []
+      }
+    ],
+    "B学院": [
+      {
+        "id": "B0NIBCOLS1",
+        "name": "B学院国际学院",
+        "type": "科教文化服务;学校;高等院校",
+        "cityname": "北京市",
+        "adname": "海淀区",
+        "address": "B学院国际学院楼",
+        "location": "116.340000,39.990000",
+        "photos": []
+      },
+      {
+        "id": "B0NIBCOLM1",
+        "name": "B学院",
+        "type": "科教文化服务;学校;高等院校",
+        "cityname": "北京市",
+        "adname": "海淀区",
+        "address": "B学院路2号",
+        "location": "116.345000,39.991000",
+        "photos": []
+      }
+    ],
+    "C大学": [
+      {
+        "id": "B0NICUNIR1",
+        "name": "C大学远郊校区",
+        "type": "科教文化服务;学校;高等院校",
+        "cityname": "北京市",
+        "adname": "远城区",
+        "address": "远郊大学城",
+        "location": "116.900000,39.620000",
+        "photos": []
+      },
+      {
+        "id": "B0NICUNIM1",
+        "name": "C大学",
+        "type": "科教文化服务;学校;高等院校",
+        "cityname": "北京市",
+        "adname": "海淀区",
+        "address": "C大学路3号",
+        "location": "116.355000,39.985000",
+        "photos": []
+      }
+    ],
+    "D学院": [
+      {
+        "id": "B0NIDCOLM1",
+        "name": "D学院",
+        "type": "科教文化服务;学校;高等院校",
+        "cityname": "北京市",
+        "adname": "海淀区",
+        "address": "D学院路4号",
+        "location": "116.365000,39.982000",
+        "photos": []
+      }
+    ],
+    "城市观景塔A": [
+      {
+        "id": "B0NIGHTA01",
+        "name": "城市观景塔A",
+        "type": "风景名胜;观景台;电视塔",
+        "cityname": "北京市",
+        "adname": "海淀区",
+        "address": "学院路观景塔",
+        "location": "116.322000,39.985000",
+        "biz_ext": { "opentime_today": "18:00-22:00" },
+        "photos": []
+      },
+      {
+        "id": "B0NIGHTATK",
+        "name": "城市观景塔A售票处",
+        "type": "生活服务;售票处",
+        "cityname": "北京市",
+        "adname": "东城区",
+        "address": "城市观景塔A入口",
+        "location": "116.398000,39.908500",
+        "photos": []
+      },
+      {
+        "id": "B0NIGHTABS",
+        "name": "城市观景塔A公交站",
+        "type": "交通设施服务;公交车站",
+        "cityname": "北京市",
+        "adname": "东城区",
+        "address": "城市观景塔A公交站",
+        "location": "116.399000,39.909000",
+        "photos": []
+      }
+    ],
+    "学院路城市观景区": [
+      {
+        "id": "B0NIGHTBPH",
+        "name": "学院路城市观景区拍照留念点",
+        "type": "购物服务;专卖店;儿童用品店|生活服务;摄影冲印店;摄影冲印",
+        "cityname": "北京市",
+        "adname": "海淀区",
+        "address": "学院路城市观景区地下",
+        "location": "116.353000,39.982500",
+        "photos": []
+      },
+      {
+        "id": "B0NIGHTB01",
+        "name": "学院路城市观景区",
+        "type": "风景名胜;观景台;城市观景点",
+        "cityname": "北京市",
+        "adname": "海淀区",
+        "address": "学院路城市观景区",
+        "location": "116.352000,39.982000",
+        "biz_ext": { "opentime_today": "18:00-22:00" },
+        "photos": []
+      },
+      {
+        "id": "B0NIGHTBPK",
+        "name": "学院路城市观景区停车场",
+        "type": "交通设施服务;停车场",
+        "cityname": "北京市",
+        "adname": "海淀区",
+        "address": "学院路城市观景区地下",
+        "location": "116.353000,39.982500",
+        "photos": []
+      }
+    ]
+  },
+  "initialPlanPayloads": [
+    {
+      "reply": "已拆解为高校参观与夜景 IntentPool。",
+      "mode": "day_slots",
+      "daySlots": [
+        { "slotId": "d1_campus_1", "dayNumber": 1, "date": "2026-10-01", "timeWindow": "09:00-10:30", "startTime": "09:00", "durationMinutes": 90, "kind": "campus", "rawNeed": "高校参观", "routeAnchor": true, "priority": 90, "notes": "" },
+        { "slotId": "d1_meal", "dayNumber": 1, "date": "2026-10-01", "timeWindow": "12:00-13:00", "startTime": "12:00", "durationMinutes": 60, "kind": "meal", "rawNeed": "午餐", "routeAnchor": false, "priority": 30, "notes": "" },
+        { "slotId": "d1_night", "dayNumber": 1, "date": "2026-10-01", "timeWindow": "19:00-20:30", "startTime": "19:00", "durationMinutes": 90, "kind": "night_view", "rawNeed": "夜景观景点", "routeAnchor": true, "priority": 80, "notes": "" },
+        { "slotId": "d2_campus_1", "dayNumber": 2, "date": "2026-10-02", "timeWindow": "09:00-10:30", "startTime": "09:00", "durationMinutes": 90, "kind": "campus", "rawNeed": "高校参观", "routeAnchor": true, "priority": 90, "notes": "" },
+        { "slotId": "d2_meal", "dayNumber": 2, "date": "2026-10-02", "timeWindow": "12:00-13:00", "startTime": "12:00", "durationMinutes": 60, "kind": "meal", "rawNeed": "午餐", "routeAnchor": false, "priority": 30, "notes": "" },
+        { "slotId": "d2_night", "dayNumber": 2, "date": "2026-10-02", "timeWindow": "19:00-20:30", "startTime": "19:00", "durationMinutes": 90, "kind": "night_view", "rawNeed": "夜景观景点", "routeAnchor": true, "priority": 80, "notes": "" }
+      ],
+      "intentPools": [
+        {
+          "poolId": "campus_visit_pool",
+          "rawNeed": "高校参观",
+          "city": "北京",
+          "intentType": "campus_visit",
+          "targetCount": 2,
+          "preferredTypes": ["大学", "学院", "高等院校"],
+          "rejectedTypes": ["酒店", "民宿", "公寓", "公司", "停车场", "住宅", "小区"],
+          "routePreference": { "transport": "transit" },
+          "assignToSlots": ["d1_campus_1", "d2_campus_1"],
+          "candidateHints": ["A大学", "B学院"],
+          "hintPolicy": "llm_common_knowledge_hint"
+        },
+        {
+          "poolId": "night_view_pool",
+          "rawNeed": "夜景观景点",
+          "city": "北京",
+          "intentType": "night_view",
+          "targetCount": 2,
+          "preferredTypes": ["风景名胜", "广场", "地标", "观景点"],
+          "rejectedTypes": ["酒店", "民宿", "公寓", "公司", "停车场", "住宅", "小区"],
+          "routePreference": { "transport": "transit" },
+          "assignToSlots": ["d1_night", "d2_night"],
+          "candidateHints": ["城市观景塔A", "学院路城市观景区"],
+          "hintPolicy": "llm_common_knowledge_hint"
+        }
+      ],
+      "warnings": []
+    }
+  ],
+  "agentProviderPayloads": [
+    {
+      "reply": "legacy payload should not be used by candidate-first initial planning",
+      "mode": "cannot_plan",
+      "warnings": []
+    }
+  ],
+  "steps": [
+    { "action": "create_session", "saveAs": "session", "payload": { "city": "北京", "title": "北京高校夜景 Eval" } },
+    {
+      "action": "send_agent_message",
+      "saveAs": "first",
+      "sessionIdFrom": "session.sessionId",
+      "content": "今年国庆参观北京高校两日游，每晚都看北京夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。景点间的距离不要间隔太远。绕行最多15分钟，绕行比例最多15%。",
+      "context": { "selectedDayNumber": 1 }
+    }
+  ],
+  "assertions": [
+    { "path": "first.statusCode", "equals": 200 },
+    { "path": "first.version", "isNull": true },
+    { "path": "first.assistantTurn.comparisonProjections[].adoptionReady", "contains": true },
+    { "path": "first.assistantTurn.choiceOptions[].action", "contains": "select_plan_proposal" },
+    { "path": "first.pendingPoiCandidates", "lengthEquals": 0 }
+  ],
+  "expect": {
+    "invalidPatchCount": 0,
+    "replayStages": ["normalize_request", "initial_day_slot_provider", "simple_open_draft_created", "simple_direction_proposal_persisted"],
+    "allowedFailedStages": []
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "title": "西城绿意漫游",
+  "city": "北京",
+  "templateType": "agent_mvp",
+  "status": "draft",
+  "days": [
+    {
+      "id": "day_79165b50d4e9",
+      "dayNumber": 1,
+      "date": "2026-10-10",
+      "segments": [
+        {
+          "id": "seg_a8df62d99930",
+          "kind": "park",
+          "startTime": "09:00",
+          "endTime": "10:00",
+          "transportMode": "public_transit",
+          "notes": "durationSource=model_accepted; durationConfidence=0.78",
+          "semanticMetadata": {
+            "routeAnchor": true,
+            "groundingStatus": "verified_amap",
+            "intentType": "park",
+            "planningSlotId": "day1_evening_park",
+            "lineageAuthority": "goal_occurrence_compiler"
+          },
+          "poi": {
+            "id": "poi_ecdfc37eaeb0",
+            "name": "景山公园",
+            "city": "北京市",
+            "category": "park",
+            "type": "风景名胜;公园广场;公园",
+            "amapId": "B000A7I1OL",
+            "longitude": 116.396551,
+            "latitude": 39.925875,
+            "source": "amap-place-search",
+            "sourceNote": "simple_open_v1: 本轮高德搜索结果身份绑定。",
+            "confidence": 0.86
+          }
+        },
+        {
+          "id": "seg_4fd4b8483426",
+          "kind": "activity",
+          "startTime": "10:30",
+          "endTime": "11:00",
+          "transportMode": "walk",
+          "notes": "来源：高德地图",
+          "semanticMetadata": {
+            "routeAnchor": true,
+            "groundingStatus": "verified_amap",
+            "intentType": "park"
+          },
+          "poi": {
+            "id": "poi_a54478718972",
+            "name": "北海公园",
+            "city": "北京市",
+            "category": "all",
+            "type": "风景名胜;公园广场;公园",
+            "amapId": "B000A80UL1",
+            "longitude": 116.391802,
+            "latitude": 39.928775,
+            "source": "amap-place-search",
+            "sourceNote": "来源：高德地图；groundingStatus：user_confirmed；来源：用户手动确认的高德地图地点",
+            "confidence": 0.86
+          }
+        }
+      ]
+    }
+  ],
+  "_fixtureProvenance": {
+    "source": "ui10-clause-ownership-20260907/runtime/live-final.db",
+    "versionId": "ver_67721c0ae038",
+    "sourceSha256": "2278cc35011e57af804f09c6b2f01220bc9d8b014b680acdd01b2547804dc6fa",
+    "scope": "Minimal recorded V2 park/activity identity and admission facts; no route success evidence."
+  }
+}

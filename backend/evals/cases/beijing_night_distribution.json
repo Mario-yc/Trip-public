@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "trip-agent-quality-scenarios-v1",
+  "description": "Twelve independent sessions gate first-night diversity; the final case gates explicit override.",
+  "defaultMockMapProvider": {
+    "enabled": true,
+    "mockRouteRefresh": true,
+    "trustedFoodForDeterministicEdit": true,
+    "trustedPoiFixtures": true,
+    "mealDiversitySeed": "night-distribution-v1"
+  },
+  "aggregateExpectations": {
+    "minFirstNightSampleCount": 12,
+    "minDistinctFirstNightFamilies": 3,
+    "maxFirstNightFamilyShare": 0.6
+  },
+  "scenarios": [
+    {"id":"night_distribution_01","city":"北京","input":"今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"},
+    {"id":"night_distribution_02","city":"北京","input":"今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"},
+    {"id":"night_distribution_03","city":"北京","input":"今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"},
+    {"id":"night_distribution_04","city":"北京","input":"今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"},
+    {"id":"night_distribution_05","city":"北京","input":"今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"},
+    {"id":"night_distribution_06","city":"北京","input":"今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"},
+    {"id":"night_distribution_07","city":"北京","input":"今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"},
+    {"id":"night_distribution_08","city":"北京","input":"今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"},
+    {"id":"night_distribution_09","city":"北京","input":"今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"},
+    {"id":"night_distribution_10","city":"北京","input":"今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"},
+    {"id":"night_distribution_11","city":"北京","input":"今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"},
+    {"id":"night_distribution_12","city":"北京","input":"今年国庆参观985大学两日游，晚上看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食"},
+    {
+      "id":"night_explicit_cctv_tower",
+      "city":"北京",
+      "input":"今年国庆参观985大学两日游，第一晚明确去中央电视塔看夜景。10月1日到2日，2天，中等预算，1人，公交地铁优先。路途中能品尝北京当地特色美食",
+      "expectations":{"firstNightPoiContains":"中央"}
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "trip",
+  "version": "1.0.0",
+  "description": "Single-user desktop Web demo for the AI Travel Planner MVP.",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mario-yc/Trip-public.git"
+  },
+  "keywords": [],
+  "author": "Mario-yc (https://github.com/Mario-yc)",
+  "license": "SEE LICENSE IN LICENSE",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Mario-yc/Trip-public/issues"
+  },
+  "homepage": "https://github.com/Mario-yc/Trip-public#readme",
+  "dependencies": {
+    "@playwright/test": "^1.61.1",
+    "playwright": "^1.61.1"
+  },
+  "private": true
+}
